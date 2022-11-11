@@ -36,7 +36,10 @@ module.exports = {
               // ajouter l'id de l'enchere crée dans les données de l'utilisateur courant
               Utilisateur.updateOne({_id : req.params.id} , {
                 $push : { ownEncheres : enchere._id}
-              },{new : true , upsert : true})
+              }, (err , result) => {
+                if(!err) res.status(200).json({message : "Enchère rejetée avec succès"})
+                else return res.status(400).json({message: "Une erreur est survenue lors du rejet de l'enchère"})
+              })
             })
             .catch((err) => {
               console.log('Erreur : ', err);
@@ -58,17 +61,14 @@ module.exports = {
                 console.log(err)
                 throw Error('Une erreur est survenue lors de la modification')
               }
-              else {
-                res.status(200).json({ status: true , message : "prix modifié avec succès"});
-              }
+              else res.status(200).json({ status: true , message : "prix modifié avec succès"});
             }
           );
         } catch (error) {
             return res.status(400).json({message : error})
         }
-       
       },
-      // rencherir une enchere courante
+      // fonction permettant & l'utilisateur de rencherir une enchere courante
       rencherirByIdAndEnchereId : (req, res) => {
         Enchere.updateOne({ _id: req.body.enchereId }, {
           $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme} }
@@ -80,15 +80,18 @@ module.exports = {
             res.status(200).json({status: true , data : result})
             Utilisateur.updateOne({_id : req.params.id} , {
               $push : {rencheres : req.params.enchereId }
-            },{new : true , upsert : true})
+            }, (err , result) => {
+              if(!err) res.status(200).json({message : "Enchère rejetée avec succès"})
+              else return res.status(400).json({message: "Une erreur est survenue lors du rejet de l'enchère"})
+            })
           }
           else res.status(200).json({status: false})
              
         }) 
       },
-      // modifier une enchere
+      // fonction permettant a l'utlisateur de modifier ou d'editer son enchere
       modifyEnchereByIdAndEnchereId : (req, res) => { 
-        const {dateFin , ticket , id , enchereId} = req.body
+        const {dateFin , ticket , enchereId} = req.body
         Enchere.findByIdAndUpdate(enchereId, { ticket: ticket  , dateFin:dateFin}, (err, result) => {
           if (err) {
             console.log(err)
@@ -98,17 +101,17 @@ module.exports = {
         } 
         )
       },
-      // fonction permettant de rejeter une enchere 
-      rejeterEnchereByIdAndEncherId : (req, res) => {
+      // fonction permettant de rejeter une enchere ? qui rejete l"enchere 
+      rejeterEnchereByIdAndEnchereId : (req, res) => {
         Enchere.updateOne({ _id: req.params.enchereId }, {
       
-          $pull: { participant: { nom: req.body.userId} },
+          $pull: { participant: { userId: req.body.userId} },
         
         },(err , result ) => {
               if(err) return res.status(400).json({message : err})
               else {
                Utilisateur.updateOne({_id : req.params.id}, {
-                  $pull : req.body.d,   
+                  $pull : {rencheres  : req.params.enchereId},   
                },
                {new : true , upsert : true },(err , result ) =>{
                   if(!err)  res.status(200).json({message : 'Enchère rejetée avec succès' , data : result});
@@ -141,7 +144,7 @@ module.exports = {
     }
    
   },
-
+  // validation du prix du produit par l'utilisateur
   validatePriceByIdAndPrixId : (req, res) => {
     if (req.body.prix == undefined) {
       Prix.findByIdAndUpdate(
@@ -170,7 +173,14 @@ module.exports = {
         }
       );
     }
+  },
+
+  // creation du contrat par l'utilisateur (producteur)
+  createNewContractById : (request , response) =>{
+      Utilisateur.findOne({})
+  },
+  // creation d'une annonce par lutilisateur (producteur)
+  createNewAnnonceById : (request , response) =>{
+
   }
-
-
 }
