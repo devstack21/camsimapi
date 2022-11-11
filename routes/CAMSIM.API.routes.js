@@ -32,10 +32,10 @@ const { addProductById,
   modifyProductPriceByIdAndProduitId, 
   rencherirByIdAndEnchereId, 
   modifyEnchereByIdAndEnchereId, 
-  rejeterEnchereById , 
+  rejeterEnchereByIdAndEnchereId , 
   addPricesById,
   validatePriceByIdAndPrixId, 
-  rejeterEnchereByIdAndEncherId} = require('../controllers/Fonctionnalites.utilisateurs')
+  } = require('../controllers/Fonctionnalites.utilisateurs')
 
 const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller } = require('../controllers/API.controller.produit')
 /*
@@ -162,6 +162,10 @@ router.put("/modify-product-price/:id/produitId", modifyProductPriceByIdAndProdu
   @role 'Poster une enchère' 
 */
 router.post("/add-enchere/:id", addEnchereById )
+router.get('/all-enchere' , async (req , res) =>{
+  const Enchere = require('../models/enchere.model')
+  res.status(200).json({data : await Enchere.find() })
+})
 /*
   @route /all-enchere/:nomEnchere
   @method GET
@@ -194,7 +198,7 @@ router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId)
   @method PUT
   @role 'l'application utilise cette route pour le rejet de l'enchere par un utilisateur'
 */
-router.put("/rejeter-enchere/:id", rejeterEnchereByIdAndEncherId)
+//router.put("/rejeter-enchere/:id", rejeterEnchereByIdAndEnchereId)
 
 // exportation de l'objet router
 module.exports = router; 

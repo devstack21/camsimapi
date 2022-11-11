@@ -6,12 +6,12 @@ const bodyParser = require('body-parser')// module pour parse des req client
 // definition des variables d'environnement 
 require('dotenv').config({path : './config/.env'})
 const cors = require('cors') // module porur la configuration des accèes au serveur 
-const corsOptions = {
-    "origin" : process.env.URL_CLIENT,
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 200
-}
+// const corsOptions = {
+//     "origin" : process.env.URL_CLIENT,
+//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     "preflightContinue": false,
+//     "optionsSuccessStatus": 200
+// }
 
 // definition des differentes routes d'accès au API 
 //const simwebRouter = require('./routes/sim_web/sim_web') ; 
@@ -26,7 +26,9 @@ const {connectionMongodServer} = require('./config/database.connectMongodb')
 connectionMongodServer()
 
 app
-.use(cors(corsOptions))
+.use(cors({
+    "origin" : '*'
+}))
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({
     extended :true

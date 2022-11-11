@@ -33,11 +33,8 @@ module.exports = {
                 console.log(request.body);
                 // save new user 
                 newUser.save((err , docs) =>{
-                  if(!err) {
-                    response.status(200).json({message : 'Inscription reussie' , id : docs._id})
-                    response.locals.user = newUser 
-                    console.log(response.locals.user);
-                  }
+                  if(!err) response.status(200).json({message : 'Inscription reussie' , id : docs._id})
+                
                   else throw Error('Erreur survenue lors de l'/'inscription')
                 })
               }
