@@ -1,0 +1,209 @@
+[{
+  "_id": {
+    "$oid": "6324958679dd8ad56d2ed046"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "localisationPl": "Obala",
+  "conditionnement": "5L",
+  "quantité": "2",
+  "telephone": "658857078",
+  "prix": "10000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663341958522"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664548560256"
+    }
+  },
+  "__v": 0,
+  "lieuDit": "Dernier poteau"
+},{
+  "_id": {
+    "$oid": "6324bca524918481f3be4dbf"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "localisationPl": "Obala",
+  "conditionnement": "Tine",
+  "quantité": "1",
+  "telephone": "658857078",
+  "prix": "11000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663351973756"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663351999935"
+    }
+  },
+  "__v": 0,
+  "lieuDit": "Dernier Poteau"
+},{
+  "_id": {
+    "$oid": "6328707ececf6bcdf988de5f"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "cesarvanel",
+  "region": "adamaoua",
+  "departement": "Djérem",
+  "arrondissement": "Bibey",
+  "localisationPl": "Ngaoundal",
+  "lieuDit": "ekoumdoum",
+  "conditionnement": "Tine",
+  "quantité": "5",
+  "telephone": "693249369",
+  "prix": "12000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663594622544"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663781269312"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63287c9ec56da3d7be88b5b0"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "localisationPl": "Obala",
+  "lieuDit": "dernier poteau eleveur",
+  "conditionnement": "Tine",
+  "quantité": "5",
+  "telephone": "658857078",
+  "prix": "45000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663597726873"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663597726873"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6328b36fc56da3d7be88b646"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "cesarvanel",
+  "region": "adamaoua",
+  "departement": "Djérem",
+  "arrondissement": "Bibey",
+  "localisationPl": "Ngaoundal",
+  "lieuDit": "marche ekounou",
+  "conditionnement": "Tine",
+  "quantité": "10",
+  "telephone": "693249369",
+  "prix": "25000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663611759661"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663611759661"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6328b3ffc56da3d7be88b651"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "cesarvanel",
+  "region": "adamaoua",
+  "departement": "Djérem",
+  "arrondissement": "Bibey",
+  "localisationPl": "Ngaoundal",
+  "lieuDit": "marche mokolo",
+  "conditionnement": "Tine",
+  "quantité": "15",
+  "telephone": "693249369",
+  "prix": "45000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663611903928"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663611961752"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6328b48dc56da3d7be88b668"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "localisationPl": "Obala",
+  "lieuDit": "cradat",
+  "conditionnement": "5L",
+  "quantité": "46",
+  "telephone": "658857078",
+  "prix": "38000",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663612045425"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663612045425"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6336fdb479a44cdeb3418896"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "pivot",
+  "region": "Centre",
+  "departement": "Nyong-et-Kellé",
+  "arrondissement": "Makak",
+  "localisationPl": "Dir",
+  "lieuDit": "makenene",
+  "conditionnement": "Tine",
+  "quantité": "152",
+  "telephone": "656397061",
+  "prix": "5555",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664548276021"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664557861356"
+    }
+  },
+  "__v": 0
+}]

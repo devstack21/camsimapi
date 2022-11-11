@@ -1,0 +1,273 @@
+[{
+  "_id": {
+    "$oid": "63344d12a707ab1945364a8f"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "telephone": "658857078",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "lieuDit": "fesi",
+  "conditionnement": "Tine",
+  "quantite": "10",
+  "ticket": "11000",
+  "participant": [
+    {
+      "nom": "cesarvanel",
+      "prix": "12000",
+      "anonyme": false,
+      "telephone": "693249369"
+    },
+    {
+      "nom": "Samuel Moudourou",
+      "prix": "60000",
+      "anonyme": false,
+      "telephone": "658857078"
+    },
+    {
+      "nom": "pivot",
+      "prix": "100000",
+      "anonyme": true,
+      "telephone": "656397061"
+    }
+  ],
+  "dateDebut": "2022-09-28",
+  "dateFin": "2022-10-03",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664371986422"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664550232430"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633700149739a0fc843f9557"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "cenel",
+  "telephone": "693249369",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé I",
+  "lieuDit": "marche mokolo",
+  "conditionnement": "Tine",
+  "quantite": "10",
+  "ticket": "25000",
+  "participant": [
+    {
+      "nom": "cenel",
+      "prix": "26000",
+      "anonyme": false,
+      "telephone": "693249369"
+    },
+    {
+      "nom": "cenel",
+      "prix": "26000",
+      "anonyme": false,
+      "telephone": "693249369"
+    },
+    {
+      "nom": "cenel",
+      "prix": "50000",
+      "anonyme": false,
+      "telephone": "693249369"
+    }
+  ],
+  "dateDebut": "2022-09-30",
+  "dateFin": "2022-09-30",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664548884566"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664560871435"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6337017e86067d32b278e5dc"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "pivot",
+  "telephone": "656397061",
+  "region": "Centre",
+  "departement": "Nyong-et-Kellé",
+  "arrondissement": "Makak",
+  "lieuDit": "makene",
+  "conditionnement": "Tine",
+  "quantite": "250",
+  "ticket": "100000",
+  "participant": [],
+  "dateDebut": "2022-09-30",
+  "dateFin": "2022-09-06",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664549246137"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664549246137"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633708034b0d959244547a41"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "pivot",
+  "telephone": "656397061",
+  "region": "Centre",
+  "departement": "Nyong-et-Kellé",
+  "arrondissement": "Makak",
+  "lieuDit": "toto",
+  "conditionnement": "1L",
+  "quantite": "5",
+  "ticket": "5255",
+  "participant": [
+    {
+      "nom": "cenel",
+      "prix": "6000",
+      "anonyme": false,
+      "telephone": "693249369"
+    },
+    {
+      "nom": "cenel",
+      "prix": "7000",
+      "anonyme": false,
+      "telephone": "693249369"
+    },
+    {
+      "nom": "pivot",
+      "prix": "7500",
+      "anonyme": false,
+      "telephone": "656397061"
+    }
+  ],
+  "dateDebut": "2022-09-30",
+  "dateFin": "2022-08-10",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664550915602"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664555572142"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633720ca4b0d959244547b87"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "pivot",
+  "telephone": "656397061",
+  "region": "Centre",
+  "departement": "Nyong-et-Kellé",
+  "arrondissement": "Makak",
+  "lieuDit": "hhh",
+  "conditionnement": "5L",
+  "quantite": "15",
+  "ticket": "12",
+  "participant": [],
+  "dateDebut": "2022-09-30",
+  "dateFin": "2022-09-05",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664557258825"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664560115346"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6353eca98b47c907898ddbc2"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "telephone": "658857078",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "lieuDit": "bafoussam",
+  "conditionnement": "5L",
+  "quantite": "10",
+  "ticket": "15000",
+  "participant": [
+    {
+      "nom": "emma",
+      "prix": "50000",
+      "anonyme": false,
+      "telephone": "691594966"
+    },
+    {
+      "nom": "emma",
+      "prix": "10000000",
+      "anonyme": true,
+      "telephone": "691594966"
+    },
+    {
+      "nom": "Samuel Moudourou",
+      "prix": "40000",
+      "anonyme": false,
+      "telephone": "658857078"
+    }
+  ],
+  "dateDebut": "2022-10-22",
+  "dateFin": "2022-10-31",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1666444457416"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667228567702"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6363b5053b8e4e1ee6945c80"
+  },
+  "nom": "Huile de palme",
+  "nomVendeur": "Samuel Moudourou",
+  "telephone": "658857078",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "lieuDit": "bateau",
+  "conditionnement": "Tine",
+  "quantite": "2",
+  "ticket": "20000",
+  "participant": [],
+  "dateDebut": "2022-11-03",
+  "dateFin": "2022-11-06",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667478789015"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667478789015"
+    }
+  },
+  "__v": 0
+}]

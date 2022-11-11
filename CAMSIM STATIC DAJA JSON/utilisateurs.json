@@ -1,0 +1,253 @@
+[{
+  "_id": {
+    "$oid": "6321e31ec8585f3998d9f585"
+  },
+  "username": "Samuel Moudourou",
+  "telephone": "658857078",
+  "genre": "Homme",
+  "mdp": "$2b$10$09dAH/3jA.7E2.Y3ZlfoZehlIcejfDlnlEBh7H8jlvZX0jFTNHcF2",
+  "isActive": false,
+  "enqueteur": true,
+  "isController": false,
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "regionPl": "Centre",
+  "departementPl": "Lekié",
+  "arrondissementPl": "Obala",
+  "superficiePl": 0,
+  "preferencesMarches": [],
+  "categorie": [
+    "Huile de palme",
+    "Noix de palme"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663165214318"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663165214318"
+    }
+  },
+  "__v": 0,
+  "statut": "Producteur"
+},{
+  "_id": {
+    "$oid": "632855245c6e9f030b0328e8"
+  },
+  "username": "cenel",
+  "telephone": "693249369",
+  "genre": "masculin",
+  "mdp": "$2b$10$FZmxTEj0mtkECOdUjtmYxeOW.2weDHIyb59vunMzcIzgNKVl0N9nm",
+  "statut": "Producteur",
+  "isActive": false,
+  "enqueteur": true,
+  "isController": true,
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé I",
+  "regionPl": "adamaoua",
+  "departementPl": "Djérem",
+  "arrondissementPl": "Ngaoundal",
+  "superficiePl": 0,
+  "preferencesMarches": [],
+  "categorie": [
+    "huile"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663587620437"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663587620437"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6336e655294ee81a04678f20"
+  },
+  "username": "cesarvanel",
+  "nom": "cesar",
+  "prenom": "vanel",
+  "telephone": "4545455445",
+  "genre": "masculin",
+  "mdp": "$2b$10$h76VRmQlcqeWpSe75mEI8ucaGIhAldMWspz88j84BCoa9HrGuMHEi",
+  "statut": "Consommateur",
+  "isActive": false,
+  "enqueteur": false,
+  "isController": false,
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "regionPl": "",
+  "departementPl": "",
+  "arrondissementPl": "",
+  "superficiePl": 0,
+  "preferencesMarches": [],
+  "categorie": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664542293966"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664542293966"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6336e6e8294ee81a04678f23"
+  },
+  "username": "samen",
+  "nom": "cesar",
+  "prenom": "samen",
+  "telephone": "3655888",
+  "genre": "masculin",
+  "mdp": "$2b$10$HLG8Gvv/yhnlloQ/k8BjK./EkuveGQ8OcJKwU4bByVkcean.VUEFK",
+  "statut": "Producteur",
+  "isActive": false,
+  "enqueteur": false,
+  "isController": false,
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé V",
+  "regionPl": "Adamaoua",
+  "departementPl": "Faro-et-Déo",
+  "arrondissementPl": "Kontcha",
+  "superficiePl": 0,
+  "lieuDit": "bamenda",
+  "preferencesMarches": [],
+  "categorie": [
+    "huile"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664542440674"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664542440674"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6336f033fcf0dc18832fdafd"
+  },
+  "username": "mlan",
+  "nom": "Aba Nk",
+  "prenom": "Loric",
+  "telephone": "691075275",
+  "genre": "Homme",
+  "mdp": "$2b$10$XRiHo2RVyOy3cuZtW2S0BeximjMAERoNDvnl5r1YqinE5pscj4NR6",
+  "statut": "Producteur",
+  "isActive": false,
+  "enqueteur": false,
+  "isController": false,
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé VI",
+  "regionPl": "Ouest",
+  "departementPl": "Menoua",
+  "arrondissementPl": "Dschang",
+  "superficiePl": 125,
+  "lieuDit": "likong",
+  "preferencesMarches": [],
+  "categorie": [
+    "Huile de palme",
+    "Noix de palme"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664544819589"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664544819589"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6336f393fcf0dc18832fdb19"
+  },
+  "username": "pivot",
+  "nom": "PAUL PIVOT",
+  "prenom": "",
+  "telephone": "656397061",
+  "genre": "masculin",
+  "mdp": "$2b$10$nc3ZUepbHPCPH06ZhbyVdO80kdur9C5fhSdYvefUnwln6fKBt4ZvK",
+  "statut": "Producteur",
+  "isActive": false,
+  "enqueteur": true,
+  "isController": true,
+  "region": "Centre",
+  "departement": "Nyong-et-Kellé",
+  "arrondissement": "Makak",
+  "regionPl": "Adamaoua",
+  "departementPl": "Mbéré",
+  "arrondissementPl": "Dir",
+  "superficiePl": 0,
+  "lieuDit": "DANG",
+  "preferencesMarches": [],
+  "categorie": [
+    "huile"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664545683865"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664545683865"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6353e1b08b47c907898ddb81"
+  },
+  "username": "emma",
+  "nom": "emma valere",
+  "prenom": "emma valere",
+  "telephone": "691594966",
+  "genre": "Homme",
+  "mdp": "$2b$10$FcXoQAdyY6WxYkrZL0t9lO8WXIVju.eA92RqEmc/IJALFJ3WnaSKm",
+  "statut": "Producteur",
+  "isActive": false,
+  "enqueteur": false,
+  "isController": false,
+  "region": "Adamaoua",
+  "departement": "Djérem",
+  "arrondissement": "Ngaoundal",
+  "regionPl": "Adamaoua",
+  "departementPl": "Djérem",
+  "arrondissementPl": "Ngaoundal",
+  "superficiePl": 25,
+  "lieuDit": "awae",
+  "preferencesMarches": [],
+  "categorie": [
+    "Huile de palme"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1666441648995"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1666441648995"
+    }
+  },
+  "__v": 0
+}]

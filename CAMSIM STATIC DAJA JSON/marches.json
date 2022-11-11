@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "6318a2bde8d6f16d395b085a"
+  },
+  "nom": "Marché Elig-edzoa",
+  "longitude": 11.5307736,
+  "latitude": 3.8894418,
+  "description": "Il s'agit d'un marché de la ville de Yaoundé",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé I",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662558716130"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662558716130"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6318a2d8e8d6f16d395b0863"
+  },
+  "nom": "Marché Central",
+  "longitude": 11.5184926834,
+  "latitude": 3.86652065041,
+  "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé I",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662558716130"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662558716130"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6318a2f6e8d6f16d395b0868"
+  },
+  "nom": "Marché du Mfoundi",
+  "longitude": 11.522852,
+  "latitude": 3.8641402,
+  "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+  "region": "Centre",
+  "departement": "Mfoundi",
+  "arrondissement": "Yaoundé I",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662558716130"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662558716130"
+    }
+  },
+  "__v": 0
+}]

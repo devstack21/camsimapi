@@ -1,0 +1,265 @@
+[{
+  "_id": {
+    "$oid": "631b7c38118be1497eae69e1"
+  },
+  "nom": "Huile de palme",
+  "idEnqueteur": "6315f71084044f3de5d5720f",
+  "conditionnement": "Tine",
+  "prix_marche": 15000,
+  "marche": {
+    "_id": {
+      "$oid": "6318a2f6e8d6f16d395b0868"
+    },
+    "nom": "Marché du Mfoundi",
+    "longitude": 11.522852,
+    "latitude": 3.8641402,
+    "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+    "region": "Centre",
+    "departement": "Mfoundi",
+    "arrondissement": "Yaoundé I",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "__v": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662745656413"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663004516159"
+    }
+  },
+  "__v": 0,
+  "isValidated": true,
+  "numeroEnqueteur": "691075275"
+},{
+  "_id": {
+    "$oid": "631b84da4dd92b175b908cde"
+  },
+  "nom": "Huile de palme",
+  "idEnqueteur": "6315f71084044f3de5d5720f",
+  "conditionnement": "Fût",
+  "prix_marche": 23000,
+  "marche": {
+    "_id": {
+      "$oid": "6318a2d8e8d6f16d395b0863"
+    },
+    "nom": "Marché central",
+    "longitude": 11.5184926834,
+    "latitude": 3.86652065041,
+    "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+    "region": "Centre",
+    "departement": "Mfoundi",
+    "arrondissement": "Yaoundé I",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "__v": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662747866761"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663954823637"
+    }
+  },
+  "__v": 0,
+  "isValidated": true,
+  "numeroEnqueteur": "691075275"
+},{
+  "_id": {
+    "$oid": "631b86294dd92b175b908cf1"
+  },
+  "nom": "Huile de palme",
+  "idEnqueteur": "6315f71084044f3de5d5720f",
+  "conditionnement": "5L",
+  "prix_marche": 5000,
+  "marche": {
+    "_id": {
+      "$oid": "6318a2bde8d6f16d395b085a"
+    },
+    "nom": "Marché Elig-edzoa",
+    "longitude": 11.5307736,
+    "latitude": 3.8894418,
+    "description": "Il s'agit d'un marché de la ville de Yaoundé",
+    "region": "Centre",
+    "departement": "Mfoundi",
+    "arrondissement": "Yaoundé I",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "__v": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662748201222"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663954891396"
+    }
+  },
+  "__v": 0,
+  "isValidated": true,
+  "numeroEnqueteur": "691075275"
+},{
+  "_id": {
+    "$oid": "631f60c60af5b354ff42a0ad"
+  },
+  "nom": "Huile de palme",
+  "idEnqueteur": "1",
+  "numeroEnqueteur": "693249369",
+  "isValidated": true,
+  "conditionnement": "Tine",
+  "prix_marche": 10000,
+  "marche": {
+    "_id": {
+      "$oid": "6318a2f6e8d6f16d395b0868"
+    },
+    "nom": "Marché du Mfoundi",
+    "longitude": 11.522852,
+    "latitude": 3.8641402,
+    "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+    "region": "Centre",
+    "departement": "Mfoundi",
+    "arrondissement": "Yaoundé I",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "__v": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663000774720"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663954239146"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633727b64b0d959244547bf2"
+  },
+  "nom": "Huile de palme",
+  "idEnqueteur": "6336f393fcf0dc18832fdb19",
+  "numeroEnqueteur": "656397061",
+  "isValidated": true,
+  "conditionnement": "Tine",
+  "prix_marche": 55840,
+  "marche": {
+    "_id": {
+      "$oid": "6318a2f6e8d6f16d395b0868"
+    },
+    "nom": "Marché du Mfoundi",
+    "longitude": 11.522852,
+    "latitude": 3.8641402,
+    "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+    "region": "Centre",
+    "departement": "Mfoundi",
+    "arrondissement": "Yaoundé I",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "__v": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664559030373"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664559119793"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633727f64b0d959244547bf6"
+  },
+  "nom": "Huile de palme",
+  "idEnqueteur": "6336f393fcf0dc18832fdb19",
+  "numeroEnqueteur": "656397061",
+  "isValidated": true,
+  "conditionnement": "Tine",
+  "prix_marche": 10000,
+  "marche": {
+    "_id": {
+      "$oid": "6318a2d8e8d6f16d395b0863"
+    },
+    "nom": "Marché Central",
+    "longitude": 11.5184926834,
+    "latitude": 3.86652065041,
+    "description": "Il s'agit d'un marché du centre-ville de Yaoundé",
+    "region": "Centre",
+    "departement": "Mfoundi",
+    "arrondissement": "Yaoundé I",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1662558716130"
+      }
+    },
+    "__v": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664559094499"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1664560221319"
+    }
+  },
+  "__v": 0
+}]
