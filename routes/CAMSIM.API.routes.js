@@ -34,7 +34,9 @@ const { addProductById,
   modifyEnchereByIdAndEnchereId, 
   rejeterEnchereByIdAndEnchereId , 
   addPricesById,
-  validatePriceByIdAndPrixId, 
+  validatePriceByIdAndPrixId,
+  createNewContractById,
+  editContractByIdAndContractId, 
   } = require('../controllers/Fonctionnalites.utilisateurs')
 
 const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller } = require('../controllers/API.controller.produit')
@@ -42,7 +44,7 @@ const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller } = r
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
 */
-const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller } = require('../controllers/API.controller.enchere')
+const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller, getAllEnchere } = require('../controllers/API.controller.enchere')
 /*
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour la verification et l'envoi de message a l'utilisateur'
@@ -70,19 +72,8 @@ router.post('/signup', signUp);
   @role 'L'application utilise cette route pour enregistrer les producteurs'
 */
 router.post('/signup-producteur' , signuProducteur);
-/*
-  @route /all-price/huile
-  @method GET
-  @role 'l'application utilise cette route pour l'affichage des prix de l'huile'
-*/
-router.get('/all-price/huile' , getAllPriceByHuile);
-/*
-  @route /all-price/huile/filter
-  @method GET
-  @role l'application utilise cette route l'affichage des prix de l'huile filtré'
-*/
 
-router.get('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
+
 
 /*
   @route /initVerfication & verify*
@@ -91,6 +82,7 @@ router.get('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
 */
 router.post('/initVerification', initVerification);
 router.post('/verify', verify);
+
 
 
 /*
@@ -125,6 +117,23 @@ router.post('/add-price/:id', addPricesById)
   @role 'le controleur valide les prix collectés par l'enqueteur'
 */
 router.post('/validate-price/:id/:prixId', validatePriceByIdAndPrixId)
+/*
+  @route /all-price/huile
+  @method GET
+  @role 'l'application utilise cette route pour l'affichage des prix de l'huile'
+*/
+router.get('/all-price/huile' , getAllPriceByHuile);
+/*
+  @route /all-price/huile/filter
+  @method GET
+  @role l'application utilise cette route l'affichage des prix de l'huile filtré'
+*/
+
+router.get('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
+
+
+
+
 
 /*
   @route /add-products/:id
@@ -155,6 +164,9 @@ router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAn
 */
 router.put("/modify-product-price/:id/produitId", modifyProductPriceByIdAndProduitId)
 
+
+
+
 //Le producteur utilise cette route pour enregistrer une enchère : *success 
 /*
   @route /add-enchere/:id
@@ -162,10 +174,13 @@ router.put("/modify-product-price/:id/produitId", modifyProductPriceByIdAndProdu
   @role 'Poster une enchère' 
 */
 router.post("/add-enchere/:id", addEnchereById )
-router.get('/all-enchere' , async (req , res) =>{
-  const Enchere = require('../models/enchere.model')
-  res.status(200).json({data : await Enchere.find() })
-})
+
+/*
+  @route /add-enchere/:id
+  @method POST
+  @role 'Retourner toutes les encheres de la base données' 
+*/
+router.get('/all-enchere' , getAllEnchere)
 /*
   @route /all-enchere/:nomEnchere
   @method GET
@@ -198,7 +213,22 @@ router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId)
   @method PUT
   @role 'l'application utilise cette route pour le rejet de l'enchere par un utilisateur'
 */
-//router.put("/rejeter-enchere/:id", rejeterEnchereByIdAndEnchereId)
+router.put("/rejeter-enchere/:id", rejeterEnchereByIdAndEnchereId)
+
+/*
+  @route /create-contract/:id
+  @method POST
+  @role 'l'application utilise cette route pour la creation d'un nouveau contract'
+*/
+router.post('/create-contract/:id',createNewContractById)
+/*
+  @route /edit-contract/:id/:contractId
+  @method PUT
+  @role 'l'application utilise cette route pour modifier un contract'
+*/
+router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)
+
+
 
 // exportation de l'objet router
 module.exports = router; 

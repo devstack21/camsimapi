@@ -22,7 +22,7 @@ module.exports = {
       getAllPriceByHuile : (req, res) => {
         //On récupère les prix de la bd pour les envoyer à l'application mobile
         Prix.find({
-          /*nom: req.params.produit*/
+          nom: req.params.produit
         })
           .then((prix) => {
             res.status(200).json({data : prix});
@@ -45,12 +45,17 @@ module.exports = {
       },
       getAllPrice : (req , res) =>{
             //On récupère les prix validés de la bd pour les envoyer à l'application mobile
-          Prix.find({})
+          Prix.find()
           .then((prix) => {
             res.status(200).json(prix);
           })
           .catch((error) => {
             res.status(500).send(error);
           });
+      },
+      getMyPriceById : async (req , res) =>{
+        const user = await Utilisateur.findById(req.params.id)
+        if(user) res.status(200).json({data : user.ownAchats})
+        else return res.status(400).json({message : null})
       }
 }

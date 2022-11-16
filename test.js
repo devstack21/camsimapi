@@ -1,5 +1,26 @@
-let str = "/I/love /javaScript";
+const assert = require('assert')
+const J = require('./CAMSIM STATIC DAJA JSON/encheres.json')
+const app = require('./app')
 
-// these two tests do the same
-console.log( /love/i.test(str) && /java/i.test(str)); // true
-console.log( str.search(/love/i) != -1 ); // true
+const JO = null
+describe('BasicTest' , function(){
+
+    describe('api' , function() {
+        it('should not equal at null' , function(){
+            const d = {nom : 'djob'}
+            assert.notEqual(d , null )
+        }  
+           
+        )// end it
+    })
+})
+
+describe('secondTest' , function(){
+
+    describe('other' , function(){
+        it('Should equal at undefined' , function(){
+            let a = 3;
+            assert.equal(a , undefined)
+        })
+    })
+})  

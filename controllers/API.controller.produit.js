@@ -1,4 +1,5 @@
 const Produit = require('../models/produit.model')
+const { Utilisateur } = require('../models/utilisateur.model')
 
 module.exports = {
     getAllProductByNomProduct : (req, res) => {
@@ -18,5 +19,9 @@ module.exports = {
           })
           .catch((error) => { res.status(500).json(error) })
       },
-      
+      getMyProductsById : async (req , res) =>{
+        const user = await Utilisateur.findById(req.params.id)
+        if(user) res.status(200).json({data : user.ownVentes})
+        else return res.status(400).json({message : null})
+      }
 }

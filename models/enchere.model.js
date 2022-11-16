@@ -1,4 +1,4 @@
-const { string } = require('joi')
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -15,7 +15,6 @@ const enchereSchema = new Schema({
 
         type: String,
         //required: true, *
-
     },
     "region": {
         type: String,

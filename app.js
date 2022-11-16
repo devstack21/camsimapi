@@ -33,7 +33,7 @@ app
 .use(bodyParser.urlencoded({
     extended :true
 }))
-
+.get('/' , (req , res) => res.send('</p>Hello world<p>'))
 // view engine setup
 .set('views', path.join(__dirname, 'views'))
 .set('view engine', 'ejs')

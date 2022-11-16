@@ -88,17 +88,34 @@ const utilisateurSchema = new mongoose.Schema({
         type: Array,
        // required : true, *
     },
-    // l a liste de toutes les enchères rencheries 
+    // la liste de toutes les enchères rencheries 
     "rencheres":{
-        type :[{
-            enchereId : String,
-            dateRenchere : String // date de validation de l'enchère d'un autre user
-        }],
+        type :[String],
         unique : true
     },
+    // liste propres enchères
     "ownEncheres" : {
         type : [String], // liste de tous les id de ses differentes enchères
         unique : true // on definit par défaut une liste 
+    },
+    // liste propres contracts 
+    "ownContract" : {
+        type : [String],
+        unique : true
+    },
+    // liste de toutes les contracts postulés
+    "contractApply" : {
+        type : [String],
+        unique : true
+    },
+    // lors de creation d'un achat 
+    "ownAchats" : {
+        type : [String],
+        unique : true 
+    },
+    "ownVentes" : {
+        type : [String],
+        unique : true 
     }
 }, { timestamps: true })
 

@@ -21,5 +21,8 @@ module.exports = {
           return res.status(400).json({message : error})
         }
        
+      },
+      getAllMarche : async (req , res) =>{
+        res.status(200).json({data : await Marche.find()})
       }
-}
+ }
