@@ -22,7 +22,7 @@ module.exports = {
       getAllPriceByHuile : (req, res) => {
         //On récupère les prix de la bd pour les envoyer à l'application mobile
         Prix.find({
-          nom: req.params.produit
+          
         })
           .then((prix) => {
             res.status(200).json({data : prix});

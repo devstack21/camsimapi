@@ -11,7 +11,7 @@ const Contract = require('../models/contract.model')
 
 module.exports = {
 
-    // fonction d'ajout d'un produit 
+    // fonction d'ajout d'un produit (achat vente)
   addProductById : (req, res) => {
         Utilisateur.findOne({ username: req.body.nomVendeur, statut: "Producteur" }, (error, producteur) => {
           // Si une erreur survient
@@ -22,10 +22,10 @@ module.exports = {
             const produit = Produit(req.body)
             produit.save().then(() => {
               Utilisateur.updateOne({_id : req.params.id} , {
-                $push : {ownAchats : produit._id}
+                $push : {ownVentes : produit._id}
               },(err , result ) =>{
                 if(err) return res.status(400).json({message : 'Une erreur est survenue lors de la sauvegarde'})
-                if(result.acknowledged) res.status(200).json({message : 'Produit enregistré avec succès' , prixId : prix._id})
+                if(result.acknowledged) res.status(200).json({message : 'Produit enregistré avec succès' , prixId : produit._id})
               })
             })
           } else {
