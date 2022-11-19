@@ -1,5 +1,6 @@
 
 const {Utilisateur} = require('../models/utilisateur.model')
+const bcrypt = require('bcrypt')
 
 module.exports = {
     signIn : async (request, response) => {

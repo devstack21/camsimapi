@@ -19,16 +19,6 @@ module.exports = {
           .catch((error) => { res.status(500).json(error) })
       },
 
-      getAllPriceByHuile : (req, res) => {
-        //On récupère les prix de la bd pour les envoyer à l'application mobile
-        Prix.find()
-          .then((prix) => {
-            res.status(200).json({data : prix});
-          })
-          .catch((error) => {
-            res.status(500).json({message : error});
-          });
-      },
       getAllPriceByHuileAndFilter : (req, res) => {
         //On récupère les prix de la bd pour les envoyer à l'application mobile
         Prix.findOne({ conditionnement: req.body.conditions, marche: req.body.marche })
@@ -41,7 +31,7 @@ module.exports = {
             res.status(500).send(error);
           });
       },
-      getAllPrice : (req , res) =>{
+      getAllPrice : async (req , res) =>{
             //On récupère les prix validés de la bd pour les envoyer à l'application mobile
           Prix.find()
           .then((prix) => {
@@ -50,7 +40,14 @@ module.exports = {
           .catch((error) => {
             res.status(500).send(error);
           });
+          
       },
+      getPriceByName : (req , res) =>{
+          Prix.findOne({nom : req.params.namePrice})
+          .then((data) => res.status(200).json({data : data}))
+          .catch((err) => res.status(400).json({message : err}))
+      },
+      // mes achats 
       getMyPriceById : async (req , res) =>{
         const user = await Utilisateur.findById(req.params.id)
         if(user) res.status(200).json({data : user.ownAchats})

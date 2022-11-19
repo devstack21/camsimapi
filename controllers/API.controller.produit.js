@@ -3,7 +3,6 @@ const { Utilisateur } = require('../models/utilisateur.model')
 
 module.exports = {
     getAllProductByNomProduct : (req, res) => {
-
         Produit.find({ nom: req.params.nomProduit })
           .then((produits) => {
             res.status(200).json({data :produits})

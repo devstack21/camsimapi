@@ -80,25 +80,37 @@ module.exports = {
       },
 
       // fonction permettant & l'utilisateur de rencherir une enchere courante
-    rencherirByIdAndEnchereId : (req, res) => {
-        Enchere.updateOne({ _id: req.body.enchereId }, {
-          $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme} }
-      
-        }, (err, result) => {
-          if (err) throw Error('Une erreur est survenue lors de votre operation ');
-          if (result.acknowledged) {
-           
-            res.status(200).json({status: true , data : result})
-            Utilisateur.updateOne({_id : req.params.id} , {
-              $push : {rencheres : req.params.enchereId }
-            }, (err , result) => {
-              if(!err) res.status(200).json({message : "Enchère rejetée avec succès"})
-              else return res.status(400).json({message: "Une erreur est survenue lors du rejet de l'enchère"})
-            })
-          }
-          else res.status(200).json({status: false})
-             
-        }) 
+    rencherirByIdAndEnchereId : async (req, res) => {
+        // verification (use name )
+        const user = await Utilisateur.findById(req.params.id)
+        if(user){
+            // liste des encheres d'un utilisateur 
+            let ownEncheres = user.ownEncheres 
+            // si l'enchereId existe 
+            if(ownEncheres.includes(req.params.enchereId)) return res.status(400).json({message : 'Vous ne pouvez pas rencherir'})
+            else {
+              Enchere.updateOne({ _id: req.body.enchereId }, {
+                $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme} }
+            
+              }, (err, result) => {
+                if (err) throw Error('Une erreur est survenue lors de votre operation ');
+                if (result.acknowledged) {
+                 
+                  res.status(200).json({status: true , data : result})
+                  Utilisateur.updateOne({_id : req.params.id} , {
+                    $push : {rencheres : req.params.enchereId }
+                  }, (err , result) => {
+                    if(!err) res.status(200).json({message : "Enchère rejetée avec succès"})
+                    else return res.status(400).json({message: "Une erreur est survenue lors du rejet de l'enchère"})
+                  })
+                }
+                else res.status(200).json({status: false})
+                   
+              })
+            }
+        }// end if 
+        else return res.status(400).json({mesage : "Utilisateur inconnu"})
+        
       },
 
       // fonction permettant a l'utlisateur de modifier ou d'editer son enchere
@@ -117,9 +129,7 @@ module.exports = {
       // fonction permettant de rejeter une enchere ? qui rejete l"enchere 
     rejeterEnchereByIdAndEnchereId : (req, res) => {
         Enchere.updateOne({ _id: req.params.enchereId }, {
-      
           $pull: { participant: { userId: req.body.userId} },
-        
         },(err , result ) => {
               if(err) return res.status(400).json({message : err})
               else {
@@ -210,8 +220,16 @@ module.exports = {
                 const newContract = new Contract(request.body)
                 // sauvegarde du contract dans la base de donnée
                 newContract.save((err , result) =>{
-                    if(!err) response.status(200).json({contractId : result._id})
-                    else return response.status(400).json({message : 'Une erreur est survenue lors de la creation de votre contract'})
+                    if(!err) {
+                      response.status(200).json({contractId : result._id})
+                      Utilisateur.updateOne({_id : request.params.id} ,{
+                        $push : {ownContract : newContract}
+                      }, (err , result) =>{
+                        if(!err) res.status(200).json({message : 'Creation du contract avec succès'})
+                        else throw Error('Une erreur est survenue lors de la creation de votre contract')
+                      })
+                    }
+                    else throw Error('Une erreur est survenue lors de la creation de votre contract')
                 })
             } catch (error) {
               return response.status(400).json({message : error})
@@ -224,44 +242,67 @@ module.exports = {
   },
 
   // editer ou modifier un contract existant (producteur) :if aucun postulant 
-  editContractByIdAndContractId : (request , response) =>{
-      Contract.findByIdAndUpdate(
-        request.params.contractId, request.body,
-        (err, doc) => {
-          if (err) throw Error('Une erreur est survenue lors de la modification de votre contract')
+  editContractByIdAndContractId : async (request , response) =>{
+      const {participant} = await Enchere.findById(request.params.contractId) , usr = await Utilisateur.findById(request.params.id)
+      if(usr){
           
-          else response.status(200).json({ status: true , message : 'prix modifié avec succès'});
-        }
-      );
+          if(participant.length == 0){
+            try {
+              Contract.findByIdAndUpdate(
+                request.params.contractId, request.body,
+                (err, doc) => {
+                  if (err) throw Error('Une erreur est survenue lors de la modification de votre contract')
+                  
+                  else response.status(200).json({ status: true , message : 'prix modifié avec succès'});
+                }
+              );
+            } catch (error) {
+              return response.status(400).json({message : error})
+            }
+          }
+          else return response.status(200).json({message : 'Vous ne pouvez plus faire une modification sur ce contrat'})
+      }
+      else return response.status(400).json({message : 'Utilisateur inconnu'}) 
   },
 
   // cette fonction permet a un utilisateur de candidater pour un contract en cours 
-  applyContractByIdAndContractId : (request , response) =>{
-      try {
-        Contract.updateOne({_id : request.params.contractId} ,(err , result) =>{
-          if(err) throw Error('Une erreur est survenue lors de votre candidature a ce contract')
-          if(!result) throw Error('Une erreur est survenue lors de votre candidature a ce contract')
-          else {
-            Contract.updateOne({_id : request.params.contractId} , {
-              $push : {interested : { interestedId : request.params.id , date : new Date().getTime()}},
-              
-            },(err , result) =>{
-                if(err) throw Error('Une erreur est survenue lors de votre candidature a ce contrat')
-                if(result.acknowledged){
-                    Utilisateur.updateOne({_id : request.params.id} ,{
-                      $push : {contractApply : request.params.contractId}
-                    },(err , result) =>{
-                        if(err) throw Error('Une erreur est survenue lors de votre candidature a ce contrat')
-                        if(result.acknowledged) response.status(200).json({
-                          message : "Candidature au contrat reussie"
+  applyContractByIdAndContractId : async (request , response) =>{
+    const user = await Utilisateur.findById(request.params.id) , {ownContract} = user
+    if(user){
+      if(ownContract.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
+      else {
+          try {
+            Contract.updateOne({_id : request.params.contractId} ,(err , result) =>{
+              if(err) throw Error('Une erreur est survenue lors de votre candidature a ce contract')
+              if(!result) throw Error('Une erreur est survenue lors de votre candidature a ce contract')
+              else {
+                Contract.updateOne({_id : request.params.contractId} , {
+                  $push : {interested : { interestedId : request.params.id , date : new Date().getTime()}},
+                  
+                },(err , result) =>{
+                    if(err) throw Error('Une erreur est survenue lors de votre candidature a ce contrat')
+                    if(result.acknowledged){
+                        Utilisateur.updateOne({_id : request.params.id} ,{
+                          $push : {contractApply : request.params.contractId}
+                        },(err , result) =>{
+                            if(err) throw Error('Une erreur est survenue lors de votre candidature a ce contrat')
+                            if(result.acknowledged) response.status(200).json({
+                              message : "Candidature au contrat reussie"
+                            })
                         })
-                    })
-                }
-            })
+                    }
+                })
+              }
+          })
+          } catch (error) {
+            return response.status(400).json({message : error})
           }
-      })
-      } catch (error) {
-        return response.status(400).json({"message" : error })
       }
+    }
+    else return response.status(400).json({message : 'Utilisateur inconnu'})
+  },
+  // cette fonction permet a un producteur de valider la candidature contract d'un consommateur 
+  validContractById : async (req , res) =>{
+
   }
 }

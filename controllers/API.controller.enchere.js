@@ -27,9 +27,9 @@ module.exports ={
           res.status(200).json({data : await Enchere.find()})
       },
       // mes encheres
-      getMyEncheresByid : async (req , res) =>{
+      getMyEncheresById : async (req , res) =>{
           const user = await Utilisateur.findById(req.params.id)
-          if(user) res.status(200).json({data : user.contractApply})
+          if(user) res.status(200).json({data : user.rencheres})
           else return res.status(401).json({message : null})
       },
 }
