@@ -233,7 +233,7 @@ router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)
   @method GET
   @role 'l'application utilise cette route pour afficher les annonces recentes'
 */
-router.get('/hum' , getAnnonceByTimeOrder)
+router.get('/annonce' , getAnnonceByTimeOrder)
 
 
 // exportation de l'objet router
