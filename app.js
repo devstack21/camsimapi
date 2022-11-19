@@ -33,7 +33,9 @@ app
 .use(bodyParser.urlencoded({
     extended :true
 }))
-.get('/' , (req , res) => res.send('</p>Hello world<p>'))
+.get('/' , (req , res) => {
+    res.status(200).send('</p>Hello on the API CAMSIM APP<p>')
+})
 // view engine setup
 .set('views', path.join(__dirname, 'views'))
 .set('view engine', 'ejs')
@@ -60,6 +62,7 @@ app
     res.render('error');
     next()
 })
+
 // 
 .listen(process.env.PORT , () =>{
     console.log(`Lancement du serveur NODEJS  localement sur le port ${process.env.PORT} `);
