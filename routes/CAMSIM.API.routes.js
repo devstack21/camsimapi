@@ -21,7 +21,7 @@ const {signIn , signUp, signuProducteur} = require('../controllers/ConnexionApp.
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données et des prix depuis la base de données en fonction de la requete'
 */
-const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName } = require('../controllers/API.controller.prix')
+const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById } = require('../controllers/API.controller.prix')
 
 /**
   @folder 'Fonction importée depuis le dossier controllers du projet
@@ -39,18 +39,19 @@ const { addProductById,
   editContractByIdAndContractId, 
   } = require('../controllers/Fonctionnalites.utilisateurs')
 
-const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller } = require('../controllers/API.controller.produit')
+const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById } = require('../controllers/API.controller.produit')
 /*
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
 */
-const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller, getAllEnchere } = require('../controllers/API.controller.enchere')
+const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller, getAllEnchere, getMyEncheresById } = require('../controllers/API.controller.enchere')
 /*
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour la verification et l'envoi de message a l'utilisateur'
 */
 const { initVerification  , verify} = require('../controllers/API.SMS.controller')
 const { getAnnonceByTimeOrder } = require('../controllers/API.controller.annonce')
+const { getMyContractById } = require('../controllers/API.controller.contract')
 
 
 
@@ -229,12 +230,23 @@ router.post('/create-contract/:id',createNewContractById)
 router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)
 
 /** 
-  @route /edit-contract/:id/:contractId
+  @route /annonce
   @method GET
   @role 'l'application utilise cette route pour afficher les annonces recentes'
 */
 router.get('/annonce' , getAnnonceByTimeOrder)
 
+
+/**
+ * @route /myachats/:id /myventes/:id /mycontracts/:id /myencheres/:id
+ * @method GET
+ * @role 'l'application utilise ces routes pour afficher l'historique d'un utilisateur
+*/
+router
+  .get('/myachats/:id' , getMyPriceById)
+  .get('/myventes/:id' , getMyProductsById)
+  .get('/mycontracts/:id' , getMyContractById)
+  .get('/myencheres/:id' , getMyEncheresById)
 
 // exportation de l'objet router
 module.exports = router; 
