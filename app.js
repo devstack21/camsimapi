@@ -1,6 +1,5 @@
 const createError = require('http-errors'); // module pour la gestion des erreurs HTTP
 const express = require('express'); // you know 
-const path = require('path'); // module de gestion des differents aux fichiers serveur 
 const logger = require('morgan'); // module pour les logs des données du front 
 const bodyParser = require('body-parser')// module pour parser json des req client
 const cookieParser = require('cookie-parser')
@@ -61,6 +60,3 @@ app
 module.exports = app;
 
 
-// suivi et evaluation de projet 
-// certification PEAS de l'UNICEF
-// developpement communautaire 
