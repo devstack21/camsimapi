@@ -54,7 +54,6 @@ const { getAnnonceByTimeOrder } = require('../controllers/API.controller.annonce
 const { getMyContractById } = require('../controllers/API.controller.contract')
 
 
-
 /**
   @route /signin
   @method POST 
@@ -247,6 +246,8 @@ router
   .get('/myventes/:id' , getMyProductsById)
   .get('/mycontracts/:id' , getMyContractById)
   .get('/myencheres/:id' , getMyEncheresById)
+
+
 
 // exportation de l'objet router
 module.exports = router; 

@@ -1,6 +1,8 @@
 
 const {Utilisateur} = require('../models/utilisateur.model')
 const bcrypt = require('bcrypt')
+const {generateToken , maxAvailable} = require('../utils/jwt.utils')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
     signIn : async (request, response) => {
@@ -11,7 +13,10 @@ module.exports = {
           // si l'utilisateur existe 
           if(user){
             // verification du mot de passe 
-            if(bcrypt.compareSync(request.body.mdp , user.mdp)) response.status(200).json({message : 'Connexion reussie'})
+            if(bcrypt.compareSync(request.body.mdp , user.mdp)) {
+              response.status(200).json({message : 'Connexion reussie' , user : user})
+              
+            }
             else throw Error('Mot de passe incorrect')
             }
           // si l'utilisateur n'existe pas 
@@ -34,7 +39,11 @@ module.exports = {
                 console.log(request.body);
                 // save new user 
                 newUser.save((err , docs) =>{
-                  if(!err) response.status(200).json({message : 'Inscription reussie' , id : docs._id})
+                  if(!err) {
+                    // on cree un token qui sera stocké dans un cookie coté client 
+                    response.cookie('authToken' , generateToken(docs._id) , {httpOnly : true , maxAvailable })
+                    response.status(200).json({message : 'Inscription reussie' , id : docs._id})
+                  }
                 
                   else throw Error('Erreur survenue lors de l'/'inscription')
                 })
@@ -69,6 +78,11 @@ module.exports = {
         } catch (error) {
           return res.status(400).json({message : error})
         }
-        
-      }
+      
+      },
+      logout : (request , response) =>{
+        response.cookie('authToken' , {maxAge : 1})
+        response.redirect('/')
+      },
+      
 }
