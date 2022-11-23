@@ -13,21 +13,17 @@ module.exports = {
            console.log(user);
           // si l'utilisateur existe 
           if(user){
-            console.log('WTF');
-            // verification du mot de passe 
-            if(await bcrypt.compare(request.body.mdp , user.mdp)) {
-              console.log(bcrypt.compare(request.body.mdp , user.mdp));
-              response.cookie('authToken' , generateToken(docs._id) , {httpOnly : true , maxAvailable })
-              response.status(200).json({message : 'Connexion reussie' , user : user})
-              
-            }
-            else {
-              console.log('NO MDP');
-              throw Error('Mot de passe incorrect')
-            }
+            bcrypt.compare(request.body.mdp , user.mdp , (err , result) =>{
+              if(err) return res.status(400).json({message : 'Mot de passe incorrect'})
+              if (result) {
+                response.cookie('authToken', generateToken(user._id) , {httpOnly : true , maxAge : maxAvailable})
+                response.status(200).json({message : 'Connexion reussie'})
+              }
+              else return response.status(400).json({message : 'Mot de passe incorrect'})
+            })
           }
-          // si l'utilisateur n'existe pas 
-          else throw Error('Utilisateur inconnu')
+          else return response.status(401).json({message :'Creer un compte'})
+
         } catch (error) {
           // on arrete le fonction et on envoie une reponse a l'application cliente 
           return response.status(400).json({message : 'login incorrect'})
@@ -40,6 +36,7 @@ module.exports = {
              // On vérifie l'existence des informations reçues
              const user = await Utilisateur.findOne({ username : request.body.username , telephone : request.body.telephone})
              if(user) return response.status(200).json({message : 'Cet utilisateur existe déja'})
+
              else {
                 response.locals.user = null 
                 const newUser = new Utilisateur(request.body)
@@ -51,6 +48,7 @@ module.exports = {
                  else throw Error('Erreur survenue lors de l'/'inscription')
                 })
               }
+
         } catch (error) {
             return response.status(400).json({message : error})
         }
