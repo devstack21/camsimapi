@@ -17,6 +17,7 @@ module.exports = {
             // verification du mot de passe 
             if(await bcrypt.compare(request.body.mdp , user.mdp)) {
               console.log(bcrypt.compare(request.body.mdp , user.mdp));
+              response.cookie('authToken' , generateToken(docs._id) , {httpOnly : true , maxAvailable })
               response.status(200).json({message : 'Connexion reussie' , user : user})
               
             }
@@ -45,13 +46,9 @@ module.exports = {
                 console.log(request.body);
                 // save new user 
                 newUser.save((err , docs) =>{
-                  if(!err) {
-                    // on cree un token qui sera stocké dans un cookie coté client 
-                    response.cookie('authToken' , generateToken(docs._id) , {httpOnly : true , maxAvailable })
-                    response.status(200).json({message : 'Inscription reussie' , id : docs._id})
-                  }
-                
-                  else throw Error('Erreur survenue lors de l'/'inscription')
+                  if(!err) response.status(200).json({message : 'Inscription reussie' , id : docs._id})
+                  
+                 else throw Error('Erreur survenue lors de l'/'inscription')
                 })
               }
         } catch (error) {
