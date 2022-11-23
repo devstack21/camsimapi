@@ -15,8 +15,8 @@ module.exports = {
           if(user){
             console.log('WTF');
             // verification du mot de passe 
-            if(bcrypt.compare(request.body.mdp , user.mdp)) {
-              console.log('MDP');
+            if(await bcrypt.compare(request.body.mdp , user.mdp)) {
+              console.log(bcrypt.compare(request.body.mdp , user.mdp));
               response.status(200).json({message : 'Connexion reussie' , user : user})
               
             }
@@ -29,7 +29,7 @@ module.exports = {
           else throw Error('Utilisateur inconnu')
         } catch (error) {
           // on arrete le fonction et on envoie une reponse a l'application cliente 
-          return response.status(400).json({message : error})
+          return response.status(400).json({message : 'login incorrect'})
         }
        
     },

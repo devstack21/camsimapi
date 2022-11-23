@@ -122,7 +122,8 @@ const utilisateurSchema = new mongoose.Schema({
 // hashage automatique des mdp lorsque la fonction save est utilisée
 utilisateurSchema.pre('save' , async function(next){
     const salt = await bcrypt.genSalt()
-    this.mdp = bcrypt.hash(this.mdp , salt)
+    this.mdp = await bcrypt.hash(this.mdp , salt)
+    console.log(this.mdp);
     next()
 })
 
