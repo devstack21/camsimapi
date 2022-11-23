@@ -6,19 +6,25 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
     signIn : async (request, response) => {
- 
+        
         try {
           // on recupère des données depuis la base de données 
-           const user = await Utilisateur.findOne({username : request.body.username})
+           const user = await Utilisateur.findOne({username : request.body.username })
+           console.log(user);
           // si l'utilisateur existe 
           if(user){
+            console.log('WTF');
             // verification du mot de passe 
-            if(bcrypt.compareSync(request.body.mdp , user.mdp)) {
+            if(bcrypt.compare(request.body.mdp , user.mdp)) {
+              console.log('MDP');
               response.status(200).json({message : 'Connexion reussie' , user : user})
               
             }
-            else throw Error('Mot de passe incorrect')
+            else {
+              console.log('NO MDP');
+              throw Error('Mot de passe incorrect')
             }
+          }
           // si l'utilisateur n'existe pas 
           else throw Error('Utilisateur inconnu')
         } catch (error) {
