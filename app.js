@@ -37,7 +37,7 @@ app
 .all('/',authUserByToken ,(req , res) =>{})
 .all('/logout' , logout)
 .use(logger('dev'))
-.use('/API', checkAuthUser, camsimRoutes) // definition de l'objet global camsimRoutes indexant toutes les routes de l'application Web & Mobile
+.use('/API',camsimRoutes) // checkAuthUser, // definition de l'objet global camsimRoutes indexant toutes les routes de l'application Web & Mobile
 // catch 404 and forward to error handler
 .use((req, res, next) => {
     next(createError(404));

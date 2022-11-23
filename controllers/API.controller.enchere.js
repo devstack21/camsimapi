@@ -26,6 +26,9 @@ module.exports ={
       getAllEnchere : async (req , res) =>{
           res.status(200).json({data : await Enchere.find()})
       },
+      getEnchereById : async (req ,res) =>{
+        res.status(200).json({data : await Enchere.findById(req.params.enchereId)})
+      },
       // mes encheres
       getMyEncheresById : async (req , res) =>{
           const user = await Utilisateur.findById(req.params.id)

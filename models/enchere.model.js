@@ -47,6 +47,8 @@ const enchereSchema = new Schema({
             userId : String,
             prix : String,
             anonyme : Boolean  ,
+            telephone : String,
+            username : String
         }],
         //required : true* 
         unique : true

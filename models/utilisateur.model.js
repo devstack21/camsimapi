@@ -90,7 +90,10 @@ const utilisateurSchema = new mongoose.Schema({
     },
     // la liste de toutes les enchères rencheries 
     "rencheres":{
-        type :[String],
+        type :[{
+            enchereId : String,
+            data : Date
+        }],
         unique : true
     },
     // liste propres enchères

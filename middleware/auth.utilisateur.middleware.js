@@ -20,13 +20,13 @@ module.exports = {
     checkAuthUser : (request , response , next) =>{
        
         // si aucun params
-        if(request.url == '/signup' || request.url== '/signin' || request.url=='/signuProducteur' ) next()
+        if(request.url == '/signup' || request.url== '/signin' || request.url=='/signuProducteur'  ) next()
         else {
             
             if (Object.keys(request.params).length == 0) {
                 
-                    if(request.cookies.authToken){
-                        jwt.verify(request.cookies.authToken , process.env.SECRET_TOKEN_DECODE , (err , decodedToken)=>{
+                    if(request.headers.authToken){
+                        jwt.verify(request.headers.authToken , process.env.SECRET_TOKEN_DECODE , (err , decodedToken)=>{
                             if(err) response.status(401).json({message : 'Erreur authentification'})
                             else{  
                                 if(!objectID.isValid(decodedToken.id)) {

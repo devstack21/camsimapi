@@ -35,7 +35,7 @@ module.exports = {
             //On récupère les prix validés de la bd pour les envoyer à l'application mobile
           Prix.find()
           .then((prix) => {
-            res.status(200).json(prix);
+            res.status(200).json({data :prix});
           })
           .catch((error) => {
             res.status(500).send(error);

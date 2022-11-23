@@ -200,7 +200,7 @@ router.get("/all-encheres/:nomVendeur", getParticularEnchereByNomSeller)
   @method PATCH
   @role 'Validation d'une enchere par un utilisateur '
 */
-router.patch("/rencherir/:id/enchereId", rencherirByIdAndEnchereId )
+router.patch("/rencherir/:id/:enchereId", rencherirByIdAndEnchereId )
 /**
   @route /modify-enchere/:id/:enchereId
   @method PUT

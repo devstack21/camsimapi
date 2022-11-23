@@ -81,6 +81,7 @@ module.exports = {
 
       // fonction permettant & l'utilisateur de rencherir une enchere courante
     rencherirByIdAndEnchereId : async (req, res) => {
+      console.log('HELLO');
         // verification (use name )
         const user = await Utilisateur.findById(req.params.id)
         if(user){
@@ -90,21 +91,19 @@ module.exports = {
             if(ownEncheres.includes(req.params.enchereId)) return res.status(400).json({message : 'Vous ne pouvez pas rencherir'})
             else {
               Enchere.updateOne({ _id: req.body.enchereId }, {
-                $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme} }
+                $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme , telephone : req.body.telephone , username : req.body.username} }
             
               }, (err, result) => {
                 if (err) throw Error('Une erreur est survenue lors de votre operation ');
                 if (result.acknowledged) {
-                 
-                  res.status(200).json({status: true , data : result})
                   Utilisateur.updateOne({_id : req.params.id} , {
-                    $push : {rencheres : req.params.enchereId }
+                    $push : {rencheres : { enchereId : req.params.enchereId , date : new Date()} }
                   }, (err , result) => {
-                    if(!err) res.status(200).json({message : "Enchère rejetée avec succès"})
-                    else return res.status(400).json({message: "Une erreur est survenue lors du rejet de l'enchère"})
+                    if(!err) return res.status(200).json({message : "Enchère acceptée avec succès" , data : result })
+                    else res.status(400).json({message: "Une erreur est survenue lors de votre renchère" })
                   })
                 }
-                else res.status(200).json({status: false})
+                // else res.status(200).json({status: false})
                    
               })
             }
