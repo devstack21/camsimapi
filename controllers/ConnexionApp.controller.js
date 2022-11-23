@@ -16,8 +16,8 @@ module.exports = {
             bcrypt.compare(request.body.mdp , user.mdp , (err , result) =>{
               if(err) return res.status(400).json({message : 'Mot de passe incorrect'})
               if (result) {
-                response.cookie('authToken', generateToken(user._id) , {httpOnly : true , maxAge : maxAvailable})
-                response.status(200).json({message : 'Connexion reussie'})
+                // response.cookie('authToken', generateToken(user._id) , {httpOnly : true , maxAge : maxAvailable})
+                response.status(200).json({message : 'Connexion reussie' , token :generateToken(user._id) , data : user})
               }
               else return response.status(400).json({message : 'Mot de passe incorrect'})
             })
@@ -38,9 +38,8 @@ module.exports = {
              if(user) return response.status(200).json({message : 'Cet utilisateur existe déja'})
 
              else {
-                response.locals.user = null 
+
                 const newUser = new Utilisateur(request.body)
-                console.log(request.body);
                 // save new user 
                 newUser.save((err , docs) =>{
                   if(!err) response.status(200).json({message : 'Inscription reussie' , id : docs._id})
