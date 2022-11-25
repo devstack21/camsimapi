@@ -34,7 +34,7 @@ const contractSchema = new mongoose.Schema({
     interested : {
         type : [{
            interestedId : String ,
-           date : String , 
+           date : Date , 
            isOnContract : {
                 type : Boolean,
                 default : false 

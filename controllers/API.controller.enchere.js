@@ -2,26 +2,20 @@ const Enchere = require('../models/enchere.model')
 const { Utilisateur } = require('../models/utilisateur.model')
 
 module.exports ={
-    getAllEnchereByNomEnchere :  (req, res) => {
+    // getAllEnchereByNomEnchere :  (req, res) => {
 
-        Enchere.find({ nom: req.params.nomEnchere })
-          .then((enchere) => {
+    //     Enchere.find({ nom: req.params.nomEnchere })
+    //       .then((enchere) => {
       
-            res.status(200).json({data : enchere})
-          }).catch((error) => {
-            res.status(400).json({message :error})
-          })
-      },
-      getParticularEnchereByNomSeller : (req, res) => {
+    //         res.status(200).json({data : enchere})
+    //       }).catch((error) => {
+    //         res.status(400).json({message :error})
+    //       })
+    //   },
+      getParticularEnchereByNomSeller : async(req, res) => {
 
-        Enchere.find({ nomVendeur: req.params.nomVendeur })
-          .then((enchere) => {
-      
-            res.status(200).json({data: enchere})
-            
-          }).catch((error) => {
-            res.status(400).json({message : error})
-          })
+        res.status(200).json({data : await Enchere.find({ nomVendeur: req.params.nomVendeur })})
+       
       },
       getAllEnchere : async (req , res) =>{
           res.status(200).json({data : await Enchere.find()})

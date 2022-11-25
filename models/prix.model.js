@@ -17,7 +17,7 @@ const prixSchema = new Schema({
     },
     "numeroEnqueteur": {
         type: String,
-        required: true,
+        //required: true,
     },
     "isValidated": {
         type: Boolean,

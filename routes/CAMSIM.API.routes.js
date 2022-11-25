@@ -33,25 +33,27 @@ const { addProductById,
   rencherirByIdAndEnchereId, 
   modifyEnchereByIdAndEnchereId, 
   rejeterEnchereByIdAndEnchereId , 
-  addPricesById,
+  addPricesByIdAndMarcheId,
   validatePriceByIdAndPrixId,
   createNewContractById,
-  editContractByIdAndContractId, 
+  editContractByIdAndContractId,
+  applyContractByIdAndContractId, 
   } = require('../controllers/Fonctionnalites.utilisateurs')
 
 const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById } = require('../controllers/API.controller.produit')
-/*
+/** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
 */
 const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller, getAllEnchere, getMyEncheresById } = require('../controllers/API.controller.enchere')
-/*
+/** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour la verification et l'envoi de message a l'utilisateur'
 */
 const { initVerification  , verify} = require('../controllers/API.SMS.controller')
 const { getAnnonceByTimeOrder } = require('../controllers/API.controller.annonce')
-const { getMyContractById } = require('../controllers/API.controller.contract')
+const { getMyContractById , getAllContract } = require('../controllers/API.controller.contract')
+const { Utilisateur } = require('../models/utilisateur.model')
 
 
 /**
@@ -110,7 +112,7 @@ router.get('/unvalidated-price/:nomProduit', getUnvalitedPricesByNameProduct)
   @method POST 
   @role 'sauvegarde des prix collectés par un enqueteur'
 */
-router.post('/add-price/:id', addPricesById)
+router.post('/add-price/:id/:marcheId', addPricesByIdAndMarcheId)
 
 /** 
   @route /validate-prices/:id/:produit
@@ -163,7 +165,7 @@ router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAn
   @method PUT 
   @role 'Modifier un produit'
 */
-router.put("/modify-product-price/:id/produitId", modifyProductPriceByIdAndProduitId)
+router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProduitId)
 
 
 
@@ -180,21 +182,16 @@ router.post("/add-enchere/:id", addEnchereById )
   @method POST
   @role 'Retourner toutes les encheres de la base données' 
 */
-router.get('/all-enchere' , getAllEnchere)
+router.get('/all-encheres' , getAllEnchere)
+
+
 /**
-  @route /all-enchere/:nomEnchere
-  @method GET
-  @role 'l'application utilise cette route pour l'affichage des encheres en fonction du nom de l'enchere'
-*/
-router.get("/all-enchere/:nomEnchere",getAllEnchereByNomEnchere)
-// *success 
-/**
-  @route /particular-encheres/:produit
+  @route /all-encheres/:nomVendeur
   @method GET
   @role 'l'application utilise cette route pour l'affichage des données d'une enchère en fonction du nom de l'enchereur? :('
 */
 router.get("/all-encheres/:nomVendeur", getParticularEnchereByNomSeller)
-// utilisateur rencherir a un enchère  : * success 
+
 /**
   @route /rencherir/:id/enchereId
   @method PATCH
@@ -213,7 +210,7 @@ router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId)
   @method PUT
   @role 'l'application utilise cette route pour le rejet de l'enchere par un utilisateur'
 */
-router.put("/rejeter-enchere/:id", rejeterEnchereByIdAndEnchereId)
+router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId)
 
 /** 
   @route /create-contract/:id
@@ -239,7 +236,7 @@ router.get('/annonce' , getAnnonceByTimeOrder)
 /**
  * @route /myachats/:id /myventes/:id /mycontracts/:id /myencheres/:id
  * @method GET
- * @role 'l'application utilise ces routes pour afficher l'historique d'un utilisateur
+ * @role 'l'application utilise ces routes pour afficher l'historique d'un utilisateur c'est a dire ses ventes , achats , encheres , contracts
 */
 router
   .get('/myachats/:id' , getMyPriceById)
@@ -247,7 +244,29 @@ router
   .get('/mycontracts/:id' , getMyContractById)
   .get('/myencheres/:id' , getMyEncheresById)
 
+/**
+ * @route /all-contracts
+ * @method GET
+ * @role 'l'application utilise ces routes pour afficher tous les contracts crées
+*/
+router
+  .get('/all-contracts' , getAllContract)
 
+/**
+ * @route /all-contracts
+ * @method POST
+ * @role 'l'application utilise cette route pour permettre a un utilisateur de postuler a un contract
+*/
+router  
+  .post('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)
 
+router
+  .get('/users' , async (req , res) =>{
+    res.status(200).json({data : await Utilisateur.find()})
+  })
+router 
+  .get('/user/:id' , async (req , res) =>{
+    res.status(200).json({data : await Utilisateur.findById(req.params.id) })
+  })
 // exportation de l'objet router
 module.exports = router; 

@@ -1,5 +1,6 @@
 const createError = require('http-errors'); // module pour la gestion des erreurs HTTP
 const express = require('express'); // you know 
+const path = require('path');
 const logger = require('morgan'); // module pour les logs des données du front 
 const bodyParser = require('body-parser')// module pour parser json des req client
 const cookieParser = require('cookie-parser')
@@ -22,6 +23,7 @@ const {connectionMongodServer} = require('./config/database.connectMongodb');
 connectionMongodServer()
 
 app
+.set('engine view' , 'ejs')
 .use(cors({
     "origin" : '*',
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -33,10 +35,10 @@ app
     extended :true
 }))
 .use(cookieParser())
-// route de connexion : authentification JWT 
-.all('/',authUserByToken ,(req , res) =>{})
-.all('/logout' , logout)
+// deconnexion de l'utilisateur 
+.use('/logout' , logout) // destruction du token dans l'entete de la requete HTTP 
 .use(logger('dev'))
+//.use('/' , authUserByToken , (request , response) =>{})
 .use('/API',camsimRoutes) // checkAuthUser, // definition de l'objet global camsimRoutes indexant toutes les routes de l'application Web & Mobile
 // catch 404 and forward to error handler
 .use((req, res, next) => {
