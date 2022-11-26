@@ -77,12 +77,7 @@ const contractSchema = new mongoose.Schema({
     timestamps : true,
     
 })
-contractSchema.pre('save' , function(next) {
-    // si la quantite n'est pas un entier 
-    if(isNaN(this.quantite)) throw Error('La quantite doit etre un entier')
-    if(this.type_contract !== TYPE_CONTRACT.METAYAGE || this.type_contract !== TYPE_CONTRACT.FIXED) throw Error('Type de contract invalide')
-    next()
-})
+
 const contractModel = mongoose.model('contract' , contractSchema)
 
 module.exports = contractModel 
