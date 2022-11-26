@@ -13,7 +13,8 @@ module.exports = {
         res.status(200).json({data : await Contract.find()})
     },
     getContractCreateById : async (req , res) =>{
-        if(await Utilisateur.findById(req.params.id))res.status(200).json({data : await Utilisateur.findById(req.params.id).ownContracts})
+        let user = await Utilisateur.findById(req.params.id)
+        if(user)res.status(200).json({data : user.ownContracts})
         else return res.status(401).json({message : 'Utilisateur inconnu'})
     }
 }
