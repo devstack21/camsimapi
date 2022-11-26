@@ -269,7 +269,7 @@ router
  * @role 'l'application utilise cette route pour permettre a un utilisateur de postuler a un contract
 */
 router  
-  .post('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)
+  .patch('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)
 
 router
   .get('/users' , async (req , res) =>{
