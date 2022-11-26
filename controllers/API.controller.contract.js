@@ -1,6 +1,21 @@
 const {Utilisateur} = require('../models/utilisateur.model')
 const Contract = require('../models/contract.model')
 
+
+const getDataContract = async (contractsId) =>{
+    let contracts = []
+    for(id of contractsId){
+        let data = await Contract.findById(id)
+        contracts.push(data)
+    }
+    return new Promise((resolv , reject) =>{
+        resolv(contracts)
+        reject('Erreur')
+    })
+}
+
+
+
 module.exports = {
     // cette fonction permet d'afficher les contracts postulés par l'utilisateur
     getMyContractById : async (req , res) =>{
@@ -21,5 +36,6 @@ module.exports = {
         }
         if(user)res.status(200).json({data : contracts })
         else return res.status(401).json({message : 'Utilisateur inconnu' })
+        
     }
 }

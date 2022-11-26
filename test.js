@@ -1,6 +1,8 @@
-const TYPE_CONTRACT = {
-    FIXED : Symbol('FIXED'),
-    OTHER : Symbol('OTHER')
+let t = {
+    o : 'A'
+}
+let tv = {
+    o : 'B'
 }
 
-console.log(typeof TYPE_CONTRACT);
+if(Object.keys(t) == Object.keys(tv)) console.log(true);

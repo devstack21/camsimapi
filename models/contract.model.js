@@ -1,8 +1,4 @@
 const mongoose = require('mongoose')
-const TYPE_CONTRACT = {
-    VENTE : Symbol('prix_fixe'),
-    METAYAGE : Symbol('metayage')
-}
 
 const contractSchema = new mongoose.Schema({
 

@@ -212,9 +212,9 @@ module.exports = {
 
   // editer ou modifier un contract existant (producteur) :if aucun postulant 
   editContractByIdAndContractId : async (request , response) =>{
-      const {participant} = await Enchere.findById(request.params.contractId) , user = await Utilisateur.findById(request.params.id)
+      const user = await Utilisateur.findById(request.params.id) , {interested} = await Contract.findById(request.params.contractId)
       if(user){
-          if(participant.length == 0){
+          if(interested.length == 0){
               Contract.findByIdAndUpdate(
                 request.params.contractId, request.body,
                 (err, doc) => {
@@ -232,7 +232,7 @@ module.exports = {
   applyContractByIdAndContractId : async (request , response) =>{
     const user = await Utilisateur.findById(request.params.id)
     if(user){
-      if(user.ownContract.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
+      if(user.ownContracts.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
       else {  
             Contract.updateOne({_id : request.params.contractId} ,(err , result) =>{
               if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract S' , err : err})
