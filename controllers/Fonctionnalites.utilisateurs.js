@@ -261,7 +261,10 @@ module.exports = {
     else return response.status(400).json({message : 'Utilisateur inconnu'})
   },
   // cette fonction permet a un producteur de valider la candidature contract d'un consommateur 
-  validContractById : async (req , res) =>{
+  validParticipantContractById : async (req , res) =>{
 
+  },
+  validParticipantEnchereById : async (req , res) =>{
+    
   }
 }

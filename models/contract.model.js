@@ -55,7 +55,8 @@ const contractSchema = new mongoose.Schema({
            date : Date , 
            isOnContract : {
                 type : Boolean,
-                default : false 
+                default : false ,
+                unique : true
            }
         }],
         unique : true 
