@@ -52,7 +52,7 @@ const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller, getAllEncher
 */
 const { initVerification  , verify} = require('../controllers/API.SMS.controller')
 const { getAnnonceByTimeOrder } = require('../controllers/API.controller.annonce')
-const { getMyContractById , getAllContract } = require('../controllers/API.controller.contract')
+const { getMyContractById , getAllContract, getContractCreateById } = require('../controllers/API.controller.contract')
 const { Utilisateur } = require('../models/utilisateur.model')
 
 
@@ -251,6 +251,9 @@ router
 */
 router
   .get('/all-contracts' , getAllContract)
+
+router 
+  .get('/all-contracts/:id' , getContractCreateById) 
 
 /**
  * @route /all-contracts
