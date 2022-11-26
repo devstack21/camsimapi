@@ -5,7 +5,7 @@ module.exports = {
     // cette fonction permet d'afficher les contracts postulés par l'utilisateur
     getMyContractById : async (req , res) =>{
         // on recupère les données par rapport a l'id envoyé par le front end
-        if(await Utilisateur.findById(req.params.id)) res.status(200).json({data : user.contractApply})
+        if(await Utilisateur.findById(req.params.id)) res.status(200).json({data : await Utilisateur.findById(req.params.id).contractApply})
         else return res.status(401).json({message : 'Utilisateur inconnu'})
     },
     // cette fonction permet d'afficher tous les contracts crées par les producteurs et autres acteurs pouvant effectuer cette opération
@@ -13,7 +13,7 @@ module.exports = {
         res.status(200).json({data : await Contract.find()})
     },
     getContractCreateById : async (req , res) =>{
-        if(await Utilisateur.findById(req.params.id))res.status(200).json({data : user.ownContracts})
+        if(await Utilisateur.findById(req.params.id))res.status(200).json({data : await Utilisateur.findById(req.params.id).ownContracts})
         else return res.status(401).json({message : 'Utilisateur inconnu'})
     }
 }
