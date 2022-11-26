@@ -13,8 +13,13 @@ module.exports = {
         res.status(200).json({data : await Contract.find()})
     },
     getContractCreateById : async (req , res) =>{
-        let user = await Utilisateur.findById(req.params.id)
-        if(user)res.status(200).json({data : user.ownContracts})
-        else return res.status(401).json({message : 'Utilisateur inconnu'})
+
+        let user = await Utilisateur.findById(req.params.id) , contracts = []
+        for(id of user.ownContracts){
+            let data = await Contract.findById(id)
+            contracts.push(data)
+        }
+        if(user)res.status(200).json({data : contracts })
+        else return res.status(401).json({message : 'Utilisateur inconnu' })
     }
 }
