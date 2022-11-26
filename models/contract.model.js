@@ -1,4 +1,9 @@
 const mongoose = require('mongoose')
+const TYPE_CONTRACT = {
+    FIXED : Symbol('prix_fixe'),
+    METAYAGE : Symbol('metayage')
+}
+
 const contractSchema = new mongoose.Schema({
 
     // l'id du producteur qui publie le contract
@@ -37,6 +42,7 @@ const contractSchema = new mongoose.Schema({
         type: Number ,
         //required: true, *
     },
+
     description : {
         type : String
     },
@@ -55,6 +61,9 @@ const contractSchema = new mongoose.Schema({
         type : String,
         required : true 
 
+    },
+    superficie : {
+        type : String
     }
 },
 {
@@ -64,6 +73,7 @@ const contractSchema = new mongoose.Schema({
 contractSchema.pre('save' , function(next) {
     // si la quantite n'est pas un entier 
     if(isNaN(this.quantite)) throw Error('La quantite doit etre un entier')
+    if(this.type_contract !== TYPE_CONTRACT.METAYAGE || this.type_contract !== TYPE_CONTRACT.FIXED) throw Error('Type de contract invalide')
     next()
 })
 const contractModel = mongoose.model('contract' , contractSchema)
