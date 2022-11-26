@@ -11,6 +11,9 @@ const contractSchema = new mongoose.Schema({
         type : String,
         
     },
+    ticket : {
+        type : String
+    },
     region : {
         type : String,
         // required : true *
@@ -34,6 +37,9 @@ const contractSchema = new mongoose.Schema({
     quantite: {
         type: Number ,
         //required: true, *
+    },
+    description : {
+        type : Text
     },
     interested : {
         type : [{
