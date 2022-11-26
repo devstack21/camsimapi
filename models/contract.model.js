@@ -7,6 +7,10 @@ const contractSchema = new mongoose.Schema({
         type : String,
         required : true 
     },
+    nomVendeur : {
+        type : String,
+        
+    },
     region : {
         type : String,
         // required : true *
