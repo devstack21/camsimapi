@@ -51,12 +51,15 @@ const contractSchema = new mongoose.Schema({
     },
     interested : {
         type : [{
-           interestedId : String ,
-           date : Date , 
+           interestedId : String , 
            isOnContract : {
                 type : Boolean,
                 default : false ,
                 unique : true
+           },
+           prix : String,
+           username : {
+            type : String
            }
         }],
         unique : true 

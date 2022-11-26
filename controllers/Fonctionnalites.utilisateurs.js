@@ -240,7 +240,7 @@ module.exports = {
       if(user.ownContracts.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
       else {  
         Contract.updateOne({_id : request.params.contractId} , {
-          $push : {interested : { interestedId : request.params.id , date : new Date()}},
+          $push : {interested : { interestedId : request.params.id , username : request.body.username }},
           
         },(err , result) =>{
             if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract'})
@@ -265,6 +265,6 @@ module.exports = {
 
   },
   validParticipantEnchereById : async (req , res) =>{
-    
+
   }
 }
