@@ -15,6 +15,10 @@ const contractSchema = new mongoose.Schema({
         type : String,
         
     },
+    nom : {
+        type : String ,
+        required : true
+    },
     ticket : {
         type : String
     },
