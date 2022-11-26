@@ -103,13 +103,18 @@ module.exports = {
       },
 
       // fonction permettant a l'utlisateur de modifier ou d'editer son enchere : a tester 
-      modifyEnchereByIdAndEnchereId : (req, res) => { 
-        Enchere.findByIdAndUpdate(req.params.enchereId,req.body, (err, result) => {
-          if (err) return res.status(400).json({ status: false });
-          if(!result) return res.status(400).json({message : 'Une erreur est survenue lors de la modification de votre enchère'})
-          else res.status(200).json({ status: true , data : result });
-        } 
-        )
+      modifyEnchereByIdAndEnchereId : async (req, res) => { 
+        const {participant} = await Enchere.findById(req.params.enchereId) 
+        if (participant.length == 0){
+          Enchere.findByIdAndUpdate(req.params.enchereId,req.body, (err, result) => {
+            if (err) return res.status(400).json({ status: false });
+            if(!result) return res.status(400).json({message : 'Une erreur est survenue lors de la modification de votre enchère'})
+            else res.status(200).json({ status: true , data : result });
+          } 
+          )
+        }
+        else return res.status(400).json({message : 'Vous ne pouvez modifier cette enchère car elle a deja des participants'})
+       
       },
 
       // fonction permettant de rejeter une enchere ? qui rejete l"enchere  : a tester 
@@ -223,7 +228,7 @@ module.exports = {
                 }
               ); 
           }
-          else return response.status(200).json({message : 'Vous ne pouvez plus faire une modification sur ce contrat'})
+          else return response.status(200).json({message : 'Vous ne pouvez plus faire une modification sur ce contrat car il a deja des participants'})
       }
       else return response.status(400).json({message : 'Utilisateur inconnu'}) 
   },
@@ -234,29 +239,22 @@ module.exports = {
     if(user){
       if(user.ownContracts.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
       else {  
-            Contract.updateOne({_id : request.params.contractId} ,(err , result) =>{
-              if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract S' , err : err})
-              if(!result) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract'})
-              else {
-
-                Contract.updateOne({_id : request.params.contractId} , {
-                  $push : {interested : { interestedId : request.params.id , date : new Date()}},
-                  
+        Contract.updateOne({_id : request.params.contractId} , {
+          $push : {interested : { interestedId : request.params.id , date : new Date()}},
+          
+        },(err , result) =>{
+            if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract'})
+            if(result.acknowledged){
+                Utilisateur.updateOne({_id : request.params.id} ,{
+                  $push : {contractApply : request.params.contractId}
                 },(err , result) =>{
                     if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract'})
-                    if(result.acknowledged){
-                        Utilisateur.updateOne({_id : request.params.id} ,{
-                          $push : {contractApply : request.params.contractId}
-                        },(err , result) =>{
-                            if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract'})
-                            if(result.acknowledged) response.status(200).json({
-                              message : "Candidature au contrat reussie"
-                            })
-                        })
-                    }
+                    if(result.acknowledged) response.status(200).json({
+                      message : "Candidature au contrat reussie"
+                    })
                 })
-              }
-          })
+            }
+        })
            
       }
     }
