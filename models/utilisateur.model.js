@@ -102,7 +102,7 @@ const utilisateurSchema = new mongoose.Schema({
         unique : true // on definit par défaut une liste 
     },
     // liste propres contracts 
-    "ownContract" : {
+    "ownContracts" : {
         type : [String],
         unique : true
     },

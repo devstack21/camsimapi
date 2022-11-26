@@ -197,7 +197,7 @@ module.exports = {
                 newContract.save((err , result) =>{
                     if(!err) {
                       Utilisateur.updateOne({_id : request.params.id} ,{
-                        $push : {ownContract : newContract._id}
+                        $push : {ownContracts : newContract._id}
                       }, (err , result) =>{
                         if(!err) response.status(200).json({message : 'Creation du contract avec succès' , contractId : newContract._id})
                         else return response.status(400).json({message :'Une erreur est survenue lors de la creation de votre contract' , err : err})
