@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const TYPE_CONTRACT = {
-    FIXED : Symbol('prix_fixe'),
+    VENTE : Symbol('prix_fixe'),
     METAYAGE : Symbol('metayage')
 }
 
@@ -29,6 +29,9 @@ const contractSchema = new mongoose.Schema({
     arrondissement: {
         type: String,
         // required : true *
+    },
+    price : {
+        type : String 
     },
     lieuDit: {
         type: String,
