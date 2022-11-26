@@ -212,6 +212,8 @@ router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId)
 */
 router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId)
 
+
+
 /** 
   @route /create-contract/:id
   @method POST
@@ -247,16 +249,22 @@ router
 /**
  * @route /all-contracts
  * @method GET
- * @role 'l'application utilise ces routes pour afficher tous les contracts crées
+ * @role 'l'application utilise ces routes pour afficher tous les contracts crées pour tous les producteurs et autres 
 */
 router
   .get('/all-contracts' , getAllContract)
 
+
+/**
+ * @route /all-contracts/:id
+ * @method GET
+ * @role 'l'application utilise ces routes pour afficher tous les contracts crées par un utilisateur
+*/
 router 
   .get('/all-contracts/:id' , getContractCreateById) 
 
 /**
- * @route /all-contracts
+ * @route /apply-contracts/:id/:contractId
  * @method POST
  * @role 'l'application utilise cette route pour permettre a un utilisateur de postuler a un contract
 */
