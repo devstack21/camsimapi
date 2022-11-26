@@ -1,4 +1,9 @@
 const mongoose = require('mongoose')
+const { stringify } = require('querystring')
+const TYPE_CONTRACT = {
+    FIXED : Symbol('FIXED'),
+    OTHER : Symbol('OTHER')
+}
 
 const contractSchema = new mongoose.Schema({
 
@@ -39,7 +44,7 @@ const contractSchema = new mongoose.Schema({
         //required: true, *
     },
     description : {
-        type : Text
+        type : String
     },
     interested : {
         type : [{
@@ -51,6 +56,11 @@ const contractSchema = new mongoose.Schema({
            }
         }],
         unique : true 
+    },
+    type_contract : {
+        type : String,
+        required : true 
+
     }
 },
 {

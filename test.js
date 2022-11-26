@@ -1,6 +1,6 @@
-let o = {
-    nom : 'djob'
+const TYPE_CONTRACT = {
+    FIXED : Symbol('FIXED'),
+    OTHER : Symbol('OTHER')
 }
-o['prenom'] = 'lucien'
 
-console.log(o);
+console.log(typeof TYPE_CONTRACT);
