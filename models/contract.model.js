@@ -1,10 +1,4 @@
 const mongoose = require('mongoose')
-const { stringify } = require('querystring')
-const TYPE_CONTRACT = {
-    FIXED : Symbol('FIXED'),
-    OTHER : Symbol('OTHER')
-}
-
 const contractSchema = new mongoose.Schema({
 
     // l'id du producteur qui publie le contract
