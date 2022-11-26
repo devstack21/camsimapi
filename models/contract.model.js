@@ -58,9 +58,7 @@ const contractSchema = new mongoose.Schema({
                 unique : true
            },
            prix : String,
-           username : {
-            type : String
-           }
+           username : String
         }],
         unique : true 
     },
