@@ -72,6 +72,13 @@ const contractSchema = new mongoose.Schema({
     }
 },
 {
+    methods : {
+        getTypesSchemaObject () {
+            return 'contract'
+        }
+    }
+},
+{
     timestamps : true,
     
 })

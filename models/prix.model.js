@@ -46,7 +46,13 @@ const prixSchema = new Schema({
         type: Object,
         required: true,
     },
-}, { timestamps: true })
+}, {
+    methods : {
+        getTypesSchemaObject () {
+            return 'prix'
+        }
+    }
+},{ timestamps: true })
 
 const prixModel = mongoose.model('prix' ,prixSchema)
 module.exports = prixModel

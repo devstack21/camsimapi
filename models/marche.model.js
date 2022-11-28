@@ -37,7 +37,13 @@ const marcheSchema = new Schema({
         type: String,
         required: true, 
     },
-}, { timestamps: true })
+}, {
+    methods : {
+        getTypesSchemaObject () {
+            return 'marche'
+        }
+    }
+},{ timestamps: true })
 
 const marcheModel = mongoose.model('marche' , marcheSchema)
 

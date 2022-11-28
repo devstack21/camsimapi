@@ -62,10 +62,18 @@ const enchereSchema = new Schema({
        // required: true *
     }
 },
-
+{
+    methods : {
+        getTypesSchemaObject () {
+            return 'enchere'
+        }
+    }
+},
 
     { timestamps: true })
 
 const enchereModel = mongoose.model('Enchere' , enchereSchema)
+
+
 
 module.exports = enchereModel

@@ -42,7 +42,13 @@ const produitSchema = new Schema({
         type: String,
         //required: true, *
     },
-}, { timestamps: true })
+}, {
+    methods : {
+        getTypesSchemaObject () {
+            return 'produit'
+        }
+    }
+},{ timestamps: true })
 
 const produitModel = mongoose.model('produit' , produitSchema)
 module.exports = produitModel
