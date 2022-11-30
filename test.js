@@ -1,5 +1,3 @@
-const Enchere = require('./models/enchere.model');
-const { Utilisateur } = require('./models/utilisateur.model');
 
 exports.getDataById = async (object , userObjectIds ) =>{
     let model = object.getTypesSchemaObject() , result = [] , cmpt = 0
@@ -18,4 +16,3 @@ exports.getDataById = async (object , userObjectIds ) =>{
         else resolve(result)
     })
 }
-

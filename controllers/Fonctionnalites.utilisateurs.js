@@ -4,8 +4,8 @@ const Produit = require('../models/produit.model')
 const Marche = require('../models/marche.model')
 const Prix = require('../models/prix.model')
 const Contract = require('../models/contract.model')
-/*
- @global docs 'exportation des differentes fonctions liées aux differents routes de l'application NodeJS
+/** 
+ @global {String} docs 'exportation des differentes fonctions liées aux differents routes de l'application NodeJS
  @Indication 'Pour plus details voir dans le dossier routes : explications de chaque route'
  */
 
@@ -76,9 +76,9 @@ module.exports = {
     rencherirByIdAndEnchereId : async (req, res) => {
       const user = await Utilisateur.findById(req.params.id) ; 
         // verification (use name )
-        if(await Utilisateur.findById(req.params.id)){
-            // si l'enchereId existe 
-            if(user.ownEncheres.includes(req.params.enchereId)) return res.status(400).json({message : 'Vous ne pouvez pas rencherir a cette enchère'})
+        if(user){
+            // si l'utilisateur postule pour sa propre enchère ou s'il existe deja dans la liste des participants
+            if(user.ownEncheres.includes(req.params.enchereId) || participant.filter((result) => {return result.userId == req.params.id }).length !==0 ) return res.status(400).json({message : 'Vous ne pouvez pas rencherir a cette enchère'})
             else {
               Enchere.updateOne({ _id: req.params.enchereId }, {
                 $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme , telephone : req.body.telephone , username : req.body.username} }
@@ -237,7 +237,7 @@ module.exports = {
   applyContractByIdAndContractId : async (request , response) =>{
     const user = await Utilisateur.findById(request.params.id)
     if(user){
-      if(user.ownContracts.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
+      if(user.ownContracts.includes(request.params.contractId) || interested.filter((result) => {return result.interestedId == request.params.id }).length !==0 ) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
       else {  
         Contract.updateOne({_id : request.params.contractId} , {
           $push : {interested : { interestedId : request.params.id , username : request.body.username }},
@@ -261,10 +261,32 @@ module.exports = {
     else return response.status(400).json({message : 'Utilisateur inconnu'})
   },
   // cette fonction permet a un producteur de valider la candidature contract d'un consommateur 
-  validParticipantContractById : async (req , res) =>{
-
+  validParticipantContractByIdAndContractId : async (req , res) =>{
+      const contract = await Contract.findById(req.params.contractId)
+      for (let interested of contract.interested){
+        if(interested.username == req.body.username){
+          interested.isOnContract = false 
+          contract.save((err , result) =>{
+            if(err) return res.status(400).json({message : 'Erreur de validation'})
+            else res.status(200).json({message : `Validation de l'utilisateur ${req.body.username} reussie` , data : result})
+          })
+          break 
+        }
+      }
+      
   },
-  validParticipantEnchereById : async (req , res) =>{
-
+  // cette fonction permet a un producteur de valider la candidature enchère d'un consommateur 
+  validParticipantEnchereByIdAndEnchereId : async (req , res) =>{ 
+    const enchere = await Contract.findById(req.params.enchereId)
+    for (let participant of enchere.participant){
+      if(participant.username == req.body.username){
+        participant.isOnEnchere = true
+        enchere.save((err , result) =>{
+          if(err) return res.status(400).json({message : 'Erreur de validation'})
+          else res.status(200).json({message : `Validation de l'utilisateur ${req.body.username} reussie` , data : result})
+        })
+        break 
+      }
+    }
   }
 }

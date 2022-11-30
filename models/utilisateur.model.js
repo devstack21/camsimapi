@@ -1,5 +1,11 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const TYPE_USER =  {
+    0 : 'user',
+    1 : 'producteur',
+    2 : 'controlleur',
+    3 : 'enqueteur'
+}
 
 const utilisateurSchema = new mongoose.Schema({
     "username": {
@@ -23,6 +29,11 @@ const utilisateurSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    "type_user" : {
+        type : String,
+        required : true ,
+        unique : true     
+    },
     "genre": {
         type: String,
        // required: true, µ
@@ -37,16 +48,6 @@ const utilisateurSchema = new mongoose.Schema({
     },
     "isActive": {
         type: Boolean,
-        default: false,
-    },
-    "enqueteur": {
-        type: Boolean,
-        required: false, // *
-        default: false,
-    },
-    "isController": {
-        type: Boolean,
-        required: false, //*
         default: false,
     },
     "region": {
@@ -96,6 +97,12 @@ const utilisateurSchema = new mongoose.Schema({
         }],
         unique : true
     },
+    // liste de toutes les contracts postulés
+    "contractApply" : {
+        type : [String],
+        unique : true
+    },
+
     // liste propres enchères
     "ownEncheres" : {
         type : [String], // liste de tous les id de ses differentes enchères
@@ -103,11 +110,6 @@ const utilisateurSchema = new mongoose.Schema({
     },
     // liste propres contracts 
     "ownContracts" : {
-        type : [String],
-        unique : true
-    },
-    // liste de toutes les contracts postulés
-    "contractApply" : {
         type : [String],
         unique : true
     },
@@ -140,5 +142,6 @@ const utilisateurModel = mongoose.model('utilisateur' , utilisateurSchema)
 
 module.exports = {
     Utilisateur : utilisateurModel,
-    Schema : utilisateurSchema
+    Schema : utilisateurSchema,
+    TYPE_USER
 }

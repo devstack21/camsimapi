@@ -37,7 +37,9 @@ const { addProductById,
   validatePriceByIdAndPrixId,
   createNewContractById,
   editContractByIdAndContractId,
-  applyContractByIdAndContractId, 
+  applyContractByIdAndContractId,
+  validParticipantContractByIdAndContractId,
+  validParticipantEnchereByIdAndEnchereId, 
   } = require('../controllers/Fonctionnalites.utilisateurs')
 
 const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById } = require('../controllers/API.controller.produit')
@@ -45,7 +47,7 @@ const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getM
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
 */
-const { getAllEnchereByNomEnchere, getParticularEnchereByNomSeller, getAllEnchere, getMyEncheresById } = require('../controllers/API.controller.enchere')
+const { getParticularEnchereByNomSeller, getAllEnchere, getMyEncheresById } = require('../controllers/API.controller.enchere')
 /** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour la verification et l'envoi de message a l'utilisateur'
@@ -136,7 +138,7 @@ router.get('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
 */
 router.get('/all-price/:nomPrice' , getPriceByName)
 
-
+// ----------------------------------------------------------------------------------------------
 
 /**
   @route /add-products/:id
@@ -167,7 +169,7 @@ router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAn
 */
 router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProduitId)
 
-
+// ---------------------------------------------------------------------------------------------------------------
 
 
 /**
@@ -178,7 +180,7 @@ router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProd
 router.post("/add-enchere/:id", addEnchereById )
 
 /**
-  @route /add-enchere/:id
+  @route /add-enchere/
   @method POST
   @role 'Retourner toutes les encheres de la base données' 
 */
@@ -206,13 +208,21 @@ router.patch("/rencherir/:id/:enchereId", rencherirByIdAndEnchereId )
 router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId)
 
 /**
-  @route /rejeter-enchere/:id
+  @route /rejeter-enchere/:id/:enchereId
   @method PUT
   @role 'l'application utilise cette route pour le rejet de l'enchere par un utilisateur'
 */
 router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId)
 
+/**
+  @route /rejeter-enchere/:id/:enchereId
+  @method PUT
+  @role 'l'application utilise cette route pour la valider la candidature d'un utilisateur a une enchere'
 
+*/
+router.put('/valid-enchere/:id/:enchereId' , validParticipantEnchereByIdAndEnchereId)
+
+// ----------------------------------------------------------------------------------------------------------
 
 /** 
   @route /create-contract/:id
@@ -227,24 +237,13 @@ router.post('/create-contract/:id',createNewContractById)
 */
 router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)
 
+
 /** 
-  @route /annonce
-  @method GET
-  @role 'l'application utilise cette route pour afficher les annonces recentes'
+  @route /valid-contract/:id/:contractId
+  @method PUT
+  @role 'l'application utilise cette route pour valider la candidature d'un utilisateur a un contrat'
 */
-router.get('/annonce' , getAnnonceByTimeOrder)
-
-
-/**
- * @route /myachats/:id /myventes/:id /mycontracts/:id /myencheres/:id
- * @method GET
- * @role 'l'application utilise ces routes pour afficher l'historique d'un utilisateur c'est a dire ses ventes , achats , encheres , contracts
-*/
-router
-  .get('/myachats/:id' , getMyPriceById)
-  .get('/myventes/:id' , getMyProductsById)
-  .get('/mycontracts/:id' , getMyContractById)
-  .get('/myencheres/:id' , getMyEncheresById)
+router.put('/valid-contract/:id/:contractId' , validParticipantContractByIdAndContractId)
 
 /**
  * @route /all-contracts
@@ -265,11 +264,34 @@ router
 
 /**
  * @route /apply-contracts/:id/:contractId
- * @method POST
+ * @method PATCH
  * @role 'l'application utilise cette route pour permettre a un utilisateur de postuler a un contract
 */
 router  
   .patch('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)
+
+// -------------------------------------------------------------------------------------------------------------------
+
+/** 
+  @route /annonce
+  @method GET
+  @role 'l'application utilise cette route pour afficher les annonces recentes'
+*/
+router.get('/annonce' , getAnnonceByTimeOrder)
+
+
+/**
+ * @route /myachats/:id /myventes/:id /mycontracts/:id /myencheres/:id
+ * @method GET
+ * @role 'l'application utilise ces routes pour afficher l'historique d'un utilisateur c'est a dire ses ventes , achats , encheres , contracts
+*/
+router
+  .get('/myachats/:id' , getMyPriceById)
+  .get('/myventes/:id' , getMyProductsById)
+  .get('/mycontracts/:id' , getMyContractById)
+  .get('/myencheres/:id' , getMyEncheresById)
+
+
 
 router
   .get('/users' , async (req , res) =>{
@@ -279,5 +301,6 @@ router
   .get('/user/:id' , async (req , res) =>{
     res.status(200).json({data : await Utilisateur.findById(req.params.id) })
   })
+
 // exportation de l'objet router
 module.exports = router; 
