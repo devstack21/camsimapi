@@ -20,6 +20,7 @@ module.exports = {
       },
       getMyProductsById : async (req , res) =>{
         let user = await Utilisateur.findById(req.params.id) , products= []
+        if(!Object.keys(user).includes('ownVentes')) return res.status(400).json({data : []})
         for(id of user.ownVentes){
           let data = await Produit.findById(id)
           products.push(data)
