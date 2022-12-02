@@ -7,7 +7,7 @@ module.exports = {
     getMyContractById : async (req , res) =>{
         // on recupère les données par rapport a l'id envoyé par le front end
         let user = await Utilisateur.findById(req.params.id) , contracts = []
-        if(!Object.keys(user).includes('contractApply')) return res.status(400).json({data : []})
+
         for(id of user.contractApply){
             let data = await Contract.findById(id)
             contracts.push(data)

@@ -50,14 +50,13 @@ module.exports = {
       // mes achats 
       getMyPriceById : async (req , res) =>{
         let user = await Utilisateur.findById(req.params.id)  , prix = []
-        if(Object.keys(user).includes('ownAchats')) return res.status(400).json({data : []})
-        else {
+      
           for(id of user.ownAchats){
             let data = await Prix.findById(id)
             prix.push(data)
           }
           if(user) res.status(200).json({data : prix})
           else return res.status(400).json({message : null})
-        }
+       
       }       
 }
