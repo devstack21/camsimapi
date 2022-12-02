@@ -91,10 +91,7 @@ const utilisateurSchema = new mongoose.Schema({
     },
     // la liste de toutes les enchères rencheries 
     "rencheres":{
-        type :[{
-            enchereId : String,
-            date : Date
-        }],
+        type :[String],
         unique : true
     },
     // liste de toutes les contracts postulés

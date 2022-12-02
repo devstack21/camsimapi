@@ -1,5 +1,5 @@
 const Prix = require('../models/prix.model')
-
+const {Utilisateur} = require('../models/utilisateur.model')
 module.exports = {
 
     getAllPricesByNameProduct : (request, response) => {
