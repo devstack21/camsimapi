@@ -297,7 +297,7 @@ router
   .get('/users' , async (req , res) =>{
     res.status(200).json({data : await Utilisateur.find()})
   })
-router 
+  router 
   .get('/user/:id' , async (req , res) =>{
     res.status(200).json({data : await Utilisateur.findById(req.params.id) })
   })
