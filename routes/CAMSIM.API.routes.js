@@ -288,7 +288,7 @@ router.get('/annonce' , getAnnonceByTimeOrder)
 router
   .get('/myachats/:id' , getMyPriceById)
   .get('/myventes/:id' , getMyProductsById)
-  .get('/mycontracts/:id' , getMyContractById)
+  .get('/mycontrats/:id' , getMyContractById)
   .get('/myencheres/:id' , getMyEncheresById)
 
 

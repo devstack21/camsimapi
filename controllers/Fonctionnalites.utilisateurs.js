@@ -74,7 +74,7 @@ module.exports = {
 
       // fonction permettant & l'utilisateur de rencherir une enchere courante
     rencherirByIdAndEnchereId : async (req, res) => {
-      const user = await Utilisateur.findById(req.params.id) ; 
+      const user = await Utilisateur.findById(req.params.id) , {participant} = await Enchere.findById(req.params.enchereId) 
         // verification (use name )
         if(user){
             // si l'utilisateur postule pour sa propre enchère ou s'il existe deja dans la liste des participants
@@ -87,7 +87,7 @@ module.exports = {
                 if (err) return res.status(400).json({message :'Une erreur est survenue lors de votre operation '});
                 if (result.acknowledged) {
                   Utilisateur.updateOne({_id : req.params.id} , {
-                    $push : {rencheres : { enchereId : req.params.enchereId , date : new Date()} }
+                    $push : {rencheres : req.params.enchereId }
                   }, (err , result) => {
                     if(!err) return res.status(200).json({message : "Enchère acceptée avec succès" , data : result  })
                     else res.status(400).json({message: "Une erreur est survenue lors de votre renchère" })
@@ -235,7 +235,7 @@ module.exports = {
 
   // cette fonction permet a un utilisateur de candidater pour un contract en cours 
   applyContractByIdAndContractId : async (request , response) =>{
-    const user = await Utilisateur.findById(request.params.id)
+    const user = await Utilisateur.findById(request.params.id) , {interested} = await Contract.findById(request.params.contractId)
     if(user){
       if(user.ownContracts.includes(request.params.contractId) || interested.filter((result) => {return result.interestedId == request.params.id }).length !==0 ) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
       else {  

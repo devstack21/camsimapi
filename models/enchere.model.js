@@ -49,7 +49,10 @@ const enchereSchema = new Schema({
             anonyme : Boolean  ,
             telephone : String,
             username : String,
-            isOnEnchere: Boolean
+            isOnEnchere: {
+                type : Boolean,
+                default : false
+            }
         }],
         //required : true* 
         unique : true
