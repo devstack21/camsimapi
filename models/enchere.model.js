@@ -43,17 +43,7 @@ const enchereSchema = new Schema({
     },
 
     "participant": {
-        type: [{
-            userId : String,
-            prix : String,
-            anonyme : Boolean  ,
-            telephone : String,
-            username : String,
-            isOnEnchere: {
-                type : Boolean,
-                default : false
-            }
-        }],
+        type: [Object],
         //required : true* 
         unique : true
     },

@@ -4,6 +4,7 @@ const Produit = require('../models/produit.model')
 const Marche = require('../models/marche.model')
 const Prix = require('../models/prix.model')
 const Contract = require('../models/contract.model')
+const {compareDate} = require('../test')
 /** 
  @global {String} docs 'exportation des differentes fonctions liées aux differents routes de l'application NodeJS
  @Indication 'Pour plus details voir dans le dossier routes : explications de chaque route'
@@ -74,28 +75,37 @@ module.exports = {
 
       // fonction permettant & l'utilisateur de rencherir une enchere courante
     rencherirByIdAndEnchereId : async (req, res) => {
-      const user = await Utilisateur.findById(req.params.id) , {participant} = await Enchere.findById(req.params.enchereId) 
+      const user = await Utilisateur.findById(req.params.id) , enchere = await Enchere.findById(req.params.enchereId)
         // verification (use name )
         if(user){
+
             // si l'utilisateur postule pour sa propre enchère ou s'il existe deja dans la liste des participants
-            if(user.ownEncheres.includes(req.params.enchereId) || participant.filter((result) => {return result.userId == req.params.id }).length !==0 ) return res.status(400).json({message : 'Vous ne pouvez pas rencherir a cette enchère'})
-            else {
-              Enchere.updateOne({ _id: req.params.enchereId }, {
-                $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme , telephone : req.body.telephone , username : req.body.username} }
-            
-              }, (err, result) => {
-                if (err) return res.status(400).json({message :'Une erreur est survenue lors de votre operation '});
-                if (result.acknowledged) {
-                  Utilisateur.updateOne({_id : req.params.id} , {
-                    $push : {rencheres : req.params.enchereId }
-                  }, (err , result) => {
-                    if(!err) return res.status(200).json({message : "Enchère acceptée avec succès" , data : result  })
-                    else res.status(400).json({message: "Une erreur est survenue lors de votre renchère" })
-                  })
-                }
-                // else res.status(200).json({status: false})
-                   
-              })
+            if(user.ownEncheres.includes(req.params.enchereId) ) return res.status(400).json({message : 'Vous ne pouvez pas rencherir a cette enchère'})
+            else 
+            {
+              // si l'utilisateur rencherit après le delai de l'enchere
+              let state = req.body.time == undefined ? true : true 
+              if(compareDate(enchere.dateFin , req.body.time)){
+
+                Enchere.updateOne({ _id: req.params.enchereId }, {
+                  $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme , telephone : req.body.telephone , username : req.body.username , isOnEnchere : false} }
+              
+                }, (err, result) => {
+                  if (err) return res.status(400).json({message :'Une erreur est survenue lors de votre operation '});
+                  if (result.acknowledged) {
+                    Utilisateur.updateOne({_id : req.params.id} , {
+                      $push : {rencheres : req.params.enchereId }
+                    }, (err , result) => {
+                      if(!err) return res.status(200).json({message : "Enchère acceptée avec succès" , data : result  })
+                      else res.status(400).json({message: "Une erreur est survenue lors de votre renchère" })
+                    })
+                  }
+                  // else res.status(200).json({status: false})
+                     
+                })
+              }
+              else {}
+              
             }
         }// end if 
         else return res.status(400).json({mesage : "Utilisateur inconnu"})
@@ -235,12 +245,13 @@ module.exports = {
 
   // cette fonction permet a un utilisateur de candidater pour un contract en cours 
   applyContractByIdAndContractId : async (request , response) =>{
-    const user = await Utilisateur.findById(request.params.id) , {interested} = await Contract.findById(request.params.contractId)
+    const user = await Utilisateur.findById(request.params.id) 
     if(user){
-      if(user.ownContracts.includes(request.params.contractId) || interested.filter((result) => {return result.interestedId == request.params.id }).length !==0 ) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
+      if(user.ownContracts.includes(request.params.contractId)) return response.status(400).json({message : 'Vous ne pouvez pas postuler pour ce contract'})
       else {  
+
         Contract.updateOne({_id : request.params.contractId} , {
-          $push : {interested : { interestedId : request.params.id , username : request.body.username }},
+          $push : {interested : { interestedId : request.params.id , username : request.body.username , prix : request.body.prix , isOnContract: false}},
           
         },(err , result) =>{
             if(err) return response.status(400).json({message : 'Une erreur est survenue lors de votre candidature a ce contract'})

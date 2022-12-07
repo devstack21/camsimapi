@@ -5,11 +5,13 @@ const contractSchema = new mongoose.Schema({
     // l'id du producteur qui publie le contract
     vendeurId : {
         type : String,
-        required : true 
+        required : true ,
+       
     },
     nomVendeur : {
         type : String,
-        
+        required : true ,
+        unique : true  
     },
     nom : {
         type : String ,
@@ -50,17 +52,7 @@ const contractSchema = new mongoose.Schema({
         type : String
     },
     interested : {
-        type : [{
-           interestedId : String , 
-           isOnContract : {
-                type : Boolean,
-                default : false ,
-                unique : true
-           },
-           prix : String,
-           username : String
-        }],
-        unique : true 
+        type : [Object],
     },
     type_contract : {
         type : String,
@@ -83,6 +75,6 @@ const contractSchema = new mongoose.Schema({
     
 })
 
-const contractModel = mongoose.model('contract' , contractSchema)
+const contractModel = mongoose.model('contr' , contractSchema)
 
 module.exports = contractModel 
