@@ -1,7 +1,6 @@
-/*
-    @description 'Ensemble des fonctionnalités qui seront utilisés pour la gestion des erreurs utilisateurs'
+/** 
+    @description 'Ensemble des fonctionnalités qui seront utilisés pour la gestion des erreurs de connexion '
 */
-
 module.exports = {
 
     signInErrors : (err) =>{

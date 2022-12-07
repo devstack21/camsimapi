@@ -1,13 +1,10 @@
 
 const {Utilisateur} = require('../models/utilisateur.model')
 const bcrypt = require('bcrypt')
-const {generateToken , maxAvailable} = require('../utils/jwt.utils')
-const jwt = require('jsonwebtoken')
+const {generateToken , maxAvailable} = require('../modules')
 
 module.exports = {
     signIn : async (request, response) => {
-        
-        try {
           // on recupère des données depuis la base de données 
            const user = await Utilisateur.findOne({username : request.body.username })
            console.log(user);
@@ -22,17 +19,10 @@ module.exports = {
               else return response.status(400).json({message : 'Mot de passe incorrect'})
             })
           }
-          else return response.status(401).json({message :'Creer un compte'})
-
-        } catch (error) {
-          // on arrete le fonction et on envoie une reponse a l'application cliente 
-          return response.status(400).json({message : 'login incorrect'})
-        }
-       
+          else return response.status(401).json({message :'Creer un compte'})   
     },
     signUp : async function (request, response) {
   
-        try {
              // On vérifie l'existence des informations reçues
              const user = await Utilisateur.findOne({ username : request.body.username , telephone : request.body.telephone})
              if(user) return response.status(200).json({message : 'Cet utilisateur existe déja'})
@@ -46,16 +36,10 @@ module.exports = {
                   
                  else throw Error('Erreur survenue lors de l'/'inscription')
                 })
-              }
-
-        } catch (error) {
-            return response.status(400).json({message : error})
-        }
-      
+              }      
       },
       signuProducteur : (req, res) => {
         // On vérifie l'existence des informations reçues
-        try {
           Utilisateur.findOne(
             {
               username: req.body.username , telephone: req.body.telephone 
@@ -75,13 +59,9 @@ module.exports = {
               }
             }
           );
-        } catch (error) {
-          return res.status(400).json({message : error})
-        }
-      
       },
       logout : (request , response) =>{
-        response.cookie('authToken' , {maxAge : 1})
+        //response.cookie('authToken' , {maxAge : 1})
         response.redirect('/')
       },
       

@@ -21,7 +21,6 @@ const utilisateurSchema = new mongoose.Schema({
     "prenom": {
         type: String,
         required: false,
-        unique: false,
     },
    
     "telephone": {
@@ -31,8 +30,7 @@ const utilisateurSchema = new mongoose.Schema({
     },
     "type_user" : {
         type : String,
-        required : true ,
-        unique : true     
+        required : true ,    
     },
     "genre": {
         type: String,
@@ -92,32 +90,26 @@ const utilisateurSchema = new mongoose.Schema({
     // la liste de toutes les enchères rencheries 
     "rencheres":{
         type :[String],
-        unique : true
     },
     // liste de toutes les contracts postulés
     "contractApply" : {
         type : [String],
-        unique : true
     },
 
     // liste propres enchères
     "ownEncheres" : {
         type : [String], // liste de tous les id de ses differentes enchères
-        unique : true // on definit par défaut une liste 
     },
     // liste propres contracts 
     "ownContracts" : {
         type : [String],
-        unique : true
     },
     // lors de creation d'un achat 
     "ownAchats" : {
         type : [String],
-        unique : true 
     },
     "ownVentes" : {
         type : [String],
-        unique : true 
     }
 },{
     methods : {

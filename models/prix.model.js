@@ -44,7 +44,7 @@ const prixSchema = new Schema({
     },
     "marche": {
         type: Object,
-        required: true,
+       // required: true,
     },
 }, {
     methods : {

@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken')
+exports.maxAvailable = 60 * 24 * 60 * 60 * 1000
+
 exports.getDataById = async (object , userObjectIds ) =>{
     let model = object.getTypesSchemaObject() , result = [] , cmpt = 0
     const TYPE_MODEL = require(`./models/${model}.model`) 
@@ -47,3 +50,39 @@ exports.compareDate = (date1 , date2 ) =>
         else return false 
            
     }
+/**
+ * @param {Array } tab
+ * @return {Array} 
+ * @private
+ 
+*/
+exports.getLastDataArray = (tab)=>{
+    let temp = []
+    // les objets nde sont pas si ancien 
+    if(tab.length < 10) {
+        for(let j = 1 ; j<=tab.length  ; j++){
+            temp.push(tab[tab.length - j])
+        }
+        return temp 
+    } 
+    if(tab.length >= 10){
+        for(let i=1 ; i<=10  ; i++){
+                // console.log(tab[tab.length - i]);
+                temp.push(tab[tab.length - i])
+        }
+       return temp 
+    } 
+}
+
+
+/**
+    * @param {String} id 
+    * @return {String}
+    * @private
+*/
+exports.generateToken = (id) =>{
+        return jwt.sign({
+            id : id
+        },
+        process.env.SECRET_TOKEN_DECODE,{expiresIn : this.maxAvailable})
+}

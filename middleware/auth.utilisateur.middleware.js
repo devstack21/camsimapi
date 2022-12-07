@@ -7,7 +7,6 @@ module.exports = {
     checkAuthUser : (request , response , next) =>{
         if(request.method == 'POST' || request.method == 'PUT' || request.method == 'PATCH' ){
             if (Object.keys(request.params).length == 0) {
-            
                 if(Object.keys(request.headers).includes('Authorization')){
                     // verification de sa valeur 
                     if(request.headers['Authorization'].length == 0) return response.status(401).json({message : 'Erreur authentification'})

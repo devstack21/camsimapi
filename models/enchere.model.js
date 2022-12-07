@@ -45,7 +45,6 @@ const enchereSchema = new Schema({
     "participant": {
         type: [Object],
         //required : true* 
-        unique : true
     },
     "dateDebut": {
         type: String,

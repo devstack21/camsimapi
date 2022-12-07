@@ -1,4 +1,5 @@
 const Marche = require('../models/marche.model')
+const Prix = require('../models/prix.model')
 
 module.exports = {
     addPricesById : (req, res) => {

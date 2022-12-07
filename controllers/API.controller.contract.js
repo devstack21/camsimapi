@@ -24,7 +24,8 @@ module.exports = {
         
         for(id of user.ownContracts){
             let data = await Contract.findById(id)
-            contracts.push(data)
+            if(data == null) continue
+            else contracts.push(data)
         }
 
         if(user)res.status(200).json({data : contracts })

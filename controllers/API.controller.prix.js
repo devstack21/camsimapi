@@ -53,7 +53,8 @@ module.exports = {
       
           for(id of user.ownAchats){
             let data = await Prix.findById(id)
-            prix.push(data)
+            if(data == null) continue
+            else prix.push(data)
           }
           if(user) res.status(200).json({data : prix})
           else return res.status(400).json({message : null})
