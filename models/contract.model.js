@@ -66,7 +66,7 @@ const contractSchema = new mongoose.Schema({
 {
     methods : {
         getTypesSchemaObject () {
-            return 'contract'
+            return 'contrat'
         }
     }
 },
@@ -75,6 +75,6 @@ const contractSchema = new mongoose.Schema({
     
 })
 
-const contractModel = mongoose.model('contr' , contractSchema)
+const contractModel = mongoose.model('contrat' , contractSchema)
 
 module.exports = contractModel 

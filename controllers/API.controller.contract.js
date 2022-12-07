@@ -1,6 +1,5 @@
 const {Utilisateur} = require('../models/utilisateur.model')
 const Contract = require('../models/contract.model')
-const {getDataById} = require('../test')
 
 module.exports = {
     // cette fonction permet d'afficher les contracts postulés par l'utilisateur
