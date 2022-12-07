@@ -24,7 +24,7 @@ exports.getDataById = async (object , userObjectIds ) =>{
 */
 exports.compareDate = (date1 , date2 ) =>
     {   
-        if(date1.length == date2.length){
+        if(date1.length == date2.length || typeof date2 !="string"){
             let charac= new String() , characTmp=new String();
             for(let index = 0 ; index <=date1.length-1 ; index ++)
             {

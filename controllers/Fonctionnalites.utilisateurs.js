@@ -5,6 +5,7 @@ const Marche = require('../models/marche.model')
 const Prix = require('../models/prix.model')
 const Contract = require('../models/contract.model')
 const {compareDate} = require('../test')
+const moment = require('moment')()
 /** 
  @global {String} docs 'exportation des differentes fonctions liées aux differents routes de l'application NodeJS
  @Indication 'Pour plus details voir dans le dossier routes : explications de chaque route'
@@ -84,15 +85,16 @@ module.exports = {
             else 
             {
               // si l'utilisateur rencherit après le delai de l'enchere
-              let state = req.body.time == undefined ? true : true 
-              if(compareDate(enchere.dateFin , req.body.time)){
-
+              
+              if(compareDate(enchere.dateFin , moment.format("MM-DD-YYYY"))){
+                //on met a jour les données de l'enchère en inserant les données du participant a savoir son id  , username et autres données
                 Enchere.updateOne({ _id: req.params.enchereId }, {
                   $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme , telephone : req.body.telephone , username : req.body.username , isOnEnchere : false} }
               
                 }, (err, result) => {
                   if (err) return res.status(400).json({message :'Une erreur est survenue lors de votre operation '});
                   if (result.acknowledged) {
+                    // ensuite ici on met a jour les données de 'utilisateur qui a rencherit pour une meilleure traçabilité
                     Utilisateur.updateOne({_id : req.params.id} , {
                       $push : {rencheres : req.params.enchereId }
                     }, (err , result) => {
@@ -104,7 +106,8 @@ module.exports = {
                      
                 })
               }
-              else {}
+              // si le delai est passé alors on envoit ce message d'erreur 
+              else return res.status(400).json({message : "La date limite de cette enchère et depassée"})
               
             }
         }// end if 
