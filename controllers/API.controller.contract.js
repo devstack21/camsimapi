@@ -6,13 +6,17 @@ module.exports = {
     getMyContractById : async (req , res) =>{
         // on recupère les données par rapport a l'id envoyé par le front end
         let user = await Utilisateur.findById(req.params.id) , contracts = []
-
-        for(id of user.contractApply){
-            let data = await Contract.findById(id)
-            contracts.push(data)
+        if(!Object.keys(user).includes('contractApply')) return res.status(200).json({data : []})
+        else {
+            for(id of user.contractApply){
+                let data = await Contract.findById(id)
+                if(data == null )continue
+                else contracts.push(data)
+            }
+            if(user) res.status(200).json({data : contracts})
+            else return res.status(401).json({message : 'Utilisateur inconnu'})
         }
-        if(user) res.status(200).json({data : contracts})
-        else return res.status(401).json({message : 'Utilisateur inconnu'})
+       
     },
     // cette fonction permet d'afficher tous les contracts crées par les producteurs et autres acteurs pouvant effectuer cette opération
     getAllContract : async (req , res) =>{
