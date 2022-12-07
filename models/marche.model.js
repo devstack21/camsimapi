@@ -5,7 +5,6 @@ const marcheSchema = new Schema({
     "nom": {
         type: String,
         required: true,
-        unique: true,
     },
     "latitude": {
         type: Number,
