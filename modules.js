@@ -42,18 +42,8 @@ exports.compareDate = (date1 , date2 ) =>
                     return true
                       
                 }
-    
             }
         }
         else return false 
            
     }
-
-let d1 = "2022-02-30"
-let d2 = "2022-01-21"
-
-let s = this.compareDate(d1 , d2) 
-console.log(s);
-
-let moment = require('moment')
-console.log(moment().format("MM-DD-YYYY"));
