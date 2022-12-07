@@ -4,7 +4,7 @@ const Produit = require('../models/produit.model')
 const Marche = require('../models/marche.model')
 const Prix = require('../models/prix.model')
 const Contract = require('../models/contract.model')
-const {compareDate} = require('../test')
+const {compareDate} = require('../modules')
 const moment = require('moment')()
 /** 
  @global {String} docs 'exportation des differentes fonctions liées aux differents routes de l'application NodeJS
