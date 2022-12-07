@@ -3,6 +3,7 @@ const Contract = require('../models/contract.model')
 
 module.exports = {
     // cette fonction permet d'afficher les contracts postulés par l'utilisateur
+    
     getMyContractById : async (req , res) =>{
         // on recupère les données par rapport a l'id envoyé par le front end
         let user = await Utilisateur.findById(req.params.id) , contracts = []

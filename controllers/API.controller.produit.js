@@ -22,7 +22,8 @@ module.exports = {
         let user = await Utilisateur.findById(req.params.id) , products= []
         for(id of user.ownVentes){
           let data = await Produit.findById(id)
-          products.push(data)
+          if(data == null) continue
+          else products.push(data)
       }
         if(user) res.status(200).json({data : products})
         else return res.status(400).json({message : null})

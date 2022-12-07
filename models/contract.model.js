@@ -6,12 +6,10 @@ const contractSchema = new mongoose.Schema({
     vendeurId : {
         type : String,
         required : true ,
-       
     },
     nomVendeur : {
         type : String,
-        required : true ,
-        unique : true  
+        required : true  
     },
     nom : {
         type : String ,
