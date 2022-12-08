@@ -27,5 +27,38 @@ module.exports = {
       }
         if(user) res.status(200).json({data : products})
         else return res.status(400).json({message : null})
+      },
+        // fonction d'ajout d'un produit (achat vente)
+    addProductById : (req, res) => {
+      Utilisateur.findOne({ username: req.body.nomVendeur, statut: "Producteur" }, (error, producteur) => {
+        // Si une erreur survient
+        if (error) return res.status(400).json({message :'Une erreur est survenue lors de la sauvegarde'});
+        // Si le marché n'existe pas 
+        if (producteur) {
+          //On enregistre le produit
+          const produit = Produit(req.body)
+          produit.save().then(() => {
+            Utilisateur.updateOne({_id : req.params.id} , {
+              $push : {ownVentes : produit._id}
+            },(err , result ) =>{
+              if(err) return res.status(400).json({message : 'Une erreur est survenue lors de la sauvegarde'})
+              if(result.acknowledged) res.status(200).json({message : 'Produit enregistré avec succès' , prixId : produit._id})
+            })
+          })
+        } else {
+          res.status(200).json({ message: "Ce producteur n'est pas repertorié!", status: false });
+        }
+    });
+  },
+  modifyProductPriceByIdAndProduitId : (req, res) => {
+    Produit.findByIdAndUpdate(
+      req.params.produitId, { prix: req.body.prix },
+      (err, doc) => {
+        if (err) return res.status(400).json({message :'Une erreur est survenue lors de la modification'})
+        else res.status(200).json({ status: true , message : "prix modifié avec succès"});
       }
+    );
+  
+  },
+  
 }

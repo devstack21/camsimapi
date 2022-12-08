@@ -16,11 +16,9 @@ const camsimRoutes = require('./routes/CAMSIM.API.routes')
 const  app = express();
 
 // fonction pour les authentification et la deconnexion
-const { authUserByToken, checkAuthUser } = require('./middleware/auth.utilisateur.middleware');
+const {checkAuthUser , checkConnectionApplication  } = require('./middleware/auth.utilisateur.middleware');
+
 const { logout } = require('./controllers/ConnexionApp.controller');
-//lancement de la connexion a la base de donnée mongodb 
-const {connectionMongodServer} = require('./config/database.connectMongodb');
-connectionMongodServer()
 
 app
 .set('engine view' , 'ejs')
@@ -37,6 +35,8 @@ app
 .use(cookieParser())
 // deconnexion de l'utilisateur 
 .use('/logout' , logout) // destruction du token dans l'entete de la requete HTTP 
+.use(checkConnectionApplication)
+
 .use(logger('dev'))
 //.use('/' , authUserByToken , (request , response) =>{})
 .use('/API',camsimRoutes) // checkAuthUser, // definition de l'objet global camsimRoutes indexant toutes les routes de l'application Web & Mobile
@@ -59,6 +59,7 @@ app
 .listen(process.env.PORT , () =>{
     console.log(`Lancement du serveur NODEJS  localement sur le port ${process.env.PORT} `);
 })
+require('./models/utilisateur.model')
 module.exports = app;
 
 

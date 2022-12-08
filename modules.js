@@ -86,3 +86,4 @@ exports.generateToken = (id) =>{
         },
         process.env.SECRET_TOKEN_DECODE,{expiresIn : this.maxAvailable})
 }
+
