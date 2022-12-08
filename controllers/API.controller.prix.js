@@ -1,5 +1,7 @@
 const Prix = require('../models/prix.model')
+const Marche = require('../models/marche.model')
 const {Utilisateur} = require('../models/utilisateur.model')
+
 module.exports = {
 
     getAllPricesByNameProduct : (request, response) => {
@@ -59,5 +61,54 @@ module.exports = {
           if(user) res.status(200).json({data : prix})
           else return res.status(400).json({message : null})
        
-      }       
+      },
+      // ajoute un prix d'un marche donnés
+    addPricesByIdAndMarcheId : (req, res) => {
+        console.log('HELLO PRICE');
+        Marche.findById(req.params.marcheId , (error, marche) => {
+          // Si une erreur survient
+          if (error) return res.status(400).json({message : 'Une erreur est survenue lors de la sauvegarde '});
+          // Si le marché n'existe pas
+          if (marche) {
+            //On enregistre le produit d'un marché donné
+            req.body['marche'] = marche
+            const prix = Prix(req.body)
+            // enregistrement du prix dans la base de données
+            prix.save()
+              .then(() => {
+                Utilisateur.updateOne({_id : req.params.id} , {
+                  $push : {ownAchats : prix._id}
+                },(err , result ) =>{
+                  if(err) return res.status(400).json({message : 'Une erreur est survenue lors de la sauvegarde '})
+                  if(result.acknowledged) res.status(200).json({message : 'Prix enregistré avec succès' , prixId : prix._id})
+                })
+              }).catch((err) => {return res.status(400).json({mesage : 'Une erreur est survenue lors de la sauvegarde S ' , err : err})})
+            
+          } else {
+            res.status(200).json({ message: "Ce marché n'est pas encore repertorié!", status: false });
+          }
+    });
+  }, 
+  // validation du prix du produit par l'utilisateur
+  validatePriceByIdAndPrixId : (req, res) => {
+    if (req.body.prix == undefined) {
+      Prix.findByIdAndUpdate(
+        req.params.prixId, { isValidated: true },
+        (err, doc) => {
+          if (err) res.status(400).json({ message : 'Une erreur est survenue lors de la validation du prix',status: false });
+          else {
+            res.status(200).json({ message : 'Prix validé avec succès',status: true });
+          }
+        }
+      );
+    } else {
+      Prix.findByIdAndUpdate(
+        req.params.prixId, { prix_marche: req.body.prix, isValidated: true },
+        (err, doc) => {
+          if (err) return res.status(400).json({ message : 'Une erreur est survenue lors de la validation du prix', status: false });
+          else res.status(200).json({message : 'Prix validé avec succès', status: true });
+        }
+      );
+    }
+  },      
 }
