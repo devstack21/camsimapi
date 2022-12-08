@@ -1,6 +1,9 @@
 const { Utilisateur } = require('../models/utilisateur.model')
 const objectID = require('mongoose').Types.ObjectId
 const jwt = require('jsonwebtoken')
+const needle = require('needle')
+const {connectionMongodServer} = require('../config/database.connectMongodb')
+let urlRequest = "http://www.supptic.cm"
 
 module.exports = {
   
@@ -27,5 +30,41 @@ module.exports = {
         }
         if(request.url == '/signup' || request.url== '/signin' || request.url=='/signuProducteur' && request.method ==  'POST') next()
         else next()
+    },
+
+
+    checkConnectionApplication : (request , response , next) =>{
+    
+        needle.get(urlRequest , (err , response) =>
+        {
+            if(err) {}
+            // si aucune connexion intenet detectée 
+            if(response == undefined) {
+                process.env.MONGO_URL = "mongodb://localhost:27017/SimBD"
+                setTimeout(() => {
+                    console.log("Tentative de connexion a la base de donnée locale ...");
+                   
+                    connectionMongodServer()
+                }, 4000);
+                
+                next()
+            }
+            
+            else if(response.statusCode == 200){
+                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test"
+                setTimeout(() => {
+                    console.log("Tentative de connexion a la base de donnée distante ...");
+                    connectionMongodServer()
+                }, 4000);
+                
+                next()
+            }
+            else if(response.statusCode == 404){
+                urlRequest = "https://web.whatsapp.com/"
+                this.checkConnectionApplication()
+                next()
+            }
+        })
     }
+
 }

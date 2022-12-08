@@ -116,8 +116,8 @@ const utilisateurSchema = new mongoose.Schema({
         getTypesSchemaObject () {
             return 'utilisateur'
         }
-    }
-}, { timestamps: true })
+    },
+},{ timestamps: true })
 
 // hashage automatique des mdp lorsque la fonction save est utilisée
 utilisateurSchema.pre('save' , async function(next){

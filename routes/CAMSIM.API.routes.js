@@ -21,40 +21,21 @@ const {signIn , signUp, signuProducteur} = require('../controllers/ConnexionApp.
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données et des prix depuis la base de données en fonction de la requete'
 */
-const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById } = require('../controllers/API.controller.prix')
+const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId } = require('../controllers/API.controller.prix')
 
-/**
-  @folder 'Fonction importée depuis le dossier controllers du projet
-  @role 'Ces fonctions sont utilisées pour la mise en place des actions effectuées par l'utilisateur sur l'application'
-*/
-const { addProductById, 
-  addEnchereById, 
-  modifyProductPriceByIdAndProduitId, 
-  rencherirByIdAndEnchereId, 
-  modifyEnchereByIdAndEnchereId, 
-  rejeterEnchereByIdAndEnchereId , 
-  addPricesByIdAndMarcheId,
-  validatePriceByIdAndPrixId,
-  createNewContractById,
-  editContractByIdAndContractId,
-  applyContractByIdAndContractId,
-  validParticipantContractByIdAndContractId,
-  validParticipantEnchereByIdAndEnchereId, 
-  } = require('../controllers/Fonctionnalites.utilisateurs')
-
-const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById } = require('../controllers/API.controller.produit')
+const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById } = require('../controllers/API.controller.produit')
 /** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
 */
-const { getParticularEnchereByNomSeller, getAllEnchere, getMyEncheresById } = require('../controllers/API.controller.enchere')
+const { getParticularEnchereByNomSeller, getAllEnchere, getMyEncheresById, addEnchereById, rencherirByIdAndEnchereId, modifyEnchereByIdAndEnchereId, rejeterEnchereByIdAndEnchereId, validParticipantEnchereByIdAndEnchereId } = require('../controllers/API.controller.enchere')
 /** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour la verification et l'envoi de message a l'utilisateur'
 */
 const { initVerification  , verify} = require('../controllers/API.SMS.controller')
 const { getAnnonceByTimeOrder } = require('../controllers/API.controller.annonce')
-const { getMyContractById , getAllContract, getContractCreateById } = require('../controllers/API.controller.contract')
+const { getMyContractById , getAllContract, getContractCreateById, createNewContractById, editContractByIdAndContractId, validParticipantContractByIdAndContractId, applyContractByIdAndContractId } = require('../controllers/API.controller.contract')
 const { Utilisateur } = require('../models/utilisateur.model')
 
 
@@ -114,14 +95,14 @@ router.get('/unvalidated-price/:nomProduit', getUnvalitedPricesByNameProduct)
   @method POST 
   @role 'sauvegarde des prix collectés par un enqueteur'
 */
-router.post('/add-price/:id/:marcheId', addPricesByIdAndMarcheId)
+router.post('/add-price/:id/:marcheId', addPricesByIdAndMarcheId)//addPricesByIdAndMarcheId)
 
 /** 
   @route /validate-prices/:id/:produit
   @method POST
   @role 'le controleur valide les prix collectés par l'enqueteur'
 */
-router.post('/validate-price/:id/:prixId', validatePriceByIdAndPrixId)
+router.post('/validate-price/:id/:prixId', validatePriceByIdAndPrixId)//validatePriceByIdAndPrixId)
 
 
 /**
@@ -145,7 +126,7 @@ router.get('/all-price/:nomPrice' , getPriceByName)
   @method POST 
   @role 'enregistrements des produits mis en vente par les producteurs'
 */
-router.post("/add-products/:id", addProductById)
+router.post("/add-products/:id", addProductById)//addProductById)
 
 /**
   @route /all-products/:nomProduit
@@ -167,7 +148,7 @@ router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAn
   @method PUT 
   @role 'Modifier un produit'
 */
-router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProduitId)
+router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProduitId) //modifyProductPriceByIdAndProduitId)
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -199,20 +180,20 @@ router.get("/all-encheres/:nomVendeur", getParticularEnchereByNomSeller)
   @method PATCH
   @role 'Validation d'une enchere par un utilisateur '
 */
-router.patch("/rencherir/:id/:enchereId", rencherirByIdAndEnchereId )
+router.patch("/rencherir/:id/:enchereId", rencherirByIdAndEnchereId) //rencherirByIdAndEnchereId )
 /**
   @route /modify-enchere/:id/:enchereId
   @method PUT
   @role 'l'application utilise cette route pour la modification des données d'une enchère'
 */
-router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId)
+router.put('/modify-enchere/:id/:enchereId', modifyEnchereByIdAndEnchereId) //modifyEnchereByIdAndEnchereId)
 
 /**
   @route /rejeter-enchere/:id/:enchereId
   @method PUT
   @role 'l'application utilise cette route pour le rejet de l'enchere par un utilisateur'
 */
-router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId)
+router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId) //rejeterEnchereByIdAndEnchereId)
 
 /**
   @route /rejeter-enchere/:id/:enchereId
@@ -220,7 +201,7 @@ router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId)
   @role 'l'application utilise cette route pour la valider la candidature d'un utilisateur a une enchere'
 
 */
-router.put('/valid-enchere/:id/:enchereId' , validParticipantEnchereByIdAndEnchereId)
+router.put('/valid-enchere/:id/:enchereId' , validParticipantEnchereByIdAndEnchereId) //validParticipantEnchereByIdAndEnchereId)
 
 // ----------------------------------------------------------------------------------------------------------
 
@@ -229,13 +210,13 @@ router.put('/valid-enchere/:id/:enchereId' , validParticipantEnchereByIdAndEnche
   @method POST
   @role 'l'application utilise cette route pour la creation d'un nouveau contract'
 */
-router.post('/create-contract/:id',createNewContractById)
+router.post('/create-contract/:id', createNewContractById) //createNewContractById)
 /** 
   @route /edit-contract/:id/:contractId
   @method PUT
   @role 'l'application utilise cette route pour modifier un contract'
 */
-router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)
+router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)//editContractByIdAndContractId)
 
 
 /** 
@@ -243,7 +224,7 @@ router.put('/edit-contract/:id/:contractId' , editContractByIdAndContractId)
   @method PUT
   @role 'l'application utilise cette route pour valider la candidature d'un utilisateur a un contrat'
 */
-router.put('/valid-contract/:id/:contractId' , validParticipantContractByIdAndContractId)
+router.put('/valid-contract/:id/:contractId' , validParticipantContractByIdAndContractId) //validParticipantContractByIdAndContractId)
 
 /**
  * @route /all-contracts
@@ -268,7 +249,7 @@ router
  * @role 'l'application utilise cette route pour permettre a un utilisateur de postuler a un contract
 */
 router  
-  .patch('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)
+  .patch('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)//applyContractByIdAndContractId)
 
 // -------------------------------------------------------------------------------------------------------------------
 
