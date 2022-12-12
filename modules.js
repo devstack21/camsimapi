@@ -1,6 +1,11 @@
 const jwt = require('jsonwebtoken')
 exports.maxAvailable = 60 * 24 * 60 * 60 * 1000
-
+/**
+ * @param {Object} object
+ * @param {Array} userObjectIds
+ * @return {Promise}
+ * @public
+*/
 exports.getDataById = async (object , userObjectIds ) =>{
     let model = object.getTypesSchemaObject() , result = [] , cmpt = 0
     const TYPE_MODEL = require(`./models/${model}.model`) 
