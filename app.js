@@ -59,7 +59,7 @@ app
 .listen(process.env.PORT , () =>{
     console.log(`Lancement du serveur NODEJS  localement sur le port ${process.env.PORT} `);
 })
-require('./models/utilisateur.model')
+
 module.exports = app;
 
 
