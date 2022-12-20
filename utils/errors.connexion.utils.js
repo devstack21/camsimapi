@@ -4,9 +4,9 @@
 module.exports = {
 
     signInErrors : (err) =>{
-        let errors = {pseudo : '' , email : '', password : '' , numero : ''};
+        let errors = {};
     
-        if (err.message.includes('nom')) errors.pseudo = 'le champ nom doit etre remplit';
+        if (err.message.includes('nom')) errors.nom = 'le champ nom doit etre remplit';
     
         if (err.message.includes('username')) errors.username = 'le champ username doit etre remplit';
 
