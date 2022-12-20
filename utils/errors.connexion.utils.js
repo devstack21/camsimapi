@@ -40,15 +40,5 @@ module.exports = {
     
         return errors;
     },
-    loginErrors : (err ) =>{
-        let errors = {}
-        return errors 
-    }
-    ,
-    loginErrors : (err) =>{
-        let errors = {}
-        if(err.message.includes('username') ) errors.username = 'Le champ username doit etre remplit'
-        if(err.message.includes('password'))  errors.password='Le champ password doit etre remplit'
-        return errors
-    }
+   
 }
