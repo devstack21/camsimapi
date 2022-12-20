@@ -2,26 +2,53 @@
     @description 'Ensemble des fonctionnalités qui seront utilisés pour la gestion des erreurs de connexion '
 */
 module.exports = {
-    // verification de la taille numero de telephone , si un des elements est une chaine de caractère 
+
     signInErrors : (err) =>{
         let errors = {pseudo : '' , email : '', password : '' , numero : ''};
     
-        if (err.message.includes('nom')) errors.pseudo = 'pseudo incorrect';
+        if (err.message.includes('pseudo')) errors.pseudo = 'pseudo incorrect';
     
-        if (err.message.includes('email')) errors.pseudo = 'email incorrect';
-    
-        if (err.message.includes('password')) errors.password = 'password must have 10 character';
-    
-        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('pseudo')) errors.pseudo = 'email already exist ';
+        if (err.message.includes('username')) errors.username = 'le champ username doit etre remplit';
+
+        if (err.message.includes('mdp')) errors.password = 'Le champ mot de passe doit etre remplit ';
+
+        if (err.message.includes('prenom')) errors.prenom = 'le champ prenom doit etre remplit';
         
-        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('email')) errors.pseudo = 'pseudo already exist ';
+        if(err.message.includes('telephone')) errors.telephone = 'le champ telephone doit etre remplit'
+        
+        if (err.message.includes('genre')) errors.password = 'le champ genre doit etre remplit';
+        
+        if (err.message.includes('statut')) errors.statut = 'le champ statut doit etre remplit';
+
+        if (err.message.includes('region')) errors.region = 'le champ region doit etre remplit';
+        
+        if (err.message.includes('departement')) errors.statut = 'le champ departement doit etre remplit';
+
+        if (err.message.includes('arrondissement')) errors.arrondissement = 'le champ arrondissement doit etre remplit';
+
+        if (err.message.includes('lieuDit')) errors.lieuDit = 'le champ lieu-dit doit etre remplit';
+
+        
+        // gestion des erreurs de duplication des données 
+        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('nom')) errors.nom = 'ce nom existe déja dans la base donnée';
+        
+        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('username')) errors.username = 'ce nom utilisateur existe deja dans la base de donnée';
+         
+        if(err.code == 11000 && Object.keys(err.keyValue)[0].includes('telephone')) errors.telephone = 'Ce numéro existe deja dans la base de donnée'
     
-        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('password')) errors.pseudo = 'password already exist ';
+        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('mdp')) errors.pseudo = 'ce mot de passe existe deja dans la base donnée ';
     
         return errors;
     },
     loginErrors : (err ) =>{
         let errors = {}
         return errors 
+    }
+    ,
+    loginErrors : (err) =>{
+        let errors = {}
+        if(err.message.includes('username') ) errors.username = 'Le champ username doit etre remplit'
+        if(err.message.includes('password'))  errors.password='Le champ password doit etre remplit'
+        return errors
     }
 }

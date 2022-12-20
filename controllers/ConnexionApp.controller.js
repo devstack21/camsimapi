@@ -1,44 +1,40 @@
 
 const {Utilisateur} = require('../models/utilisateur.model')
 const bcrypt = require('bcrypt')
-const {generateToken , maxAvailable} = require('../modules')
+const {generateToken} = require('../modules')
+// methode pour la gestion des erreurs de connexion
+const {signUpErrors } = require('../utils/errors.connexion.utils')
 
 module.exports = {
     signIn : async (request, response) => {
-          // on recupère des données depuis la base de données 
-           const user = await Utilisateur.findOne({username : request.body.username })
-           console.log(user);
-          // si l'utilisateur existe 
-          if(user){
+         
+        // on recupère des données depuis la base de données 
+        const user = await Utilisateur.findOne({username : request.body.username })
+        
+        // si l'utilisateur existe 
+        if(user){
             bcrypt.compare(request.body.mdp , user.mdp , (err , result) =>{
+              
               if(err) return res.status(400).json({message : 'Mot de passe incorrect'})
-              if (result) {
-                // response.cookie('authToken', generateToken(user._id) , {httpOnly : true , maxAge : maxAvailable})
-                response.status(200).json({message : 'Connexion reussie' , token :generateToken(user._id) , data : user})
-              }
+              if (result) response.status(200).json({message : 'Connexion reussie' , token :generateToken(user._id) , data : user})
               else return response.status(400).json({message : 'Mot de passe incorrect'})
-            })
+              })
           }
-          else return response.status(401).json({message :'Creer un compte'})   
+        else return response.status(401).json({message :'Veuillez creer compte'}) 
+         
     },
-    signUp : async function (request, response) {
-  
-             // On vérifie l'existence des informations reçues
-             const user = await Utilisateur.findOne({ username : request.body.username , telephone : request.body.telephone})
-             if(user) return response.status(200).json({message : 'Cet utilisateur existe déja'})
-
-             else {
-
-                const newUser = new Utilisateur(request.body)
-                // save new user 
-                newUser.save((err , docs) =>{
-                  if(!err) response.status(200).json({message : 'Inscription reussie' , id : docs._id})
-                  
-                 else throw Error('Erreur survenue lors de l'/'inscription')
-                })
-              }      
+    
+    signUp: async (request , response ) =>{
+            const user = await Utilisateur.findOne({username : request.body.username , telephone : request.body.telephone ,})
+            if(user) return response.status(200).json({message :  'Cet utilisateur existe déja'})
+            else {
+              const newUser = Utilisateur(request.body)
+              newUser.save()
+                .then(() => response.status(200).json({message : "Inscription reussie avec succès", _id : newUser._id}))
+                .catch((err) => response.status(400).json({message : signUpErrors(err) }))
+            }
       },
-      signuProducteur : (req, res) => {
+    signuProducteur : (req, res) => {
         // On vérifie l'existence des informations reçues
           Utilisateur.findOne(
             {
@@ -62,6 +58,7 @@ module.exports = {
       },
       logout : (request , response) =>{
         //response.cookie('authToken' , {maxAge : 1})
+        // delete token in request?header
         response.redirect('/')
       },
       

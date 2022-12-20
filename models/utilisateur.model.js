@@ -15,7 +15,7 @@ const utilisateurSchema = new mongoose.Schema({
     },
     "nom": {
         type: String,
-       // required: true, *
+       required: true,
         unique: false,
     },
     "prenom": {
@@ -25,12 +25,12 @@ const utilisateurSchema = new mongoose.Schema({
    
     "telephone": {
         type: String,
-        required: true,
+        required: true , 
         unique: true,
     },
     "type_user" : {
         type : String,
-        required : true ,    
+        //required : true ,    
     },
     "genre": {
         type: String,
@@ -38,7 +38,7 @@ const utilisateurSchema = new mongoose.Schema({
     },
     "mdp": {
         type: String,
-        required: true,
+        required: true ,
     },
     "statut": {
         type: String,
