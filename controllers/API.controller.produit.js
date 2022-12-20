@@ -1,6 +1,8 @@
 const Produit = require('../models/produit.model')
 const { Utilisateur } = require('../models/utilisateur.model')
 
+// rechercher un produit dans un marché donné
+
 module.exports = {
     getAllProductByNomProduct : (req, res) => {
         Produit.find({ nom: req.params.nomProduit })

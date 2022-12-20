@@ -4,6 +4,7 @@ const {Utilisateur} = require('../models/utilisateur.model')
 
 module.exports = {
 
+    // rechercher un produit dans un marché donné 
     getAllPricesByNameProduct : (request, response) => {
   
         Prix.find({ nom: request.params.nomProduit, isValidated: true })
