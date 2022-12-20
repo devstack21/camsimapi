@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken')
 const needle = require('needle')
 const {connectionMongodServer} = require('../config/database.connectMongodb')
 let urlRequest = "http://www.supptic.cm"
-<<<<<<< HEAD
+
 /**
  * @description 'Ces methodes permettent de gerer les autorisations et la connexion a la base de données  '
 */
-=======
+
 //.env=mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test
 
->>>>>>> master
+
 module.exports = {
     checkAuthUser : (request , response , next) =>{
         if(request.method == 'POST' || request.method == 'PUT' || request.method == 'PATCH' ){
