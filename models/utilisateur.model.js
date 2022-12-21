@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const TYPE_USER =  {
-    0 : 'user',
+    0 : 'consommateur',
     1 : 'producteur',
     2 : 'controlleur',
     3 : 'enqueteur'
@@ -28,6 +28,7 @@ const utilisateurSchema = new mongoose.Schema({
         required: true , 
         unique: true,
     },
+    // type d'un utilisateur cad si il est producteur - consommateur etc .. 
     "type_user" : {
         type : String,
         //required : true ,    
@@ -64,6 +65,7 @@ const utilisateurSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    
     "departementPl": {
         type: String,
         default: "",
@@ -76,38 +78,42 @@ const utilisateurSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+
     "lieuDit": {
         type: String,
     },
+    // liste de marché de preference 
     "preferencesMarches": {
         type: Array,
         default: [],
     },
+    // categorie de produit :huile cacao etc 
     "categorie": {
         type: Array,
        // required : true, *
     },
-    // la liste de toutes les enchères rencheries 
+    // la liste de toutes les enchères rencheries par this utilisateur 
     "rencheres":{
         type :[String],
     },
-    // liste de toutes les contracts postulés
+    // liste de toutes les contracts postulés a this utilisateur 
     "contractApply" : {
         type : [String],
     },
 
-    // liste propres enchères
+    // liste des enchères propres a this utilisateur 
     "ownEncheres" : {
         type : [String], // liste de tous les id de ses differentes enchères
     },
-    // liste propres contracts 
+    // liste des contracts propres a this utilisateur 
     "ownContracts" : {
         type : [String],
     },
-    // lors de creation d'un achat 
+    // liste des achats propres a this utilisateur
     "ownAchats" : {
         type : [String],
     },
+    // liste des ventes propres a this utilisateur 
     "ownVentes" : {
         type : [String],
     }

@@ -25,8 +25,11 @@ module.exports = {
     },
     
     signUp: async (request , response ) =>{
-            const user = await Utilisateur.findOne({username : request.body.username , telephone : request.body.telephone ,})
-            if(user) return response.status(200).json({message :  'Cet utilisateur existe déja'})
+            const user = await Utilisateur.findOne({username : request.body.username , telephone : request.body.telephone })
+            if(user) {
+              console.log("mince");
+              return response.status(400).json({message :  'Cet utilisateur existe déja'})
+            }
             else {
               const newUser = Utilisateur(request.body)
               newUser.save()

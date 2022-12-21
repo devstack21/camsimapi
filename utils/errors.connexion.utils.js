@@ -3,7 +3,7 @@
 */
 module.exports = {
 
-    signInErrors : (err) =>{
+    signUpErrors : (err) =>{
         let errors = {};
     
         if (err.message.includes('nom')) errors.nom = 'le champ nom doit etre remplit';
@@ -16,13 +16,13 @@ module.exports = {
         
         if(err.message.includes('telephone')) errors.telephone = 'le champ telephone doit etre remplit'
         
-        if (err.message.includes('genre')) errors.password = 'le champ genre doit etre remplit';
+        if (err.message.includes('genre')) errors.genre = 'le champ genre doit etre remplit';
         
         if (err.message.includes('statut')) errors.statut = 'le champ statut doit etre remplit';
 
         if (err.message.includes('region')) errors.region = 'le champ region doit etre remplit';
         
-        if (err.message.includes('departement')) errors.statut = 'le champ departement doit etre remplit';
+        if (err.message.includes('departement')) errors.departement = 'le champ departement doit etre remplit';
 
         if (err.message.includes('arrondissement')) errors.arrondissement = 'le champ arrondissement doit etre remplit';
 
@@ -36,7 +36,7 @@ module.exports = {
          
         if(err.code == 11000 && Object.keys(err.keyValue)[0].includes('telephone')) errors.telephone = 'Ce numéro existe deja dans la base de donnée'
     
-        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('mdp')) errors.pseudo = 'ce mot de passe existe deja dans la base donnée ';
+        if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('mdp')) errors.password = 'ce mot de passe existe deja dans la base donnée ';
     
         return errors;
     },

@@ -52,7 +52,7 @@ module.exports = {
                 next()
             }
              else if(response.statusCode == 200){
-                process.env.MONGO_URL = "mongodb://localhost:27017/SimBD" //mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test
+                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test"
                 setTimeout(() => {
                     console.log("Tentative de connexion a la base de donnée locale SIMBD ...");
                     connectionMongodServer()
