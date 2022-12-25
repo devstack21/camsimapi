@@ -1,6 +1,13 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+// les differents type de qualité de l'huile 
+exports.TYPE_PRODUIT = {
+    0 : "premier choix",
+    1 : "deuxieme choix",
+    2 : "troisieme choix "
+}
+
 const produitSchema = new Schema({
     "nom": {
         type: String,

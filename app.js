@@ -4,6 +4,9 @@ const path = require('path');
 const logger = require('morgan'); // module pour les logs des données du front 
 const bodyParser = require('body-parser')// module pour parser json des req client
 const cookieParser = require('cookie-parser')
+const session = require('express-session') // module pour gerer la session d'utilisation d'un utilisateur dans l'application 
+const {maxAvailable} = require('./modules')
+
 // definition des variables d'environnement 
 require('dotenv').config({path : './config/.env'})
 const cors = require('cors') // module porur la configuration des accèes au serveur 
@@ -21,7 +24,6 @@ const {checkAuthUser , checkConnectionApplication  } = require('./middleware/aut
 const { logout } = require('./controllers/ConnexionApp.controller');
 
 app
-.set('engine view' , 'ejs')
 .use(cors({
     "origin" : '*',
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -33,6 +35,18 @@ app
     extended :true
 }))
 .use(cookieParser())
+.use(session ({
+    // store : store_session,
+    secret : process.env.SECRET_SESSION,
+    cookie : {
+        maxAge : maxAvailable,
+        resave: true,
+        saveUninitialized: true,
+        httpOnly : true,
+        secure : false
+    },
+    
+}))
 // deconnexion de l'utilisateur 
 .use('/logout' , logout) // destruction du token dans l'entete de la requete HTTP 
 .use(checkConnectionApplication)
@@ -55,7 +69,6 @@ app
     res.render('error');
     next()
 })
-
 .listen(process.env.PORT , () =>{
     console.log(`Lancement du serveur NODEJS  localement sur le port ${process.env.PORT} `);
 })

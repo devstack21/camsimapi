@@ -3,7 +3,7 @@ exports.maxAvailable = 60 * 24 * 60 * 60 * 1000
 /**
  * @param {Object} object
  * @param {Array} userObjectIds
- * @return {Promise}
+ * @returns {Promise}
  * @public
 */
 exports.getDataById = async (object , userObjectIds ) =>{
@@ -27,7 +27,7 @@ exports.getDataById = async (object , userObjectIds ) =>{
 /**
  * @param {String} date1
  * @param {String} date2
- * @return {Boolean}
+ * @returns {Boolean}
  * @public
 */
 exports.compareDate = (date1 , date2 ) =>
@@ -57,8 +57,8 @@ exports.compareDate = (date1 , date2 ) =>
     }
 /**
  * @param {Array } tab
- * @return {Array} 
- * @private
+ * @returns {Array} 
+ * @public
  
 */
 exports.getLastDataArray = (tab)=>{
@@ -82,8 +82,8 @@ exports.getLastDataArray = (tab)=>{
 
 /**
     * @param {String} id 
-    * @return {String}
-    * @private
+    * @returns {String}
+    * @public
 */
 exports.generateToken = (id) =>{
         return jwt.sign({
@@ -91,4 +91,15 @@ exports.generateToken = (id) =>{
         },
         process.env.SECRET_TOKEN_DECODE,{expiresIn : this.maxAvailable})
 }
-
+/**
+ * @param {Object} globalType 
+ * @param {String} typeObject
+ * @returns {Object}
+ * @public
+*/
+exports.checkTypeObject = (globalType , typeObject ) =>{
+        for(let index in globalType){
+            if(globalType[index] === typeObject || globalType[index].toLowerCase() == typeObject.toLowerCase()) return {status : true , index : index}
+        }
+        return {status : false , index:undefined} 
+}

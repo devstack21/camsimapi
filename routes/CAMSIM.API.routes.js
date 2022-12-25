@@ -37,6 +37,8 @@ const { initVerification  , verify} = require('../controllers/API.SMS.controller
 const { getAnnonceByTimeOrder } = require('../controllers/API.controller.annonce')
 const { getMyContractById , getAllContract, getContractCreateById, createNewContractById, editContractByIdAndContractId, validParticipantContractByIdAndContractId, applyContractByIdAndContractId } = require('../controllers/API.controller.contract')
 const { Utilisateur } = require('../models/utilisateur.model')
+const { changeStateUser } = require('../controllers/API.controller.changeState')
+const { getAllMarche, getMarcheOnlyName } = require('../controllers/API.controller.marche')
 
 
 /**
@@ -282,6 +284,26 @@ router
   .get('/user/:id' , async (req , res) =>{
     res.status(200).json({data : await Utilisateur.findById(req.params.id) })
   })
+
+
+/**
+ * @route /change-state/:id
+ * @method PUT 
+ * @role 'l'application utilise cette route pour l'etat d'un utilisateur 
+*/
+router.put('/change-state/:id' , changeStateUser)
+/**
+ * @route /get-marche
+ * @method GET 
+ * @role 'l'application utilise cette route pour envoyer les données des marchés enregistrés 
+*/
+router.get('/get-marche' , getAllMarche )
+/**
+ * @route /get-marche/nom
+ * @method GET 
+ * @role 'l'application utilise cette route pour recuperer les marchés en fonction du nom 
+*/
+router.get('/get-marche/nom ' , getMarcheOnlyName)
 
 // exportation de l'objet router
 module.exports = router; 

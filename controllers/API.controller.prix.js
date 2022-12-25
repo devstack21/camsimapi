@@ -1,6 +1,7 @@
 const Prix = require('../models/prix.model')
 const Marche = require('../models/marche.model')
-const {Utilisateur} = require('../models/utilisateur.model')
+const { Utilisateur, TYPE_USER } = require('../models/utilisateur.model')
+const {checkTypeObject} = require('../modules')
 
 module.exports = {
 
@@ -13,7 +14,7 @@ module.exports = {
           })
           .catch((error) => { response.status(500).send(error) })
       },
-      getUnvalitedPricesByNameProduct : (req, res) => {
+    getUnvalitedPricesByNameProduct : (req, res) => {
         //On récupère les prix en attente de validation dans la bd pour les envoyer à l'application mobile
         Prix.find({ nom: req.params.nomProduit, isValidated: false })
           .then((prix) => {
@@ -22,7 +23,7 @@ module.exports = {
           .catch((error) => { res.status(500).json(error) })
       },
 
-      getAllPriceByHuileAndFilter : (req, res) => {
+    getAllPriceByHuileAndFilter : (req, res) => {
         //On récupère les prix de la bd pour les envoyer à l'application mobile
         Prix.findOne({ conditionnement: req.body.conditions, marche: req.body.marche })
           .then((prix) => {
@@ -34,7 +35,7 @@ module.exports = {
             res.status(500).send(error);
           });
       },
-      getAllPrice : async (req , res) =>{
+    getAllPrice : (req , res) =>{
             //On récupère les prix validés de la bd pour les envoyer à l'application mobile
           Prix.find()
           .then((prix) => {
@@ -45,13 +46,13 @@ module.exports = {
           });
           
       },
-      getPriceByName : (req , res) =>{
+    getPriceByName : (req , res) =>{
           Prix.findOne({nom : req.params.namePrice})
           .then((data) => res.status(200).json({data : data}))
           .catch((err) => res.status(400).json({message : err}))
       },
       // mes achats 
-      getMyPriceById : async (req , res) =>{
+    getMyPriceById : async (req , res) =>{
         let user = await Utilisateur.findById(req.params.id)  , prix = []
       
           for(id of user.ownAchats){
@@ -65,7 +66,6 @@ module.exports = {
       },
       // ajoute un prix d'un marche donnés
     addPricesByIdAndMarcheId : (req, res) => {
-        console.log('HELLO PRICE');
         Marche.findById(req.params.marcheId , (error, marche) => {
           // Si une erreur survient
           if (error) return res.status(400).json({message : 'Une erreur est survenue lors de la sauvegarde '});
@@ -90,7 +90,7 @@ module.exports = {
           }
     });
   }, 
-  // validation du prix du produit par l'utilisateur
+  // cette methode permet a un controllerur de valider les prix 
   validatePriceByIdAndPrixId : (req, res) => {
     if (req.body.prix == undefined) {
       Prix.findByIdAndUpdate(
@@ -111,5 +111,39 @@ module.exports = {
         }
       );
     }
-  },      
+  }, 
+  createNewProductByInvestigator : (req , res) =>{
+    // user must be enqueteur 
+    // user id send
+    let {type_user} = Utilisateur.findById(req.params.id)
+    if(type_user.length == 0 ) return res.status(200).json({message : "Vous n'etes pas un acteur de cette application"})
+    else {
+        if(checkTypeObject(TYPE_USER , type_user).status){
+            if(TYPE_USER[checkTypeObject(TYPE_USER , type_user).index] == "Enqueteur"){
+              // recolte des donnée possibles
+              const produit = Prix(req.body) 
+              produit.save()
+              .then(() => {return res.status(200).json({message : "Enregistrement reussie "})})
+              .catch((err) => {return res.status(200).json({message : "Une erreur est survenue lors de l'enregistrement du produit"})})
+            }
+            else return res.status(200).json({message : "Veuillez changer votre etat en tant qu'enqueteur "})
+        }
+        else return res.status(200).json({message : "Vous n'etes pas un acteur de cette application"})
+    }
+  },
+  // cette methode permet a un controleur de valider un produit collecté par un enqueteur 
+  validProductByControler : (req , res) =>{
+    let {type_user} = Utilisateur.findById(req.params.id)
+    if(type_user.length == 0) return res.status(200).json({message : "Vous n'etes pas un acteur de cette application"})
+    else {
+        if(checkTypeObject(TYPE_USER , type_user).status){
+          if(TYPE_USER[checkTypeObject(TYPE_USER , type_user).index] == "Controleur"){
+
+          }
+          else {}
+        }
+        else {}
+    }
+  }
+
 }

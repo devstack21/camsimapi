@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
-const TYPE_USER =  {
-    0 : 'consommateur',
-    1 : 'producteur',
-    2 : 'controlleur',
-    3 : 'enqueteur'
+const TYPE_USER = {
+    0 : "Consommateur",
+    1 : "Producteur",
+    2 : "Enqueteur",
+    3 : "Controleur",
+    4 : "Revendeur"
 }
 
 const utilisateurSchema = new mongoose.Schema({
@@ -31,6 +32,7 @@ const utilisateurSchema = new mongoose.Schema({
     // type d'un utilisateur cad si il est producteur - consommateur etc .. 
     "type_user" : {
         type : String,
+        default : ""
         //required : true ,    
     },
     "genre": {

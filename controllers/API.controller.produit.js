@@ -1,5 +1,6 @@
 const Produit = require('../models/produit.model')
-const { Utilisateur } = require('../models/utilisateur.model')
+const { Utilisateur, TYPE_USER } = require('../models/utilisateur.model')
+const {checkTypeObject} = require('../modules')
 
 // rechercher un produit dans un marché donné
 
@@ -62,5 +63,6 @@ module.exports = {
     );
   
   },
+
   
 }

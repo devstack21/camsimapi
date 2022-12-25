@@ -40,5 +40,10 @@ module.exports = {
     
         return errors;
     },
+
+    // methode de gestion d'erreur des enqueteur 
+    createProductByInvestigatorError : (err) =>{
+            // add differents champs 
+    }
    
 }

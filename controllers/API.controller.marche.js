@@ -25,5 +25,8 @@ module.exports = {
       },
       getAllMarche : async (req , res) =>{
         res.status(200).json({data : await Marche.find()})
+      },
+      getMarcheOnlyName : async (req , res) =>{
+        res.status(200).json({data : await Marche.find().select('nom')})
       }
  }

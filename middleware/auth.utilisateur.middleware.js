@@ -3,14 +3,13 @@ const objectID = require('mongoose').Types.ObjectId
 const jwt = require('jsonwebtoken')
 const needle = require('needle')
 const {connectionMongodServer} = require('../config/database.connectMongodb')
-let urlRequest = "http://www.supptic.cm"
+
 
 /**
  * @description 'Ces methodes permettent de gerer les autorisations et la connexion a la base de données  '
 */
 
 //.env=mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test
-
 
 module.exports = {
     checkAuthUser : (request , response , next) =>{
@@ -38,12 +37,13 @@ module.exports = {
         else next()
     },
     checkConnectionApplication : (request , response , next) =>{
+        let urlRequest = "http://www.supptic.cm"
         needle.get(urlRequest , (err , response) =>
         {
-            if(err) this.checkConnectionApplication()
+            if(err) this.checkConnectionApplication
             // si aucune connexion intenet detectée 
             if(response == undefined) {
-                process.env.MONGO_URL = "mongodb://localhost:27017/SimBD"
+                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test" //"mongodb://localhost:27017/SimBD"
                 setTimeout(() => {
                     console.log("Tentative de connexion a la base de donnée locale ...");
                     connectionMongodServer()

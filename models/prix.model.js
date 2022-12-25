@@ -3,6 +3,7 @@ let Marche = require('./marche.model')
 const Schema = mongoose.Schema
 
 const prixSchema = new Schema({
+    // nom du produit 
     "nom": {
         type: String,
         required: true,
@@ -21,8 +22,10 @@ const prixSchema = new Schema({
     },
     "isValidated": {
         type: Boolean,
-        required: true,
         default: false,
+    },
+    "qualite_produit" : {
+        type : String 
     },
     "conditionnement": {
         type: String,
