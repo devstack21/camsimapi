@@ -55,7 +55,7 @@ module.exports = {
       const prix =  await Prix.find()
       console.log(prix);
       if(prix.length === 0) return res.status(200).json({data : []})
-      else return res.status(200).json({data : _.filter(prix , {conditionnement : req.body.conditionnement }) })
+      else return res.status(200).json({data : _.filter(prix , {'conditionnement' : req.body.conditionnement , 'prix_marche' :"15000" }) })
     },
     getPriceByName : (req , res) =>{
           Prix.findOne({nom : req.params.namePrice})

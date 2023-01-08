@@ -46,7 +46,7 @@ module.exports = {
             if(err) this.checkConnectionApplication
             // si aucune connexion intenet detectée 
             if(response == undefined) {
-                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test" //"mongodb://localhost:27017/SimBD"
+                process.env.MONGO_URL = "mongodb://localhost:27017/SimBD"
                 setTimeout(() => {
                     console.log("Tentative de connexion a la base de donnée locale ...");
                     connectionMongodServer()
@@ -55,7 +55,7 @@ module.exports = {
                 next()
             }
              else if(response.statusCode == 200){
-                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test"
+                process.env.MONGO_URL = "mongodb://localhost:27017/SimBD"
                 setTimeout(() => {
                     console.log("Tentative de connexion a la base de donnée locale SIMBD ...");
                     connectionMongodServer()
