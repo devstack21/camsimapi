@@ -21,7 +21,7 @@ const {signIn , signUp, signuProducteur} = require('../controllers/ConnexionApp.
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données et des prix depuis la base de données en fonction de la requete'
 */
-const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId } = require('../controllers/API.controller.prix')
+const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId, getPriceInMarket } = require('../controllers/API.controller.prix')
 
 const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById } = require('../controllers/API.controller.produit')
 /** 
@@ -76,7 +76,7 @@ router.post('/verify', verify);
 /**
   @route /all-prices/:produit
   @method GET
-  @role 'affichage des prix validés'
+  @role 'affichage des prix validés || rechercher un produit dans un marché'
 */
 router.get('/all-price/:nomProduit',getAllPricesByNameProduct);
 /**
@@ -113,7 +113,8 @@ router.post('/validate-price/:id/:prixId', validatePriceByIdAndPrixId)//validate
   @role l'application utilise cette route l'affichage des prix de l'huile filtré'
 */
 
-router.get('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
+router.post('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
+router.post('/all-price/marche' , getPriceInMarket)
 /**
   @route /all-price/huile/filter
   @method GET

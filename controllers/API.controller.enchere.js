@@ -98,6 +98,7 @@ module.exports ={
         else return res.status(400).json({mesage : "Utilisateur inconnu"})
         
       },
+      
       // fonction permettant a l'utlisateur de modifier ou d'editer son enchere : a tester 
       modifyEnchereByIdAndEnchereId : async (req, res) => { 
         const {participant} = await Enchere.findById(req.params.enchereId) 

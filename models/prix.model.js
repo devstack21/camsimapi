@@ -45,6 +45,7 @@ const prixSchema = new Schema({
     "prix_avantMaturite": {
         type: Number,
     },
+    // id du marché
     "marche": {
         type: Object,
        // required: true,

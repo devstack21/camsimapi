@@ -1,5 +1,5 @@
-const {SERVICEID , ACCOUNTSID , AUTHTOKEN} = process.env
-const client = require('twilio')(ACCOUNTSID, AUTHTOKEN)
+
+const client = require('twilio')(process.env.ACCOUNTSID, process.env.AUTHTOKEN)
 
  async function initVerification(request, response) {
     let telephone = await request.body.telephone;
@@ -27,4 +27,4 @@ const client = require('twilio')(ACCOUNTSID, AUTHTOKEN)
     console.log('Vérification ...');
 }
 
-module.exports = {verify , initVerification}
+module.exports = {verify , initVerification }

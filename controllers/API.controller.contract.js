@@ -23,6 +23,7 @@ module.exports = {
     getAllContract : async (req , res) =>{
         res.status(200).json({data : await Contract.find()})
     },
+    
     getContractCreateById : async (req , res) =>{
 
         let user = await Utilisateur.findById(req.params.id) , contracts = []

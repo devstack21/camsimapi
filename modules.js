@@ -79,7 +79,7 @@ exports.getLastDataArray = (tab)=>{
     } 
 }
 
-
+exports.f = () =>{return 'f'}
 /**
     * @param {String} id 
     * @returns {String}
@@ -103,3 +103,4 @@ exports.checkTypeObject = (globalType , typeObject ) =>{
         }
         return {status : false , index:undefined} 
 }
+

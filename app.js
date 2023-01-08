@@ -6,10 +6,10 @@ const bodyParser = require('body-parser')// module pour parser json des req clie
 const cookieParser = require('cookie-parser')
 const session = require('express-session') // module pour gerer la session d'utilisation d'un utilisateur dans l'application 
 const {maxAvailable} = require('./modules')
-
 // definition des variables d'environnement 
 require('dotenv').config({path : './config/.env'})
 const cors = require('cors') // module porur la configuration des accèes au serveur 
+
 
 // definition des differentes routes d'accès au API 
 //const simwebRouter = require('./routes/sim_web/sim_web') ; 
@@ -19,7 +19,7 @@ const camsimRoutes = require('./routes/CAMSIM.API.routes')
 const  app = express();
 
 // fonction pour les authentification et la deconnexion
-const {checkAuthUser , checkConnectionApplication  } = require('./middleware/auth.utilisateur.middleware');
+const {checkAuthUser , checkConnectionApplication  } = require('./middleware/auth.utilisateur.middleware') ;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
 const { logout } = require('./controllers/ConnexionApp.controller');
 
@@ -30,6 +30,7 @@ app
     "preflightContinue": false,
     "optionsSuccessStatus": 200
 }))
+
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({
     extended :true
@@ -50,7 +51,6 @@ app
 // deconnexion de l'utilisateur 
 .use('/logout' , logout) // destruction du token dans l'entete de la requete HTTP 
 .use(checkConnectionApplication)
-
 .use(logger('dev'))
 //.use('/' , authUserByToken , (request , response) =>{})
 .use('/API',camsimRoutes) // checkAuthUser, // definition de l'objet global camsimRoutes indexant toutes les routes de l'application Web & Mobile

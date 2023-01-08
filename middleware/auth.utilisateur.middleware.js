@@ -36,6 +36,9 @@ module.exports = {
         if(request.url == '/signup' || request.url== '/signin' || request.url=='/signuProducteur' && request.method ==  'POST') next()
         else next()
     },
+    c :  () =>{
+        return 'c'
+    },
     checkConnectionApplication : (request , response , next) =>{
         let urlRequest = "http://www.supptic.cm"
         needle.get(urlRequest , (err , response) =>

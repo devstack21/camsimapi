@@ -21,6 +21,7 @@ module.exports = {
           })
           .catch((error) => { res.status(500).json(error) })
       },
+      
       getMyProductsById : async (req , res) =>{
         let user = await Utilisateur.findById(req.params.id) , products= []
         for(id of user.ownVentes){

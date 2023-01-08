@@ -64,5 +64,8 @@ module.exports = {
         // delete token in request?header
         response.redirect('/')
       },
+    
       
 }
+
+

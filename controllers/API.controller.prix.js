@@ -2,12 +2,11 @@ const Prix = require('../models/prix.model')
 const Marche = require('../models/marche.model')
 const { Utilisateur, TYPE_USER } = require('../models/utilisateur.model')
 const {checkTypeObject} = require('../modules')
-
+const _ = require('lodash')
 module.exports = {
 
     // rechercher un produit dans un marché donné 
     getAllPricesByNameProduct : (request, response) => {
-  
         Prix.find({ nom: request.params.nomProduit, isValidated: true })
           .then((prix) => {
             response.status(200).json(prix)
@@ -23,17 +22,23 @@ module.exports = {
           .catch((error) => { res.status(500).json(error) })
       },
 
-    getAllPriceByHuileAndFilter : (req, res) => {
-        //On récupère les prix de la bd pour les envoyer à l'application mobile
-        Prix.findOne({ conditionnement: req.body.conditions, marche: req.body.marche })
-          .then((prix) => {
-            console.log(prix);
-            res.status(200).json(prix);
-          })
-          .catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
-          });
+    getAllPriceByHuileAndFilter : async (req, res) => {
+        // // filtre les données correspondant a l'id du marché 
+        // 6318a2d8e8d6f16d395b0863
+        const prix =  await Prix.findOne({conditionnement : req.body.conditionnement }), {nom} = await Marche.findById({_id : req.body.id})
+        console.log(prix , nom);
+        let result = []
+        if(!prix ) return res.status(200).json({data : []})
+        else {
+          if(prix.marche.nom == nom) {
+            console.log("HE HAS ");
+            result.push(prix)
+            return res.status(200).json({data : result})}
+          else {
+            console.log("HE HAS NOT ");
+            return res.status(200).json({data : []})}
+        }
+                
       },
     getAllPrice : (req , res) =>{
             //On récupère les prix validés de la bd pour les envoyer à l'application mobile
@@ -46,6 +51,12 @@ module.exports = {
           });
           
       },
+    getPriceInMarket : async (req , res) =>{
+      const prix =  await Prix.find()
+      console.log(prix);
+      if(prix.length === 0) return res.status(200).json({data : []})
+      else return res.status(200).json({data : _.filter(prix , {conditionnement : req.body.conditionnement }) })
+    },
     getPriceByName : (req , res) =>{
           Prix.findOne({nom : req.params.namePrice})
           .then((data) => res.status(200).json({data : data}))
@@ -90,6 +101,7 @@ module.exports = {
           }
     });
   }, 
+  
   // cette methode permet a un controllerur de valider les prix 
   validatePriceByIdAndPrixId : (req, res) => {
     if (req.body.prix == undefined) {
