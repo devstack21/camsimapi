@@ -18,7 +18,7 @@ module.exports = {
         
         if (err.message.includes('genre')) errors.genre = 'le champ genre doit etre remplit';
         
-        if (err.message.includes('statut')) errors.statut = 'le champ statut doit etre remplit';
+        if (err.message.includes('type_user')) errors.statut = 'le champ statut doit etre remplit';
 
         if (err.message.includes('region')) errors.region = 'le champ region doit etre remplit';
         

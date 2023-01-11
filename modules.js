@@ -78,8 +78,6 @@ exports.getLastDataArray = (tab)=>{
        return temp 
     } 
 }
-
-exports.f = () =>{return 'f'}
 /**
     * @param {String} id 
     * @returns {String}

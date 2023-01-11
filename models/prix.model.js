@@ -24,7 +24,7 @@ const prixSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    "qualite_produit" : {
+    "qualite" : {
         type : String 
     },
     "conditionnement": {
@@ -50,6 +50,7 @@ const prixSchema = new Schema({
         type: Object,
        // required: true,
     },
+    
 }, {
     methods : {
         getTypesSchemaObject () {

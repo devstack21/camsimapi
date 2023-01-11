@@ -21,7 +21,7 @@ const {signIn , signUp, signuProducteur} = require('../controllers/ConnexionApp.
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données et des prix depuis la base de données en fonction de la requete'
 */
-const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId, getPriceInMarket } = require('../controllers/API.controller.prix')
+const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId, getPriceInMarket, createNewProductByInvestigator, collectData } = require('../controllers/API.controller.prix')
 
 const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById } = require('../controllers/API.controller.produit')
 /** 
@@ -114,7 +114,14 @@ router.post('/validate-price/:id/:prixId', validatePriceByIdAndPrixId)//validate
 */
 
 router.post('/all-price/huile/filter' , getAllPriceByHuileAndFilter)
+/**
+  @route /all-price/marche
+  @method GET
+  @role l'application utilise cette route l'affichage des prix d'un marcé donné a un prix donné s
+*/
+
 router.post('/all-price/marche' , getPriceInMarket)
+
 /**
   @route /all-price/huile/filter
   @method GET
@@ -305,6 +312,10 @@ router.get('/get-marche' , getAllMarche )
  * @role 'l'application utilise cette route pour recuperer les marchés en fonction du nom 
 */
 router.get('/get-marche/nom ' , getMarcheOnlyName)
+
+
+
+router.post('/collect-product/:id' , collectData)
 
 // exportation de l'objet router
 module.exports = router; 

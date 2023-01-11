@@ -29,12 +29,7 @@ const utilisateurSchema = new mongoose.Schema({
         required: true , 
         unique: true,
     },
-    // type d'un utilisateur cad si il est producteur - consommateur etc .. 
-    "type_user" : {
-        type : String,
-        default : ""
-        //required : true ,    
-    },
+     
     "genre": {
         type: String,
        // required: true, µ
@@ -43,7 +38,8 @@ const utilisateurSchema = new mongoose.Schema({
         type: String,
         required: true ,
     },
-    "statut": {
+    // type d'un utilisateur cad si il est producteur - consommateur etc ..
+    "type_user": {
         type: String,
         //required: true,
     },

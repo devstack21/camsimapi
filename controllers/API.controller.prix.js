@@ -31,15 +31,16 @@ module.exports = {
         if(!prix ) return res.status(200).json({data : []})
         else {
           if(prix.marche.nom == nom) {
-            console.log("HE HAS ");
             result.push(prix)
             return res.status(200).json({data : result})}
           else {
-            console.log("HE HAS NOT ");
+            
             return res.status(200).json({data : []})}
         }
                 
       },
+
+
     getAllPrice : (req , res) =>{
             //On récupère les prix validés de la bd pour les envoyer à l'application mobile
           Prix.find()
@@ -51,12 +52,15 @@ module.exports = {
           });
           
       },
+      // fervès plus eau tiède
+      // recherche des prix en fonction di conditionnement et d'un prix donné
     getPriceInMarket : async (req , res) =>{
       const prix =  await Prix.find()
-      console.log(prix);
       if(prix.length === 0) return res.status(200).json({data : []})
-      else return res.status(200).json({data : _.filter(prix , {conditionnement : req.body.conditionnement , prix_marche : 15000 }) })
+      else return res.status(200).json({data : _.filter(prix , {conditionnement : req.body.conditionnement , prix_marche : req.body.prix }) })
     },
+
+
     getPriceByName : (req , res) =>{
           Prix.findOne({nom : req.params.namePrice})
           .then((data) => res.status(200).json({data : data}))
@@ -124,25 +128,7 @@ module.exports = {
       );
     }
   }, 
-  createNewProductByInvestigator : (req , res) =>{
-    // user must be enqueteur 
-    // user id send
-    let {type_user} = Utilisateur.findById(req.params.id)
-    if(type_user.length == 0 ) return res.status(200).json({message : "Vous n'etes pas un acteur de cette application"})
-    else {
-        if(checkTypeObject(TYPE_USER , type_user).status){
-            if(TYPE_USER[checkTypeObject(TYPE_USER , type_user).index] == "Enqueteur"){
-              // recolte des donnée possibles
-              const produit = Prix(req.body) 
-              produit.save()
-              .then(() => {return res.status(200).json({message : "Enregistrement reussie "})})
-              .catch((err) => {return res.status(200).json({message : "Une erreur est survenue lors de l'enregistrement du produit"})})
-            }
-            else return res.status(200).json({message : "Veuillez changer votre etat en tant qu'enqueteur "})
-        }
-        else return res.status(200).json({message : "Vous n'etes pas un acteur de cette application"})
-    }
-  },
+  
   // cette methode permet a un controleur de valider un produit collecté par un enqueteur 
   validProductByControler : (req , res) =>{
     let {type_user} = Utilisateur.findById(req.params.id)
@@ -155,6 +141,37 @@ module.exports = {
           else {}
         }
         else {}
+    }
+  }    // user must be enqueteur 
+  // user id send
+  
+  ,
+  collectData : async (req , res) =>{
+    let {type_user} = await Utilisateur.findById(req.params.id) 
+    console.log(req.body);
+    if(type_user.length == 0 ) return res.status(200).json({message : "Vous n'etes pas un acteur de ce système"})
+    else {
+        if(checkTypeObject(TYPE_USER , type_user).status){
+            if(TYPE_USER[checkTypeObject(TYPE_USER , type_user).index] == "Enqueteur"){
+              // recolte des donnée possibles
+              //insertion du marché 
+              req.body['marche'] = {
+                "nom" : req.body.marketName,
+                "departement" : req.body.departement,
+                "arrondissement" : req.body.arrondissement,
+                "region" : req.body.region,
+             }
+             // enregistrement du prix dans un marché 
+              const produit = Prix(req.body) 
+              produit.save()
+              .then(() => {
+                console.log("Enregistrement reussie");
+                return res.status(200).json({message : "Enregistrement reussie "})})
+              .catch((err) => {return res.status(400).json({message : "Une erreur est survenue lors de l'enregistrement du produit"})})
+            }
+            else return res.status(200).json({message : "Veuillez changer votre etat en tant qu'enqueteur "})
+        }
+        else return res.status(200).json({message : "Vous n'etes pas un acteur de ce système "})
     }
   }
 

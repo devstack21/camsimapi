@@ -43,7 +43,7 @@ module.exports = {
         let urlRequest = "http://www.supptic.cm"
         needle.get(urlRequest , (err , response) =>
         {
-            if(err) this.checkConnectionApplication
+            if(err) this.checkConnectionApplications
             // si aucune connexion intenet detectée 
             if(response == undefined) {
                 process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test" //"mongodb://localhost:27017/SimBD"
