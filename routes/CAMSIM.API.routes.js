@@ -23,7 +23,7 @@ const {signIn , signUp, signuProducteur} = require('../controllers/ConnexionApp.
 */
 const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId, getPriceInMarket, createNewProductByInvestigator, collectData } = require('../controllers/API.controller.prix')
 
-const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById } = require('../controllers/API.controller.produit')
+const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById, getAchatVenteRegionDepartement } = require('../controllers/API.controller.produit')
 /** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
@@ -159,6 +159,12 @@ router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAn
   @role 'Modifier un produit'
 */
 router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProduitId) //modifyProductPriceByIdAndProduitId)
+
+router.post("/all-products/s1" , getAchatVenteRegionDepartement)
+
+
+/// ---- recherche des produits 
+
 
 // ---------------------------------------------------------------------------------------------------------------
 

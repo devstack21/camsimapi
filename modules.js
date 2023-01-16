@@ -102,3 +102,22 @@ exports.checkTypeObject = (globalType , typeObject ) =>{
         return {status : false , index:undefined} 
 }
 
+/**
+ * @param {Object} typeObject
+ * @returns {Object}
+ * @public
+*/
+exports.getValueNotEmpty = (object) =>{
+    let obj = {}
+    for(let keys in object){
+        if(object[keys].length !== 0) {
+            //let value = object[keys].toLowerCase()
+            let value = object[keys].toLowerCase().replace(object[keys].toLowerCase()[0] , object[keys].toLowerCase()[0].toUpperCase())
+            obj[keys] = value
+            
+        }
+    }
+    return obj
+    
+}
+

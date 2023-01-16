@@ -53,11 +53,18 @@ module.exports = {
           
       },
       // fervès plus eau tiède
-      // recherche des prix en fonction di conditionnement et d'un prix donné
+      // recherche des prix en fonction du conditionnement et d'un prix donné
     getPriceInMarket : async (req , res) =>{
       const prix =  await Prix.find()
       if(prix.length === 0) return res.status(200).json({data : []})
-      else return res.status(200).json({data : _.filter(prix , {conditionnement : req.body.conditionnement , prix_marche : req.body.prix }) })
+      else {
+        let tmp = []
+        for(let elt of prix){
+          if(elt.prix_marche <= req.body.prix) tmp.push(elt)
+        }
+        if(tmp.length == 0) return res.status(200).json({data : []})
+        else return res.status(200).json({data : tmp})
+      }
     },
 
 
@@ -79,7 +86,7 @@ module.exports = {
           else return res.status(400).json({message : null})
        
       },
-      // ajoute un prix d'un marche donnés
+      // ajoute un prix d'un marche donnés : fonctionnalités pour les autres acteurs 
     addPricesByIdAndMarcheId : (req, res) => {
         Marche.findById(req.params.marcheId , (error, marche) => {
           // Si une erreur survient
@@ -106,7 +113,7 @@ module.exports = {
     });
   }, 
   
-  // cette methode permet a un controllerur de valider les prix 
+  // cette methode permet a un controllerur de valider les prix : statut controlleur dans l'application 
   validatePriceByIdAndPrixId : (req, res) => {
     if (req.body.prix == undefined) {
       Prix.findByIdAndUpdate(
@@ -136,16 +143,23 @@ module.exports = {
     else {
         if(checkTypeObject(TYPE_USER , type_user).status){
           if(TYPE_USER[checkTypeObject(TYPE_USER , type_user).index] == "Controleur"){
-
+              Prix.findByIdAndUpdate(
+                req.body.prixId ,  {isValidated : true},
+                (err , result) =>{
+                  if(err) return res.status(200).json({message : "Une erreur est survenue lors de la validation du prix"})
+                  else res.status(200).json({message : 'Prix validé avec succès'});
+                }
+              )
           }
-          else {}
+          else return res.status(400).json({message : "Vous n'etes pas un controleur"})
         }
-        else {}
+        else return res.status(200).json({message : "Vous n'etes pas un acteur de cette application"})
     }
   }    // user must be enqueteur 
   // user id send
   
   ,
+  // fonctionnalités pour les collecteurs 
   collectData : async (req , res) =>{
     let {type_user} = await Utilisateur.findById(req.params.id) 
     console.log(req.body);
