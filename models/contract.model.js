@@ -9,11 +9,11 @@ const contractSchema = new mongoose.Schema({
     },
     nomVendeur : {
         type : String,
-        required : true  
+        
     },
     nom : {
         type : String ,
-        required : true
+    
     },
     ticket : {
         type : String
@@ -29,9 +29,6 @@ const contractSchema = new mongoose.Schema({
     arrondissement: {
         type: String,
         // required : true *
-    },
-    price : {
-        type : String 
     },
     lieuDit: {
         type: String,
@@ -54,7 +51,7 @@ const contractSchema = new mongoose.Schema({
     },
     type_contract : {
         type : String,
-        required : true 
+        
 
     },
     superficie : {

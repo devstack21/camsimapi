@@ -35,9 +35,11 @@ module.exports = {
         if(user) res.status(200).json({data : products})
         else return res.status(400).json({message : null})
       },
+
+      
         // fonction d'ajout d'un produit (achat vente)
     addProductById : (req, res) => {
-      Utilisateur.findOne({ username: req.body.nomVendeur, statut: "Producteur" }, (error, producteur) => {
+      Utilisateur.findById(req.params.id, (error, producteur) => {
         // Si une erreur survient
         if (error) return res.status(400).json({message :'Une erreur est survenue lors de la sauvegarde'});
         // Si le marché n'existe pas 

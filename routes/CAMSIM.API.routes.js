@@ -153,6 +153,9 @@ router.get('/all-products/:nomProduit', getAllProductByNomProduct);
 router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAndNameSeller);
 
 
+// envoie des doonnées du produit crée par un producteur 
+//router.get('/all-products/:id/produitId' , getProductById)
+
 /**
   @route /modify-product-price/:id/produitId
   @method PUT 
@@ -160,7 +163,7 @@ router.get('/all-products/:nomProduit/:nomVendeur', getAllProductsByNomProduitAn
 */
 router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProduitId) //modifyProductPriceByIdAndProduitId)
 
-router.post("/all-products/s1" , getAchatVenteRegionDepartement)
+router.post("/all-products/s1" , getAchatVenteRegionDepartement) // route pour les recherches achats/ventes 
 
 
 /// ---- recherche des produits 
