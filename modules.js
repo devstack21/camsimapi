@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 exports.maxAvailable = 60 * 24 * 60 * 60 * 1000
+
 /**
  * @param {Object} object
  * @param {Array} userObjectIds
@@ -108,11 +109,15 @@ exports.checkTypeObject = (globalType , typeObject ) =>{
  * @public
 */
 exports.getValueNotEmpty = (object) =>{
+    
     let obj = {}
     for(let keys in object){
         if(object[keys].length !== 0) {
             //let value = object[keys].toLowerCase()
+            // check le nombre element présent dans la données
+
             let value = object[keys].toLowerCase().replace(object[keys].toLowerCase()[0] , object[keys].toLowerCase()[0].toUpperCase())
+            
             obj[keys] = value
             
         }
@@ -121,3 +126,96 @@ exports.getValueNotEmpty = (object) =>{
     
 }
 
+/**
+ * @param {array} dataDB
+ * @param {object | any} object
+ * @returns {object | any} 
+ * @public
+ */
+exports.checkValueIsEqualsElementNumber = (dataDB , object) =>{
+    // les données de object seront en miniscule et les premiers elts de chqua element en majuscule 
+    // tableau des clés de l'objet
+    const keysObject = Object.keys(object) 
+    let cmptDataDB = 0
+    if(dataDB.length == 0 || keysObject.length == 0) throw Error('Le tableau dataDB ou object ne doit pas etre vide')
+    else {
+        for (let data of dataDB)
+        {
+            cmptDataDB++;
+            console.log(`LA VALEUR ${cmptDataDB} -- >`, data);
+            // on parcoure chaque element et on compare le nombre d'élement 
+            // dataDB tableau des objets 
+            // data objets in dataDB 
+            let keysData = Object.keys(this.deleteKeysObject(data , "_id")) , cmptKey = 0 , cmptValue = 0 ,dataTmp = {} // données temporaires destinées pour une data 
+            // verifier si les données du tableau de données ont les clés correpondant a l'objet
+            for(let key of keysObject){
+            
+                // si la valeur correspondant a clé est un objet ???? !! 
+                if(keysData.includes(key)) {
+                    cmptKey++
+                    dataTmp[key] = data[key]
+                }
+            }
+            // si tous les champs existe et sont non vide 
+            //verification de la valeur 
+            if(keysObject.length == cmptKey)
+            {
+                // verification si la vriable dataTmp est != undefined 
+                if(Object.keys(dataTmp).length !== 0){
+                    for(let key in dataTmp)
+                    {
+                        if(dataTmp[key] !== undefined ){
+                            let keyTmp = 0
+                            // premiere valeur
+                            // on parcourt tous les caractères de chaque object pour chaque clé (region  , departement , arrondissement)
+                            for(let index=0 ; index<dataTmp[key].length ; index++)
+                            {
+                                console.log(`DATATMP --- >  INDEX = ${index} VALUE = ${dataTmp[key][index]}  KEY = ${key}`)
+                                console.log(`OBJECT ---  > INDEX = ${index} VALUE = ${object[key][index]} KEY = ${key}`);
+                                if(dataTmp[key][index] == object[key][index]) {
+                                    keyTmp++
+                                    console.log(`CMPT --- > ${keyTmp} INDEX ${index} VALUE = ${dataTmp[key][index]} KEY = ${key}`);
+                                }
+
+                            }
+                            // au moins deux caractères un genre 
+                            console.log(keyTmp ," -- ",object[key].length);
+                            if(keyTmp == object[key].length || keyTmp == object[key].length-2  || keyTmp == object[key].length-1 ) {
+                                cmptValue++
+                                console.log(`VALUE OKAY = ${object[key]}`);
+                            }
+                        }
+                        
+                    }// end for 
+                }
+                
+                // verification si les données des differentes clés correspondantes
+                console.log("COMPT VALUE -- >  " , cmptValue);
+
+                // si le nombre d'element pour le nombre de clé-valeur est ok
+                if(cmptValue == Object.keys(dataTmp).length) {
+                   console.log("La valeur ",dataTmp); 
+                   return dataTmp
+                }
+
+            }
+            
+
+            console.log( `FIN DE ITERATION DATA${cmptDataDB} -- >` , data, ` \n`);
+
+        }// end for 
+        return []
+    }
+}
+
+exports.deleteKeysObject = (object , key) =>{
+    let result = {}
+    if(object[key] == undefined) throw Error("this key isn't include in object")
+    else {
+        for(let ky in object){
+            if(ky !== key ) result[ky] = object[ky]
+        }
+        return {} 
+    }  
+     
+}

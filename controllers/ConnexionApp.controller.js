@@ -20,7 +20,7 @@ module.exports = {
               else return response.status(400).json({message : 'Mot de passe incorrect'})
               })
           }
-        else return response.status(401).json({message :'Veuillez creer compte'}) 
+        else return response.status(401).json({message :'Le mot de passe est incorrect'}) 
          
     },
     

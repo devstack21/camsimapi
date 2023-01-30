@@ -1,8 +1,6 @@
 const Produit = require('../models/produit.model')
-const { Utilisateur, TYPE_USER } = require('../models/utilisateur.model')
-const {checkTypeObject} = require('../modules')
-const lodash = require('lodash')
-const {getValueNotEmpty} = require('../modules')
+const { Utilisateur} = require('../models/utilisateur.model')
+const {getValueNotEmpty , checkValueIsEqualsElementNumber} = require('../modules')
 
 // rechercher un produit dans un marché donné
 
@@ -71,9 +69,10 @@ module.exports = {
   },
   // recherche filtre achat /vente 
   getAchatVenteRegionDepartement : async (req ,res) =>{
-    let obj = getValueNotEmpty(req.body)
-    if(Object.keys(obj).length !== 0) return res.status(200).json({data : await Produit.find(obj)})
-    else return res.status(200).json({message : "Veuiilez remplir au moins un champ"})
+    const produits = await Produit.find()
+    let obj = checkValueIsEqualsElementNumber(produits,getValueNotEmpty(req.body))
+    if(Object.keys(obj).length == 0) res.status(200).json({data : []})
+    else res.status(200).json({data : obj})
 
   }
   
