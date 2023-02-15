@@ -52,7 +52,7 @@ module.exports = {
           });
           
       },
-      // fervès plus eau tiède
+   
       // recherche des prix en fonction du conditionnement et d'un prix donné
     getPriceInMarket : async (req , res) =>{
       const prix =  await Prix.find()
@@ -113,21 +113,7 @@ module.exports = {
     });
   }, 
 
-  // cette methode permet de modifier ou d'éditer un achat 
 
-  editPrice : async (req , res) =>{
-      const user = await Utilisateur.findById(req.params.id)
-      console.log(req.body);
-      if(user){
-          Prix.findByIdAndUpdate(
-            req.params.achatId , req.body ,(err , result) =>{
-              if(err) return res.status(400).json({message : "une erreur est survenue lors de la modification de l'achat "})
-              else res.status(200).json({message : "Achat modifié avec sucès" , data : result})
-            }
-          )
-      }
-      else return res.status(401).json({message : "Utilisateur inconnu"})
-  },
   
   // cette methode permet a un controllerur de valider les prix : statut controlleur dans l'application 
   validatePriceByIdAndPrixId : (req, res) => {
