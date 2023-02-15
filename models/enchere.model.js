@@ -53,6 +53,9 @@ const enchereSchema = new Schema({
     "dateFin": {
         type: String,
        // required: true *
+    },
+    "qualite" : {
+        type : String 
     }
 },
 {

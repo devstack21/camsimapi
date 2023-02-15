@@ -34,10 +34,11 @@ module.exports ={
       },
         // fonction permettant de poster une enchere 
     addEnchereById : (req, res) => {
-
+        console.log(req.body);
         Utilisateur.findOne({ username: req.body.nomVendeur, statut: "Producteur" }, (err, producteur) => {
           if (err) throw err;
           if (producteur) {
+          
             const enchere = Enchere(req.body)
             enchere.save().then(() => {
               // ajouter l'id de l'enchere crée dans les données de l'utilisateur courant

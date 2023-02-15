@@ -56,6 +56,9 @@ const contractSchema = new mongoose.Schema({
     },
     superficie : {
         type : String
+    },
+    qualite : {
+        type : String
     }
 },
 {

@@ -34,7 +34,21 @@ module.exports = {
         else return res.status(400).json({message : null})
       },
 
-      
+        // cette methode permet de modifier ou d'éditer un achat 
+
+    editAchat : async (req , res) =>{
+      const user = await Utilisateur.findById(req.params.id)
+      console.log(req.body);
+      if(user){
+          Produit.findByIdAndUpdate(
+            req.params.achatId , req.body ,(err , result) =>{
+              if(err) return res.status(400).json({message : "une erreur est survenue lors de la modification de l'achat "})
+              else res.status(200).json({message : "Achat modifié avec sucès" , data : result})
+            }
+          )
+      }
+      else return res.status(401).json({message : "Utilisateur inconnu"})
+    },
         // fonction d'ajout d'un produit (achat vente)
     addProductById : (req, res) => {
       Utilisateur.findById(req.params.id, (error, producteur) => {

@@ -24,6 +24,7 @@ const prixSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    // la qualite du produit 
     "qualite" : {
         type : String 
     },

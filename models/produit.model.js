@@ -35,6 +35,9 @@ const produitSchema = new Schema({
         type: String,
         //required: true, *
     },
+    "qualite" : {
+        type : String
+    },
     "telephone": {
         type: String,
         //required: true,*
