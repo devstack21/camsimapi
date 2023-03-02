@@ -36,6 +36,9 @@ const marcheSchema = new Schema({
         type: String,
         required: true, 
     },
+    "createdAt":{
+        type : String
+    }
 }, {
     methods : {
         getTypesSchemaObject () {
@@ -44,6 +47,10 @@ const marcheSchema = new Schema({
     }
 },{ timestamps: true })
 
+marcheSchema.pre('save' , async function (next){
+    this.createdAt = moment().format("MM-DD-YYYY")
+    next()
+})
 const marcheModel = mongoose.model('marche' , marcheSchema)
 
 module.exports = marcheModel

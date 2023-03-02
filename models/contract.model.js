@@ -59,6 +59,9 @@ const contractSchema = new mongoose.Schema({
     },
     qualite : {
         type : String
+    },
+    "createdAt" : {
+        type : String
     }
 },
 {
@@ -71,6 +74,10 @@ const contractSchema = new mongoose.Schema({
 {
     timestamps : true,
     
+})
+contractSchema.pre('save' , async function(next){
+    this.createAt = moment().format("MM-DD-YYYY")
+    next()
 })
 
 const contractModel = mongoose.model('contrat' , contractSchema)

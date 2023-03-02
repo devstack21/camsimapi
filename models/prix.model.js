@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-let Marche = require('./marche.model')
+const moment = require('moment')
 const Schema = mongoose.Schema
 
 const prixSchema = new Schema({
@@ -51,6 +51,9 @@ const prixSchema = new Schema({
         type: Object,
        // required: true,
     },
+    "createdAt" : {
+        type : String
+    }
     
 }, {
     methods : {
@@ -60,5 +63,8 @@ const prixSchema = new Schema({
     }
 },{ timestamps: true })
 
+prixSchema.pre('save' , async function (next){
+    this.createdAt = moment().format("")
+})
 const prixModel = mongoose.model('prix' ,prixSchema)
 module.exports = prixModel

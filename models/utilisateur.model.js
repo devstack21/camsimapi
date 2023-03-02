@@ -114,6 +114,9 @@ const utilisateurSchema = new mongoose.Schema({
     // liste des ventes propres a this utilisateur 
     "ownVentes" : {
         type : [String],
+    },
+    "createdAt" : {
+        type : String 
     }
 },{
     methods : {

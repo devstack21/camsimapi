@@ -71,7 +71,7 @@ module.exports ={
             {
               // si l'utilisateur rencherit après le delai de l'enchere
               
-              if(compareDate(enchere.dateFin , moment.format("MM-DD-YYYY"))){
+              if(compareDate(enchere.dateFin , moment().format("MM-DD-YYYY"))){
                 //on met a jour les données de l'enchère en inserant les données du participant a savoir son id  , username et autres données
                 Enchere.updateOne({ _id: req.params.enchereId }, {
                   $push: { participant: { userId: req.params.id, prix: req.body.prix, anonyme: req.body.anonyme , telephone : req.body.telephone , username : req.body.username , isOnEnchere : false} }
