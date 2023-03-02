@@ -36,9 +36,7 @@ module.exports = {
         if(request.url == '/signup' || request.url== '/signin' || request.url=='/signuProducteur' && request.method ==  'POST') next()
         else next()
     },
-    c :  () =>{
-        return 'c'
-    },
+    
     checkConnectionApplication : (request , response , next) =>{
         let urlRequest = "http://www.supptic.cm"
         needle.get(urlRequest , (err , response) =>
@@ -46,7 +44,7 @@ module.exports = {
             if(err) this.checkConnectionApplications
             // si aucune connexion intenet detectée 
             if(response == undefined) {
-                process.env.MONGO_URL = "mongodb://localhost:5000/SimBD" //"mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test"
+                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test" //"mongodb://localhost:5000/SimBD" 
                 setTimeout(() => {
                     console.log("Tentative de connexion a la base de donnée locale ...");
                     connectionMongodServer()
@@ -55,7 +53,7 @@ module.exports = {
                 next()
             }
              else if(response.statusCode == 200){
-                process.env.MONGO_URL = "mongodb://localhost:5000/SimBD"
+                process.env.MONGO_URL = "mongodb+srv://djob:15201@cluster0.onvjeut.mongodb.net/test" //"mongodb://localhost:5000/SimBD"
                 setTimeout(() => {
                     console.log("Tentative de connexion a la base de donnée locale SIMBD ...");
                     connectionMongodServer()

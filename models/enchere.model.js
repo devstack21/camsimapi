@@ -53,6 +53,12 @@ const enchereSchema = new Schema({
     "dateFin": {
         type: String,
        // required: true *
+    },
+    "qualite" : {
+        type : String 
+    },
+    "createdAt" : {
+        type : String
     }
 },
 {
@@ -65,8 +71,10 @@ const enchereSchema = new Schema({
 
     { timestamps: true })
 
+enchereSchema.pre('save' , async function(next){
+    this.createdAt = moment().format("MM-DD-YYYY")
+    next()
+})
 const enchereModel = mongoose.model('Enchere' , enchereSchema)
-
-
 
 module.exports = enchereModel

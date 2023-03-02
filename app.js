@@ -3,8 +3,6 @@ const express = require('express'); // you know
 const path = require('path');
 const logger = require('morgan'); // module pour les logs des données du front 
 const bodyParser = require('body-parser')// module pour parser json des req client
-const cookieParser = require('cookie-parser')
-const session = require('express-session') // module pour gerer la session d'utilisation d'un utilisateur dans l'application 
 const {maxAvailable} = require('./modules')
 // definition des variables d'environnement 
 require('dotenv').config({path : './config/.env'})
@@ -34,19 +32,6 @@ app
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({
     extended :true
-}))
-.use(cookieParser())
-.use(session ({
-    // store : store_session,
-    secret : process.env.SECRET_SESSION,
-    cookie : {
-        maxAge : maxAvailable,
-        resave: true,
-        saveUninitialized: true,
-        httpOnly : true,
-        secure : false
-    },
-    
 }))
 // deconnexion de l'utilisateur 
 .use('/logout' , logout) // destruction du token dans l'entete de la requete HTTP 

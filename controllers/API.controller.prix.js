@@ -52,7 +52,7 @@ module.exports = {
           });
           
       },
-      // fervès plus eau tiède
+   
       // recherche des prix en fonction du conditionnement et d'un prix donné
     getPriceInMarket : async (req , res) =>{
       const prix =  await Prix.find()
@@ -112,6 +112,8 @@ module.exports = {
           }
     });
   }, 
+
+
   
   // cette methode permet a un controllerur de valider les prix : statut controlleur dans l'application 
   validatePriceByIdAndPrixId : (req, res) => {

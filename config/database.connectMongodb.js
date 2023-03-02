@@ -8,7 +8,7 @@ const options = {
     family: 4 // Use IPv4, skip trying IPv6
   }
 
-
+mongoose.set('strictQuery', true)
 let cmpt=0
 
 // fonction de connexion a la base de donnée mongodb 

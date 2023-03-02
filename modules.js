@@ -100,7 +100,7 @@ exports.checkTypeObject = (globalType , typeObject ) =>{
         for(let index in globalType){
             if(globalType[index] === typeObject || globalType[index].toLowerCase() == typeObject.toLowerCase()) return {status : true , index : index}
         }
-        return {status : false , index:undefined} 
+        return {status : false , index: undefined} 
 }
 
 /**

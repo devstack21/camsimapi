@@ -35,6 +35,9 @@ const produitSchema = new Schema({
         type: String,
         //required: true, *
     },
+    "qualite" : {
+        type : String
+    },
     "telephone": {
         type: String,
         //required: true,*
@@ -43,6 +46,9 @@ const produitSchema = new Schema({
         type: String,
         //required: true, *
     },
+    "createAt": {
+        type : String 
+    }
 }, {
     methods : {
         getTypesSchemaObject () {
@@ -50,6 +56,10 @@ const produitSchema = new Schema({
         }
     }
 },{ timestamps: true })
+produitSchema.pre('save' , async function(next){
+    this.createAt = moment().format("MM-DD-YYYY")
+    next()
+})
 
 const produitModel = mongoose.model('produit' , produitSchema)
 module.exports = produitModel

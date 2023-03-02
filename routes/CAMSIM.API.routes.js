@@ -21,9 +21,9 @@ const {signIn , signUp, signuProducteur} = require('../controllers/ConnexionApp.
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données et des prix depuis la base de données en fonction de la requete'
 */
-const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId, getPriceInMarket, createNewProductByInvestigator, collectData } = require('../controllers/API.controller.prix')
+const { getAllPricesByNameProduct, getUnvalitedPricesByNameProduct, getAllPriceByHuileAndFilter, getAllPrice, getPriceByName, getMyPriceById, validatePriceByIdAndPrixId, addPricesByIdAndMarcheId, getPriceInMarket, createNewProductByInvestigator, collectData, editPrice } = require('../controllers/API.controller.prix')
 
-const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById, getAchatVenteRegionDepartement } = require('../controllers/API.controller.produit')
+const { getAllProductByNomProduct, getAllProductsByNomProduitAndNameSeller, getMyProductsById, modifyProductPriceByIdAndProduitId, addProductById, getAchatVenteRegionDepartement, editAchat } = require('../controllers/API.controller.produit')
 /** 
   @folder 'Fonction importée depuis le dossier controllers du projet
   @role 'Ces fonctions sont utilisées pour recuperer les données des encheres depuis la base de données en fonction de la requete'
@@ -129,7 +129,9 @@ router.post('/all-price/marche' , getPriceInMarket)
 */
 router.get('/all-price/:nomPrice' , getPriceByName)
 
-// ----------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------PRPDUCTS ----------------------------------------------------
 
 /**
   @route /add-products/:id
@@ -165,11 +167,12 @@ router.put("/modify-product-price/:id/:produitId", modifyProductPriceByIdAndProd
 
 router.post("/all-products/s1" , getAchatVenteRegionDepartement) // route pour les recherches achats/ventes 
 
+router.put('/edit-achat/:id/:achatId' , editAchat)
 
 /// ---- recherche des produits 
 
 
-// ---------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------ENCHERE---------------------------------------------------------------
 
 
 /**
@@ -222,7 +225,7 @@ router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId) //
 */
 router.put('/valid-enchere/:id/:enchereId' , validParticipantEnchereByIdAndEnchereId) //validParticipantEnchereByIdAndEnchereId)
 
-// ----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------CONTRACT-------------------------------------------------------------
 
 /** 
   @route /create-contract/:id
@@ -270,7 +273,7 @@ router
 router  
   .patch('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)//applyContractByIdAndContractId)
 
-// -------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------ANNONCE-----------------------------------------------------------------
 
 /** 
   @route /annonce
