@@ -131,7 +131,7 @@ router.get('/all-price/:nomPrice' , getPriceByName)
 
 
 
-// ----------------------------------------------------------------------------------------------
+// ------------------------------------------PRPDUCTS ----------------------------------------------------
 
 /**
   @route /add-products/:id
@@ -172,7 +172,7 @@ router.put('/edit-achat/:id/:achatId' , editAchat)
 /// ---- recherche des produits 
 
 
-// ---------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------ENCHERE---------------------------------------------------------------
 
 
 /**
@@ -225,7 +225,7 @@ router.put("/rejeter-enchere/:id/:enchereId", rejeterEnchereByIdAndEnchereId) //
 */
 router.put('/valid-enchere/:id/:enchereId' , validParticipantEnchereByIdAndEnchereId) //validParticipantEnchereByIdAndEnchereId)
 
-// ----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------CONTRACT-------------------------------------------------------------
 
 /** 
   @route /create-contract/:id
@@ -273,7 +273,7 @@ router
 router  
   .patch('/apply-contracts/:id/:contractId' , applyContractByIdAndContractId)//applyContractByIdAndContractId)
 
-// -------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------ANNONCE-----------------------------------------------------------------
 
 /** 
   @route /annonce
