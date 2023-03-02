@@ -7,6 +7,7 @@ const TYPE_USER = {
     3 : "Controleur",
     4 : "Revendeur"
 }
+const moment = require('moment')
 
 const utilisateurSchema = new mongoose.Schema({
     "username": {
@@ -131,6 +132,7 @@ utilisateurSchema.pre('save' , async function(next){
     const salt = await bcrypt.genSalt()
     this.mdp = await bcrypt.hash(this.mdp , salt)
     console.log(this.mdp);
+    this.createdAt= moment().format("MM-DD-YYYY")
     next()
 })
 
